@@ -1,25 +1,25 @@
 import { useState } from 'react';
 import {
-  HiOutlineDownload,
-  HiOutlineUserAdd,
-  HiOutlineDotsVertical,
-  HiOutlineX,
-  HiOutlineBadgeCheck,
-  HiOutlineUsers,
-  HiOutlineUserCircle,
-  HiOutlineSparkles,
-  HiOutlineUser,
-  HiOutlineMail,
-  HiOutlinePhone,
-  HiOutlineLocationMarker,
-  HiOutlineCalendar,
-  HiOutlineOfficeBuilding,
-  HiOutlineShieldCheck,
-  HiOutlinePhotograph,
-  HiOutlineIdentification,
-  HiOutlineCheck,
-  HiOutlineSave,
-} from 'react-icons/hi';
+  Download,
+  UserPlus,
+  MoreVertical,
+  X,
+  BadgeCheck,
+  Users,
+  CircleUser,
+  Sparkles,
+  User,
+  Mail,
+  Phone,
+  MapPin,
+  Calendar,
+  Building2,
+  ShieldCheck,
+  Image,
+  IdCard,
+  Check,
+  Save,
+} from 'lucide-react';
 
 // ---- Demo data ----
 const MEMBERS = [
@@ -91,17 +91,17 @@ export default function Members() {
   const [regType, setRegType] = useState('member');
 
   return (
-    <div className="space-y-8">
+    <div className="max-w-7xl mx-auto space-y-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <HiOutlineBadgeCheck className="w-4 h-4 text-[#137fec]" />
+            <BadgeCheck className="w-4 h-4 text-[#137fec]" />
             <span className="text-[10px] font-bold text-[#137fec] uppercase tracking-widest">
               Administrative Hub
             </span>
           </div>
-          <h2 className="text-3xl font-extrabold tracking-tight mb-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight mb-2">
             Member &amp; Guest Directory
           </h2>
           <p className="text-gray-500">
@@ -110,14 +110,14 @@ export default function Members() {
         </div>
         <div className="flex gap-3">
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors cursor-pointer">
-            <HiOutlineDownload className="w-5 h-5" />
+            <Download className="w-5 h-5" />
             Export List
           </button>
           <button
             onClick={() => setShowAddModal(true)}
             className="flex items-center gap-2 px-4 py-2 bg-[#137fec] text-white rounded-lg text-sm font-semibold hover:bg-[#137fec]/90 transition-colors cursor-pointer"
           >
-            <HiOutlineUserAdd className="w-5 h-5" />
+            <UserPlus className="w-5 h-5" />
             + Add New
           </button>
         </div>
@@ -126,10 +126,10 @@ export default function Members() {
       {/* Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Total Members */}
-        <div className="bg-white p-6 border border-gray-200 rounded-2xl shadow-sm">
+        <div className="bg-white p-5 sm:p-6 border border-gray-200 rounded-2xl">
           <div className="flex items-center justify-between mb-4">
             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
-              <HiOutlineUsers className="w-5 h-5" />
+              <Users className="w-5 h-5" />
             </div>
             <span className="text-xs font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">
               +2.4%
@@ -138,27 +138,27 @@ export default function Members() {
           <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
             Total Members
           </p>
-          <h4 className="text-2xl font-extrabold">1,248</h4>
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">1,248</h4>
         </div>
 
         {/* Active Guests */}
-        <div className="bg-white p-6 border border-gray-200 rounded-2xl shadow-sm">
+        <div className="bg-white p-5 sm:p-6 border border-gray-200 rounded-2xl">
           <div className="flex items-center justify-between mb-4">
             <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600">
-              <HiOutlineUserCircle className="w-5 h-5" />
+              <CircleUser className="w-5 h-5" />
             </div>
           </div>
           <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
             Active Guests
           </p>
-          <h4 className="text-2xl font-extrabold">156</h4>
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">156</h4>
         </div>
 
         {/* New Registrations */}
-        <div className="bg-white p-6 border border-gray-200 rounded-2xl shadow-sm">
+        <div className="bg-white p-5 sm:p-6 border border-gray-200 rounded-2xl">
           <div className="flex items-center justify-between mb-4">
             <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">
-              <HiOutlineSparkles className="w-5 h-5" />
+              <Sparkles className="w-5 h-5" />
             </div>
             <span className="text-xs font-bold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">
               New
@@ -167,12 +167,12 @@ export default function Members() {
           <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
             New Registrations (This Month)
           </p>
-          <h4 className="text-2xl font-extrabold">42</h4>
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">42</h4>
         </div>
       </div>
 
       {/* Members Table */}
-      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+      <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
         {/* Filters Bar */}
         <div className="p-6 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4 flex-wrap">
@@ -254,7 +254,7 @@ export default function Members() {
                   </td>
                   <td className="px-6 py-4 text-right">
                     <button className="p-2 hover:bg-gray-100 rounded-lg text-gray-500 transition-colors cursor-pointer">
-                      <HiOutlineDotsVertical className="w-5 h-5" />
+                      <MoreVertical className="w-5 h-5" />
                     </button>
                   </td>
                 </tr>
@@ -303,18 +303,18 @@ export default function Members() {
       {/* Register New Record Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+          <div className="bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl flex flex-col overflow-hidden">
             {/* Modal Header */}
             <div className="px-8 py-6 border-b border-gray-200 flex items-center justify-between shrink-0">
               <div>
-                <h3 className="text-xl font-extrabold tracking-tight">Register New Record</h3>
+                <h3 className="text-base sm:text-lg xl:text-xl font-extrabold tracking-tight">Register New Record</h3>
                 <p className="text-gray-500 text-xs">Complete the steps below to add a member or guest to the registry.</p>
               </div>
               <button
                 onClick={() => setShowAddModal(false)}
                 className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500 cursor-pointer"
               >
-                <HiOutlineX className="w-6 h-6" />
+                <X className="w-6 h-6" />
               </button>
             </div>
 
@@ -362,8 +362,8 @@ export default function Members() {
                   {/* Section 1: Personal Information */}
                   <section>
                     <div className="flex items-center gap-2 mb-6">
-                      <HiOutlineUser className="w-5 h-5 text-[#137fec]" />
-                      <h4 className="font-bold text-base uppercase tracking-tight">Section 1: Personal Information</h4>
+                      <User className="w-5 h-5 text-[#137fec]" />
+                      <h4 className="font-bold text-sm sm:text-base uppercase tracking-tight">Section 1: Personal Information</h4>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-1.5">
@@ -405,8 +405,8 @@ export default function Members() {
                   {/* Section 2: Contact Information */}
                   <section>
                     <div className="flex items-center gap-2 mb-6 pt-4 border-t border-dashed border-gray-200">
-                      <HiOutlineMail className="w-5 h-5 text-[#137fec]" />
-                      <h4 className="font-bold text-base uppercase tracking-tight">Section 2: Contact Information</h4>
+                      <Mail className="w-5 h-5 text-[#137fec]" />
+                      <h4 className="font-bold text-sm sm:text-base uppercase tracking-tight">Section 2: Contact Information</h4>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-1.5">
@@ -439,8 +439,8 @@ export default function Members() {
                   {/* Section 3: Church Specifics */}
                   <section>
                     <div className="flex items-center gap-2 mb-6 pt-4 border-t border-dashed border-gray-200">
-                      <HiOutlineOfficeBuilding className="w-5 h-5 text-[#137fec]" />
-                      <h4 className="font-bold text-base uppercase tracking-tight">Section 3: Church Specifics</h4>
+                      <Building2 className="w-5 h-5 text-[#137fec]" />
+                      <h4 className="font-bold text-sm sm:text-base uppercase tracking-tight">Section 3: Church Specifics</h4>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div className="space-y-1.5">
@@ -495,21 +495,21 @@ export default function Members() {
                   {/* Section 4: Attachments */}
                   <section>
                     <div className="flex items-center gap-2 mb-6 pt-4 border-t border-dashed border-gray-200">
-                      <HiOutlineShieldCheck className="w-5 h-5 text-[#137fec]" />
-                      <h4 className="font-bold text-base uppercase tracking-tight">Section 4: Attachments</h4>
+                      <ShieldCheck className="w-5 h-5 text-[#137fec]" />
+                      <h4 className="font-bold text-sm sm:text-base uppercase tracking-tight">Section 4: Attachments</h4>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-3">
                         <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Profile Photo</label>
                         <div className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center hover:bg-gray-50 transition-colors cursor-pointer group">
-                          <HiOutlinePhotograph className="w-10 h-10 text-gray-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                          <Image className="w-10 h-10 text-gray-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
                           <p className="text-[10px] font-bold text-gray-500 uppercase">Upload Portrait</p>
                         </div>
                       </div>
                       <div className="space-y-3">
                         <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Identification Document (ID)</label>
                         <div className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center hover:bg-gray-50 transition-colors cursor-pointer group">
-                          <HiOutlineIdentification className="w-10 h-10 text-gray-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                          <IdCard className="w-10 h-10 text-gray-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
                           <p className="text-[10px] font-bold text-gray-500 uppercase">Upload ID Front/Back</p>
                         </div>
                       </div>
@@ -522,7 +522,7 @@ export default function Members() {
             {/* Modal Footer */}
             <div className="px-8 py-6 border-t border-gray-200 bg-gray-50 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-2 text-[#137fec] font-bold text-xs uppercase tracking-widest">
-                <HiOutlineShieldCheck className="w-4 h-4" />
+                <ShieldCheck className="w-4 h-4" />
                 Secure Registry
               </div>
               <div className="flex gap-3">
@@ -532,8 +532,8 @@ export default function Members() {
                 >
                   Cancel
                 </button>
-                <button className="px-6 py-2.5 rounded-lg text-sm font-bold bg-[#137fec] text-white hover:bg-[#137fec]/90 shadow-lg shadow-blue-500/20 transition-all flex items-center gap-2 cursor-pointer">
-                  <HiOutlineSave className="w-5 h-5" />
+                <button className="px-6 py-2.5 rounded-lg text-sm font-bold bg-[#137fec] text-white hover:bg-[#137fec]/90 transition-all flex items-center gap-2 cursor-pointer">
+                  <Save className="w-5 h-5" />
                   Save Registration
                 </button>
               </div>

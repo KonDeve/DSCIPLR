@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MemberController } from '@/controllers';
+import { ShieldCheck } from 'lucide-react';
 
 export default function MemberRegistration() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', address: '' });
@@ -27,8 +28,8 @@ export default function MemberRegistration() {
   };
 
   return (
-    <div className="max-w-2xl">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Member Registration</h1>
+    <div className="max-w-2xl mx-auto">
+      <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-6">Member Registration</h1>
 
       {message && (
         <div className="mb-4 p-3 rounded-lg text-sm bg-green-50 text-green-700">{message}</div>
@@ -36,10 +37,10 @@ export default function MemberRegistration() {
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-5"
+        className="bg-white rounded-2xl border border-gray-200 p-6 space-y-5"
       >
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Full Name *</label>
           <input
             name="name"
             value={form.name}
@@ -51,7 +52,7 @@ export default function MemberRegistration() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Email</label>
           <input
             name="email"
             type="email"
@@ -63,7 +64,7 @@ export default function MemberRegistration() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Phone</label>
           <input
             name="phone"
             value={form.phone}
@@ -74,7 +75,7 @@ export default function MemberRegistration() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Address</label>
           <textarea
             name="address"
             value={form.address}
@@ -88,8 +89,9 @@ export default function MemberRegistration() {
         <button
           type="submit"
           disabled={loading}
-          className="bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 disabled:opacity-50 transition-colors cursor-pointer"
+          className="flex items-center gap-2 bg-[#137fec] text-white px-6 py-2.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-[#1170d4] disabled:opacity-50 transition-colors cursor-pointer"
         >
+          <ShieldCheck className="w-4 h-4" />
           {loading ? 'Registering...' : 'Register Member'}
         </button>
       </form>

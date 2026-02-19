@@ -1,11 +1,11 @@
 import {
-  HiOutlineCurrencyDollar,
-  HiOutlineReceiptTax,
-  HiOutlineCloudUpload,
-  HiOutlineShieldCheck,
-  HiOutlineClock,
-  HiOutlineClipboardList,
-} from 'react-icons/hi';
+  DollarSign,
+  Receipt,
+  CloudUpload,
+  ShieldCheck,
+  Clock,
+  ClipboardList,
+} from 'lucide-react';
 
 const PAYMENT_HISTORY = [
   {
@@ -36,17 +36,17 @@ const PAYMENT_HISTORY = [
 
 export default function ExternalServices() {
   return (
-    <div className="space-y-8">
+    <div className="max-w-7xl mx-auto space-y-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <HiOutlineCurrencyDollar className="w-4 h-4 text-[#137fec]" />
+            <DollarSign className="w-4 h-4 text-[#137fec]" />
             <span className="text-[10px] font-bold text-[#137fec] uppercase tracking-widest">
               Administrative Hub
             </span>
           </div>
-          <h2 className="text-3xl font-extrabold tracking-tight mb-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight mb-2">
             External Services
           </h2>
           <p className="text-gray-500">
@@ -55,26 +55,26 @@ export default function ExternalServices() {
         </div>
         <div className="flex gap-3">
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors cursor-pointer">
-            <HiOutlineReceiptTax className="w-5 h-5" />
+            <Receipt className="w-5 h-5" />
             Payment History
           </button>
           <button className="flex items-center gap-2 px-4 py-2 bg-[#137fec] text-white rounded-lg text-sm font-semibold hover:bg-[#137fec]/90 transition-colors cursor-pointer">
-            <HiOutlineClock className="w-5 h-5" />
+            <Clock className="w-5 h-5" />
             Booking History
           </button>
         </div>
       </div>
 
       {/* Payment Request Form */}
-      <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-        <div className="p-6 border-b border-gray-200 bg-gray-50/50">
+      <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
+        <div className="p-5 sm:p-6 border-b border-gray-200 bg-gray-50/50">
           <div className="flex items-center gap-2 text-gray-500 mb-1">
-            <HiOutlineClipboardList className="w-4 h-4" />
+            <ClipboardList className="w-4 h-4" />
             <span className="text-[10px] font-bold uppercase tracking-widest">
               Outgoing Disbursement
             </span>
           </div>
-          <h3 className="font-bold text-xl">External Service Payment Request</h3>
+          <h3 className="font-bold text-base sm:text-lg xl:text-xl">External Service Payment Request</h3>
           <p className="text-xs text-gray-500">
             Request payments for non-member service providers or contractors.
           </p>
@@ -143,7 +143,7 @@ export default function ExternalServices() {
               <div className="flex-1">
                 <label className="flex flex-col items-center justify-center w-full h-full min-h-[160px] border-2 border-gray-200 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <HiOutlineCloudUpload className="w-10 h-10 text-[#137fec] mb-3" />
+                    <CloudUpload className="w-10 h-10 text-[#137fec] mb-3" />
                     <p className="mb-1 text-sm font-medium">
                       Click to upload or drag and drop
                     </p>
@@ -155,9 +155,9 @@ export default function ExternalServices() {
               <div className="pt-6 mt-6 border-t border-gray-200">
                 <button
                   type="button"
-                  className="w-full py-4 bg-[#137fec] text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20 hover:bg-[#137fec]/90 transition-all text-base cursor-pointer"
+                  className="w-full py-4 bg-[#137fec] text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#137fec]/90 transition-all text-sm sm:text-base cursor-pointer"
                 >
-                  <HiOutlineShieldCheck className="w-5 h-5" />
+                  <ShieldCheck className="w-5 h-5" />
                   Submit Request for Approval
                 </button>
               </div>
@@ -167,15 +167,15 @@ export default function ExternalServices() {
       </div>
 
       {/* Payment Request History Table */}
-      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-gray-200 bg-gray-50/50">
+      <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
+        <div className="p-5 sm:p-6 border-b border-gray-200 bg-gray-50/50">
           <div className="flex items-center gap-2 text-gray-500 mb-1">
-            <HiOutlineReceiptTax className="w-4 h-4" />
+            <Receipt className="w-4 h-4" />
             <span className="text-[10px] font-bold uppercase tracking-widest">
               Administrative Records
             </span>
           </div>
-          <h3 className="font-bold text-xl">Payment Request History</h3>
+          <h3 className="font-bold text-base sm:text-lg xl:text-xl">Payment Request History</h3>
           <p className="text-xs text-gray-500">
             Review and track the status of recent external service disbursement requests.
           </p>

@@ -34,9 +34,12 @@ import MemberOverview from '@/views/pastor/pages/MemberOverview';
 // Treasurer
 import TreasurerSidebar from '@/views/treasurer/components/TreasurerSidebar';
 import TreasurerDashboard from '@/views/treasurer/pages/Dashboard';
-import Donations from '@/views/treasurer/pages/Donations';
-import Expenses from '@/views/treasurer/pages/Expenses';
-import FinancialReports from '@/views/treasurer/pages/FinancialReports';
+import Collections from '@/views/treasurer/pages/Collections';
+import CollectionDetail from '@/views/treasurer/pages/CollectionDetail';
+import Rentals from '@/views/treasurer/pages/Rentals';
+import PaymentRequests from '@/views/treasurer/pages/PaymentRequests';
+import Ledger from '@/views/treasurer/pages/Ledger';
+import TreasurerReports from '@/views/treasurer/pages/FinancialReports';
 
 // Secretary
 import SecretarySidebar from '@/views/secretary/components/SecretarySidebar';
@@ -133,9 +136,12 @@ export default function AppRoutes() {
         }
       >
         <Route path="/treasurer" element={<TreasurerDashboard />} />
-        <Route path="/treasurer/donations" element={<Donations />} />
-        <Route path="/treasurer/expenses" element={<Expenses />} />
-        <Route path="/treasurer/financial-reports" element={<FinancialReports />} />
+        <Route path="/treasurer/collections" element={<Collections />} />
+        <Route path="/treasurer/collections/:id" element={<CollectionDetail />} />
+        <Route path="/treasurer/rentals" element={<Rentals />} />
+        <Route path="/treasurer/payment-requests" element={<PaymentRequests />} />
+        <Route path="/treasurer/ledger" element={<Ledger />} />
+        <Route path="/treasurer/reports" element={<TreasurerReports />} />
       </Route>
 
       {/* Secretary */}

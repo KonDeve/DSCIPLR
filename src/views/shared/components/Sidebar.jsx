@@ -1,10 +1,16 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { ROLE_LABELS } from '@/constants/roles';
-import { HiOutlineCog } from 'react-icons/hi';
+import { HiOutlineCog, HiOutlineLogout } from 'react-icons/hi';
 
 export default function Sidebar({ links }) {
-  const { user, role } = useAuth();
+  const { user, role, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/login');
+  };
 
   const displayName = user?.name || user?.email?.split('@')[0] || 'User';
   const initials = displayName
@@ -61,6 +67,13 @@ export default function Sidebar({ links }) {
           <HiOutlineCog className="text-xl md:text-[22px] shrink-0" />
           Settings
         </NavLink>
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm md:text-[15px] font-medium text-red-500 hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"
+        >
+          <HiOutlineLogout className="text-xl md:text-[22px] shrink-0" />
+          Log Out
+        </button>
         <div className="mt-4 flex items-center gap-3 px-3">
           <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-[#137fec]/15 flex items-center justify-center text-[#137fec] font-bold text-xs shrink-0">
             {initials}

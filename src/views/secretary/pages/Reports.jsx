@@ -1,12 +1,12 @@
 import {
-  HiOutlineShare,
-  HiOutlineDocumentText,
-  HiOutlineTrendingUp,
-  HiOutlineUserAdd,
-  HiOutlineShieldCheck,
-  HiOutlineUser,
-  HiOutlineLocationMarker,
-} from 'react-icons/hi';
+  Share2,
+  FileText,
+  TrendingUp,
+  UserPlus,
+  ShieldCheck,
+  User,
+  MapPin,
+} from 'lucide-react';
 
 // ---- Demo data ----
 const GUESTS = [
@@ -57,7 +57,7 @@ const BOOKINGS = [
     dateBg: 'bg-blue-50',
     title: 'Youth Summit 2023',
     venue: 'Sanctuary',
-    venueIcon: <HiOutlineLocationMarker className="w-3 h-3" />,
+    venueIcon: <MapPin className="w-3 h-3" />,
     time: '09:00 AM',
   },
   {
@@ -67,7 +67,7 @@ const BOOKINGS = [
     dateBg: 'bg-orange-50',
     title: 'Community Outreach Trip',
     venue: 'Van #2',
-    venueIcon: <HiOutlineLocationMarker className="w-3 h-3" />,
+    venueIcon: <MapPin className="w-3 h-3" />,
     time: '07:00 AM',
   },
   {
@@ -77,7 +77,7 @@ const BOOKINGS = [
     dateBg: 'bg-blue-50',
     title: 'Wedding Ceremony: Doe & Smith',
     venue: 'Sanctuary',
-    venueIcon: <HiOutlineLocationMarker className="w-3 h-3" />,
+    venueIcon: <MapPin className="w-3 h-3" />,
     time: '02:30 PM',
   },
 ];
@@ -90,17 +90,17 @@ const BAR_CHART = [
 
 export default function Reports() {
   return (
-    <div className="space-y-8">
+    <div className="max-w-7xl mx-auto space-y-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <HiOutlineTrendingUp className="w-4 h-4 text-[#137fec]" />
+            <TrendingUp className="w-4 h-4 text-[#137fec]" />
             <span className="text-[10px] font-bold text-[#137fec] uppercase tracking-widest">
               Operational Intelligence
             </span>
           </div>
-          <h2 className="text-3xl font-extrabold tracking-tight mb-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight mb-2">
             Ministry Reports Dashboard
           </h2>
           <p className="text-gray-500">
@@ -109,11 +109,11 @@ export default function Reports() {
         </div>
         <div className="flex gap-3">
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors cursor-pointer">
-            <HiOutlineShare className="w-5 h-5" />
+            <Share2 className="w-5 h-5" />
             Share Report
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-[#137fec] text-white rounded-lg text-sm font-semibold hover:bg-[#137fec]/90 transition-colors shadow-lg shadow-blue-500/20 cursor-pointer">
-            <HiOutlineDocumentText className="w-5 h-5" />
+          <button className="flex items-center gap-2 px-4 py-2 bg-[#137fec] text-white rounded-lg text-sm font-semibold hover:bg-[#137fec]/90 transition-colors cursor-pointer">
+            <FileText className="w-5 h-5" />
             Generate PDF
           </button>
         </div>
@@ -121,10 +121,10 @@ export default function Reports() {
 
       {/* Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 border border-gray-200 rounded-2xl shadow-sm">
+        <div className="bg-white p-5 sm:p-6 border border-gray-200 rounded-2xl">
           <div className="flex items-center justify-between mb-4">
             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-[#137fec]">
-              <HiOutlineTrendingUp className="w-5 h-5" />
+              <TrendingUp className="w-5 h-5" />
             </div>
             <span className="text-xs font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">
               +12%
@@ -133,25 +133,25 @@ export default function Reports() {
           <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
             Average Weekly Attendance
           </p>
-          <h4 className="text-2xl font-extrabold">842</h4>
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">842</h4>
         </div>
 
-        <div className="bg-white p-6 border border-gray-200 rounded-2xl shadow-sm">
+        <div className="bg-white p-5 sm:p-6 border border-gray-200 rounded-2xl">
           <div className="flex items-center justify-between mb-4">
             <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600">
-              <HiOutlineUserAdd className="w-5 h-5" />
+              <UserPlus className="w-5 h-5" />
             </div>
           </div>
           <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
             Guest-to-Member Rate
           </p>
-          <h4 className="text-2xl font-extrabold">18.5%</h4>
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">18.5%</h4>
         </div>
 
-        <div className="bg-white p-6 border border-gray-200 rounded-2xl shadow-sm">
+        <div className="bg-white p-5 sm:p-6 border border-gray-200 rounded-2xl">
           <div className="flex items-center justify-between mb-4">
             <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">
-              <HiOutlineShieldCheck className="w-5 h-5" />
+              <ShieldCheck className="w-5 h-5" />
             </div>
             <span className="text-xs font-bold text-blue-500 bg-blue-50 px-2 py-0.5 rounded-full">
               Stable
@@ -160,16 +160,16 @@ export default function Reports() {
           <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
             Total Active Members
           </p>
-          <h4 className="text-2xl font-extrabold">1,248</h4>
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">1,248</h4>
         </div>
       </div>
 
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Attendance Trends */}
-        <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-          <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-            <h3 className="font-bold text-base">Attendance Trends (Last 6 Months)</h3>
+        <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
+          <div className="p-5 sm:p-6 border-b border-gray-200 flex items-center justify-between">
+            <h3 className="font-bold text-sm sm:text-base">Attendance Trends (Last 6 Months)</h3>
             <select className="bg-gray-50 border-none text-[10px] font-bold uppercase tracking-wider rounded-lg focus:ring-0 cursor-pointer py-1 px-2">
               <option>All Services</option>
             </select>
@@ -214,9 +214,9 @@ export default function Reports() {
         </div>
 
         {/* Event Attendance Comparison */}
-        <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-          <div className="p-6 border-b border-gray-200">
-            <h3 className="font-bold text-base">Event Attendance Comparison</h3>
+        <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
+          <div className="p-5 sm:p-6 border-b border-gray-200">
+            <h3 className="font-bold text-sm sm:text-base">Event Attendance Comparison</h3>
           </div>
           <div className="p-8 flex-1 flex flex-col">
             <div className="flex-1 flex items-end justify-around gap-4 min-h-[220px]">
@@ -245,9 +245,9 @@ export default function Reports() {
       {/* Bottom Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Guest List Table */}
-        <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-          <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-            <h3 className="font-bold text-base">New Guest List</h3>
+        <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
+          <div className="p-5 sm:p-6 border-b border-gray-200 flex items-center justify-between">
+            <h3 className="font-bold text-sm sm:text-base">New Guest List</h3>
             <button className="text-[10px] font-bold text-[#137fec] bg-[#137fec]/10 px-3 py-1 rounded hover:bg-[#137fec]/20 transition-colors cursor-pointer">
               Export Table
             </button>
@@ -297,9 +297,9 @@ export default function Reports() {
         {/* Right Column */}
         <div className="flex flex-col gap-8">
           {/* New Registered Members */}
-          <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-            <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="font-bold text-base">New Registered Members</h3>
+          <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
+            <div className="p-5 sm:p-6 border-b border-gray-200 flex items-center justify-between">
+              <h3 className="font-bold text-sm sm:text-base">New Registered Members</h3>
               <span className="text-[10px] font-bold text-[#137fec] bg-[#137fec]/10 px-2 py-1 rounded">
                 This Month
               </span>
@@ -314,7 +314,7 @@ export default function Reports() {
                     <div
                       className={`w-9 h-9 rounded-full ${m.iconBg} flex items-center justify-center ${m.iconText}`}
                     >
-                      <HiOutlineUser className="w-5 h-5" />
+                      <User className="w-5 h-5" />
                     </div>
                     <div>
                       <p className="text-sm font-bold truncate">{m.name}</p>
@@ -327,9 +327,9 @@ export default function Reports() {
           </div>
 
           {/* Bookings for the Month */}
-          <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-            <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="font-bold text-base">Booking for the Month</h3>
+          <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
+            <div className="p-5 sm:p-6 border-b border-gray-200 flex items-center justify-between">
+              <h3 className="font-bold text-sm sm:text-base">Booking for the Month</h3>
               <div className="flex gap-2">
                 <div className="flex items-center gap-1 text-[10px] font-bold text-gray-500">
                   <span className="w-2 h-2 rounded-full bg-[#137fec]" /> Sanctuary

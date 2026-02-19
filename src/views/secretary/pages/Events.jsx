@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import {
-  HiOutlineDownload,
-  HiOutlinePlus,
-  HiOutlineCalendar,
-  HiOutlineViewList,
-  HiOutlineQrcode,
-  HiOutlineDotsVertical,
-  HiOutlineInformationCircle,
-  HiOutlineX,
-  HiOutlineChevronLeft,
-  HiOutlineChevronRight,
-  HiOutlineClock,
-} from 'react-icons/hi';
+  Download,
+  Plus,
+  Calendar,
+  List,
+  QrCode,
+  MoreVertical,
+  Info,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+} from 'lucide-react';
 
 // ---- Static demo data ----
 const EVENTS = [
@@ -110,11 +110,11 @@ export default function Events() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="max-w-7xl mx-auto space-y-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-extrabold tracking-tight mb-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight mb-2">
             Event &amp; Attendance Manager
           </h2>
           <p className="text-gray-500">
@@ -123,14 +123,14 @@ export default function Events() {
         </div>
         <div className="flex gap-3">
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors cursor-pointer">
-            <HiOutlineDownload className="w-5 h-5" />
+            <Download className="w-5 h-5" />
             Export PDF
           </button>
           <button
             onClick={() => setShowCreateEvent(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-[#137fec] text-white rounded-lg text-sm font-bold shadow-lg shadow-blue-500/20 hover:bg-[#137fec]/90 transition-all cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2 bg-[#137fec] text-white rounded-lg text-sm font-bold hover:bg-[#137fec]/90 transition-all cursor-pointer"
           >
-            <HiOutlinePlus className="w-5 h-5" />
+            <Plus className="w-5 h-5" />
             Create New Event
           </button>
         </div>
@@ -143,22 +143,22 @@ export default function Events() {
             onClick={() => setView('calendar')}
             className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
               view === 'calendar'
-                ? 'bg-white shadow-sm text-[#137fec] font-bold'
+                ? 'bg-white text-[#137fec] font-bold'
                 : 'text-gray-500 hover:text-gray-900'
             }`}
           >
-            <HiOutlineCalendar className="w-5 h-5" />
+            <Calendar className="w-5 h-5" />
             Calendar View
           </button>
           <button
             onClick={() => setView('list')}
             className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
               view === 'list'
-                ? 'bg-white shadow-sm text-[#137fec] font-bold'
+                ? 'bg-white text-[#137fec] font-bold'
                 : 'text-gray-500 hover:text-gray-900'
             }`}
           >
-            <HiOutlineViewList className="w-5 h-5" />
+            <List className="w-5 h-5" />
             List View
           </button>
         </div>
@@ -167,12 +167,12 @@ export default function Events() {
           {view === 'calendar' ? (
             <>
               {/* Month navigator */}
-              <div className="flex items-center bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+              <div className="flex items-center bg-white border border-gray-200 rounded-lg overflow-hidden">
                 <button
                   onClick={prevMonth}
                   className="p-2 hover:bg-gray-50 text-gray-500 cursor-pointer"
                 >
-                  <HiOutlineChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-4 h-4" />
                 </button>
                 <span className="px-4 text-sm font-bold border-x border-gray-200">
                   {MONTH_NAMES[calMonth]} {calYear}
@@ -181,7 +181,7 @@ export default function Events() {
                   onClick={nextMonth}
                   className="p-2 hover:bg-gray-50 text-gray-500 cursor-pointer"
                 >
-                  <HiOutlineChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
               <select className="bg-white border border-gray-200 rounded-lg text-sm px-4 py-2 focus:ring-[#137fec] cursor-pointer">
@@ -211,8 +211,8 @@ export default function Events() {
 
       {/* ===== CALENDAR VIEW ===== */}
       {view === 'calendar' && (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
-          {/* Day headers */}
+        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+          {/* Day headers */}}
           <div className="grid grid-cols-7 border-b border-gray-200">
             {DAYS_OF_WEEK.map((d) => (
               <div
@@ -255,7 +255,7 @@ export default function Events() {
                       key={j}
                       className={`px-2 py-1 text-[10px] font-bold truncate rounded ${
                         ev.filled
-                          ? `${ev.bg} ${ev.text} shadow-sm`
+                          ? `${ev.bg} ${ev.text}`
                           : `${ev.bg} border-l-2 ${ev.border} ${ev.text}`
                       }`}
                     >
@@ -271,7 +271,7 @@ export default function Events() {
 
       {/* ===== LIST VIEW ===== */}
       {view === 'list' && (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
@@ -332,8 +332,8 @@ export default function Events() {
       )}
 
       {/* Live Check-ins */}
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-gray-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+        <div className="p-5 sm:p-6 border-b border-gray-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 className="font-bold text-base flex items-center gap-2 mb-1">
               Live Check-ins
@@ -352,9 +352,9 @@ export default function Events() {
           </div>
           <button
             onClick={() => setShowQR(true)}
-            className="px-4 py-2 bg-[#137fec] text-white rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-[#137fec]/90 transition-all shadow-md shadow-blue-500/10 cursor-pointer"
+            className="px-4 py-2 bg-[#137fec] text-white rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-[#137fec]/90 transition-all cursor-pointer"
           >
-            <HiOutlineQrcode className="w-5 h-5" />
+            <QrCode className="w-5 h-5" />
             Generate QR Check-in
           </button>
         </div>
@@ -404,7 +404,7 @@ export default function Events() {
                   <td className="px-6 py-4 text-sm font-medium">{a.memberType}</td>
                   <td className="px-6 py-4 text-right">
                     <button className="text-[#137fec] hover:text-[#137fec]/70 cursor-pointer">
-                      <HiOutlineDotsVertical className="w-5 h-5" />
+                      <MoreVertical className="w-5 h-5" />
                     </button>
                   </td>
                 </tr>
@@ -414,7 +414,7 @@ export default function Events() {
         </div>
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-gray-500">
-            <HiOutlineInformationCircle className="w-4 h-4" />
+            <Info className="w-4 h-4" />
             <span>System automatically updates every 60 seconds.</span>
           </div>
           <button className="text-xs font-bold text-[#137fec] hover:underline cursor-pointer">
@@ -426,18 +426,18 @@ export default function Events() {
       {/* Create New Event Modal */}
       {showCreateEvent && (
         <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+          <div className="bg-white rounded-2xl w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh]">
             {/* Header */}
             <div className="px-8 py-6 border-b border-gray-200 flex items-center justify-between shrink-0">
               <div>
-                <h3 className="text-xl font-bold">Create New Event</h3>
+                <h3 className="text-base sm:text-lg xl:text-xl font-bold">Create New Event</h3>
                 <p className="text-sm text-gray-500">Schedule a new activity for the congregation.</p>
               </div>
               <button
                 onClick={() => setShowCreateEvent(false)}
                 className="w-10 h-10 flex items-center justify-center text-gray-500 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
               >
-                <HiOutlineX className="w-6 h-6" />
+                <X className="w-6 h-6" />
               </button>
             </div>
 
@@ -481,7 +481,7 @@ export default function Events() {
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider">Date &amp; Time Range</label>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                     <div className="relative flex-1">
-                      <HiOutlineCalendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
+                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
                       <input
                         type="text"
                         className="w-full bg-gray-50 border-none rounded-lg py-3 pl-9 pr-4 text-sm focus:ring-2 focus:ring-[#137fec] transition-all"
@@ -490,7 +490,7 @@ export default function Events() {
                     </div>
                     <span className="text-gray-500 text-sm text-center">to</span>
                     <div className="relative flex-1">
-                      <HiOutlineClock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
+                      <Clock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
                       <input
                         type="text"
                         className="w-full bg-gray-50 border-none rounded-lg py-3 pl-9 pr-4 text-sm focus:ring-2 focus:ring-[#137fec] transition-all"
@@ -520,8 +520,8 @@ export default function Events() {
               >
                 Cancel
               </button>
-              <button className="px-8 py-2.5 bg-[#137fec] text-white text-sm font-bold rounded-lg shadow-lg shadow-blue-500/20 hover:bg-[#137fec]/90 transition-all flex items-center gap-2 cursor-pointer">
-                <HiOutlinePlus className="w-5 h-5" />
+              <button className="px-8 py-2.5 bg-[#137fec] text-white text-sm font-bold rounded-lg hover:bg-[#137fec]/90 transition-all flex items-center gap-2 cursor-pointer">
+                <Plus className="w-5 h-5" />
                 Publish Event
               </button>
             </div>
@@ -532,17 +532,17 @@ export default function Events() {
       {/* QR Code Modal */}
       {showQR && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
+          <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden">
             <div className="p-6 text-center">
               <div className="flex justify-end">
                 <button
                   onClick={() => setShowQR(false)}
                   className="text-gray-500 hover:text-gray-900 cursor-pointer"
                 >
-                  <HiOutlineX className="w-6 h-6" />
+                  <X className="w-6 h-6" />
                 </button>
               </div>
-              <h3 className="text-2xl font-bold mb-2">Check-in QR Code</h3>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-2">Check-in QR Code</h3>
               <p className="text-gray-500 text-sm mb-8">
                 Scan to verify attendance for:{' '}
                 <br />
@@ -553,7 +553,7 @@ export default function Events() {
               {/* QR placeholder */}
               <div className="bg-white p-8 rounded-2xl border-4 border-[#137fec]/20 inline-block mb-8 relative">
                 <div className="w-48 h-48 bg-gray-100 rounded-lg flex items-center justify-center">
-                  <HiOutlineQrcode className="w-32 h-32 text-gray-300" />
+                  <QrCode className="w-32 h-32 text-gray-300" />
                 </div>
               </div>
               <div className="flex flex-col gap-3">
