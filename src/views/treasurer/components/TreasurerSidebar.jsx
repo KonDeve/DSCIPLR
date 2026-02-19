@@ -13,7 +13,7 @@ const links = [
   { to: '/treasurer/collections', label: 'Collections', icon: <HiOutlineCash /> },
   { to: '/treasurer/rentals', label: 'Rentals', icon: <HiOutlineOfficeBuilding /> },
   { to: '/treasurer/payment-requests', label: 'Payment Requests', icon: <HiOutlineClipboardCheck /> },
-  { to: '/treasurer/ledger', label: 'Ledger', icon: <HiOutlineBookOpen /> },
+  { to: '/treasurer/accounts', label: 'Accounts', icon: <HiOutlineBookOpen /> },
   { to: '/treasurer/reports', label: 'Reports', icon: <HiOutlineDocumentReport /> },
 ];
 

@@ -212,7 +212,7 @@ export default function Events() {
       {/* ===== CALENDAR VIEW ===== */}
       {view === 'calendar' && (
         <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-          {/* Day headers */}}
+          {/* Day headers */}
           <div className="grid grid-cols-7 border-b border-gray-200">
             {DAYS_OF_WEEK.map((d) => (
               <div

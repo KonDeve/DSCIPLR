@@ -38,8 +38,10 @@ import Collections from '@/views/treasurer/pages/Collections';
 import CollectionDetail from '@/views/treasurer/pages/CollectionDetail';
 import Rentals from '@/views/treasurer/pages/Rentals';
 import PaymentRequests from '@/views/treasurer/pages/PaymentRequests';
-import Ledger from '@/views/treasurer/pages/Ledger';
+import Accounts from '@/views/treasurer/pages/Accounts';
 import TreasurerReports from '@/views/treasurer/pages/FinancialReports';
+import ExpensesReport from '@/views/treasurer/pages/ExpensesReport';
+import CollectionsReport from '@/views/treasurer/pages/CollectionsReport';
 
 // Secretary
 import SecretarySidebar from '@/views/secretary/components/SecretarySidebar';
@@ -140,8 +142,10 @@ export default function AppRoutes() {
         <Route path="/treasurer/collections/:id" element={<CollectionDetail />} />
         <Route path="/treasurer/rentals" element={<Rentals />} />
         <Route path="/treasurer/payment-requests" element={<PaymentRequests />} />
-        <Route path="/treasurer/ledger" element={<Ledger />} />
+        <Route path="/treasurer/accounts" element={<Accounts />} />
         <Route path="/treasurer/reports" element={<TreasurerReports />} />
+        <Route path="/treasurer/reports/expenses" element={<ExpensesReport />} />
+        <Route path="/treasurer/reports/collections" element={<CollectionsReport />} />
       </Route>
 
       {/* Secretary */}

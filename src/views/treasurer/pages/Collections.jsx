@@ -54,7 +54,7 @@ const collections = [
     category: 'Building Fund',
     amount: '$500.00',
     method: 'Cash',
-    methodIcon: <HiOutlineCash className="w-4 h-4" />,
+    methodIcon: <Banknote className="w-4 h-4" />,
     status: 'Confirmed',
     date: 'Oct 28, 2023',
   },
