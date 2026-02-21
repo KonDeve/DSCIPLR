@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
   FileText,
-  FileSpreadsheet,
   Landmark,
   Wallet,
   Receipt,
@@ -90,11 +89,14 @@ export default function CollectionsReport() {
           <p className="text-sm text-gray-500">In-depth analysis of all incoming church funds and donations</p>
         </div>
         <div className="flex gap-3">
-          <button className="flex items-center gap-2 rounded-lg bg-white border border-gray-200 px-4 py-2.5 text-sm font-bold hover:bg-gray-50 transition-colors cursor-pointer">
-            <FileText className="w-4 h-4" /> Download PDF
+          <button
+            onClick={() => navigate('/treasurer/reports')}
+            className="flex items-center gap-2 rounded-lg bg-white border border-gray-200 px-4 py-2.5 text-sm font-bold hover:bg-gray-50 transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-4 h-4" /> Back to Summary
           </button>
           <button className="flex items-center gap-2 rounded-lg bg-[#137fec] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#1170d4] transition-colors cursor-pointer">
-            <FileSpreadsheet className="w-4 h-4" /> Export CSV
+            <FileText className="w-4 h-4" /> Download PDF
           </button>
         </div>
       </div>
@@ -121,25 +123,16 @@ export default function CollectionsReport() {
 
       {/* ── Filters Section ────────────────────────────────── */}
       <div className="flex flex-col md:flex-row items-center justify-between bg-white p-4 rounded-xl border border-gray-200 gap-4">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => navigate('/treasurer/reports')}
-            className="flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-[#137fec] transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="w-4 h-4" /> Back to Summary
-          </button>
-          <div className="h-6 w-[1px] bg-gray-200 hidden md:block" />
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-bold text-gray-500">Date Range:</span>
-            <div className="flex items-center bg-gray-100 rounded-lg px-3 py-1.5 border border-gray-200">
-              <Calendar className="w-4 h-4 mr-2 text-gray-500" />
-              <input
-                className="bg-transparent border-none p-0 text-xs font-bold focus:ring-0 w-44"
-                type="text"
-                value={dateRange}
-                onChange={(e) => setDateRange(e.target.value)}
-              />
-            </div>
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-bold text-gray-500">Date Range:</span>
+          <div className="flex items-center bg-gray-100 rounded-lg px-3 py-1.5 border border-gray-200">
+            <Calendar className="w-4 h-4 mr-2 text-gray-500" />
+            <input
+              className="bg-transparent border-none p-0 text-xs font-bold focus:ring-0 w-44"
+              type="text"
+              value={dateRange}
+              onChange={(e) => setDateRange(e.target.value)}
+            />
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
