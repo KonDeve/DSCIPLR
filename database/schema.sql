@@ -31,7 +31,7 @@ CREATE TABLE users (
 -- Members table (church members and guests)
 CREATE TABLE members (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    member_id VARCHAR(20) UNIQUE NOT NULL, -- e.g., MEM-83042 (member) or GST-51209 (guest)
+    member_id VARCHAR(20) UNIQUE NOT NULL, -- e.g., MEM-2023-0842 or GST-90123
     member_type VARCHAR(20) NOT NULL CHECK (member_type IN ('member', 'guest')),
     
     -- Personal Information (Section 1)
@@ -106,31 +106,6 @@ CREATE TABLE attendance (
 
 
 
--- Announcements
-CREATE TABLE announcements (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
-    
-    -- Visibility
-    is_published BOOLEAN DEFAULT false,
-    publish_date TIMESTAMPTZ,
-    expiry_date TIMESTAMPTZ,
-    priority VARCHAR(20) DEFAULT 'normal' CHECK (priority IN ('low', 'normal', 'high', 'urgent')),
-    
-    -- Targeting
-    target_audience VARCHAR(50) DEFAULT 'all' CHECK (target_audience IN ('all', 'members_only', 'specific_groups')),
-    target_groups TEXT[], -- array of group IDs if specific_groups
-    
-    -- Media
-    image_url TEXT,
-    attachment_urls TEXT[],
-    
-    -- Audit
-    created_by UUID REFERENCES users(id),
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
 
 -- External service payment requests (submitted by secretary, approved by treasurer)
 CREATE TABLE payment_requests (
@@ -148,7 +123,7 @@ CREATE TABLE payment_requests (
     receipt_url TEXT,
     
     -- Approval workflow
-    status VARCHAR(30) DEFAULT 'submitted' CHECK (status IN ('submitted', 'pending_approval', 'approved', 'rejected', 'released', 'completed')),
+    status VARCHAR(30) DEFAULT 'submitted' CHECK (status IN ('submitted', 'pending_approval','pastor_approval', 'approved', 'rejected', 'released', 'completed')),
     requested_by UUID REFERENCES users(id),
     approved_by UUID REFERENCES users(id),
     approval_date TIMESTAMPTZ,
@@ -166,7 +141,7 @@ CREATE TABLE payment_requests (
 -- TREASURER DOMAIN TABLES
 -- ============================================================
 
--- Fund/Account categories
+-- Fund/Account categories (Di pa sure)
 CREATE TABLE fund_categories (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     code VARCHAR(20) UNIQUE NOT NULL, -- e.g., ACC-001
@@ -187,7 +162,7 @@ CREATE TABLE fund_categories (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Collection types/categories (Tithe, Offering, Building Fund, etc.)
+-- Collection types/categories (Tithe, Offering, Donations, etc.)
 CREATE TABLE collection_types (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(100) NOT NULL,
@@ -198,7 +173,7 @@ CREATE TABLE collection_types (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Collections/Donations
+-- Collections
 CREATE TABLE collections (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     reference_number VARCHAR(50) UNIQUE NOT NULL, -- e.g., TXN-9482-001X-B
@@ -242,7 +217,7 @@ CREATE TABLE collections (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Collection status timeline/history
+-- Collection status timeline/history (Di pa din sure kung kelangan)
 CREATE TABLE collection_timeline (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     collection_id UUID REFERENCES collections(id) ON DELETE CASCADE,
@@ -253,10 +228,10 @@ CREATE TABLE collection_timeline (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Rentable assets (vehicles, equipment, etc.)
+-- Rentable assets (vehicles, venues, etc.)
 CREATE TABLE rental_assets (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    asset_type VARCHAR(50) NOT NULL CHECK (asset_type IN ('venue', 'vehicle', 'equipment', 'other')),
+    asset_type VARCHAR(50) NOT NULL CHECK (asset_type IN ('venue', 'vehicle')),
     name VARCHAR(255) NOT NULL,
     description TEXT,
     
@@ -293,7 +268,7 @@ CREATE TABLE rental_bookings (
     end_datetime TIMESTAMPTZ NOT NULL,
     purpose TEXT,
     
-    -- Financial
+    -- Financial (Di pa sure kung kelangan lahat ng ito kasi baka same price lang ang rental, pero for flexibility)
     rental_amount DECIMAL(15,2) NOT NULL,
     deposit_amount DECIMAL(10,2),
     total_amount DECIMAL(15,2) NOT NULL,
@@ -304,7 +279,7 @@ CREATE TABLE rental_bookings (
     date_paid DATE,
     
     -- Booking status
-    booking_status VARCHAR(20) DEFAULT 'confirmed' CHECK (booking_status IN ('pending', 'confirmed', 'in_use', 'completed', 'cancelled')),
+    booking_status VARCHAR(20) DEFAULT 'pending' CHECK (booking_status IN ('pending', 'confirmed', 'in_use', 'completed', 'cancelled')),
     
     -- Notes
     notes TEXT,
