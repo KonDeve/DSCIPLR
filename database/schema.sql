@@ -31,7 +31,7 @@ CREATE TABLE users (
 -- Members table (church members and guests)
 CREATE TABLE members (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    member_id VARCHAR(20) UNIQUE NOT NULL, -- e.g., MEM-2023-0842 or GST-90123
+    member_id VARCHAR(20) UNIQUE NOT NULL, -- e.g., MEM-83042 (member) or GST-51209 (guest)
     member_type VARCHAR(20) NOT NULL CHECK (member_type IN ('member', 'guest')),
     
     -- Personal Information (Section 1)
