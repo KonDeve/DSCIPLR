@@ -32,36 +32,26 @@ CREATE TABLE users (
 CREATE TABLE members (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     member_id VARCHAR(20) UNIQUE NOT NULL, -- e.g., MEM-2023-0842 or GST-90123
-    member_type VARCHAR(20) NOT NULL CHECK (member_type IN ('member', 'guest', 'new_convert', 'family')),
+    member_type VARCHAR(20) NOT NULL CHECK (member_type IN ('member', 'guest')),
     
-    -- Personal Information
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
-    middle_name VARCHAR(100),
-    email VARCHAR(255),
-    phone VARCHAR(20),
-    secondary_phone VARCHAR(20),
-    
-    -- Address
-    address_line1 VARCHAR(255),
-    address_line2 VARCHAR(255),
-    city VARCHAR(100),
-    state_province VARCHAR(100),
-    postal_code VARCHAR(20),
-    country VARCHAR(100) DEFAULT 'Philippines',
-    
-    -- Demographics
+    -- Personal Information (Section 1)
+    full_name VARCHAR(255) NOT NULL,
     date_of_birth DATE,
     gender VARCHAR(10) CHECK (gender IN ('male', 'female', 'other')),
-    marital_status VARCHAR(20) CHECK (marital_status IN ('single', 'married', 'widowed', 'divorced', 'separated')),
-    occupation VARCHAR(100),
+    marital_status VARCHAR(20) CHECK (marital_status IN ('single', 'married', 'widowed', 'divorced')),
     
-    -- Church-specific
-    baptism_date DATE,
+    -- Contact Information (Section 2)
+    phone VARCHAR(20),
+    email VARCHAR(255),
+    address TEXT,
+    
+    -- Church Specifics (Section 3)
     membership_date DATE,
-    family_id UUID, -- for family grouping
+    department VARCHAR(100),
+    
+    -- Attachments (Section 4)
     profile_image_url TEXT,
-    notes TEXT,
+    id_document_url TEXT,
     
     -- Status
     status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'deceased', 'transferred')),
@@ -72,69 +62,17 @@ CREATE TABLE members (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Family groups (for family accounts)
-CREATE TABLE families (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    family_name VARCHAR(255) NOT NULL,
-    primary_contact_id UUID REFERENCES members(id),
-    address_line1 VARCHAR(255),
-    address_line2 VARCHAR(255),
-    city VARCHAR(100),
-    state_province VARCHAR(100),
-    postal_code VARCHAR(20),
-    notes TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Add foreign key for family relationship
-ALTER TABLE members ADD CONSTRAINT fk_member_family 
-    FOREIGN KEY (family_id) REFERENCES families(id);
-
--- Event types/categories
-CREATE TABLE event_types (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(100) NOT NULL,
-    description TEXT,
-    color VARCHAR(7) DEFAULT '#137fec', -- hex color for UI
-    is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Venues/Locations
-CREATE TABLE venues (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(255) NOT NULL,
-    description TEXT,
-    capacity INTEGER,
-    address TEXT,
-    is_rentable BOOLEAN DEFAULT false,
-    rental_rate_per_hour DECIMAL(10,2),
-    rental_rate_per_day DECIMAL(10,2),
-    is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
 -- Events table
 CREATE TABLE events (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title VARCHAR(255) NOT NULL,
+    event_type VARCHAR(100),
+    venue VARCHAR(255),
     description TEXT,
-    event_type_id UUID REFERENCES event_types(id),
-    venue_id UUID REFERENCES venues(id),
     
     -- Scheduling
-    event_date DATE NOT NULL,
-    start_time TIME NOT NULL,
-    end_time TIME,
-    is_all_day BOOLEAN DEFAULT false,
-    is_recurring BOOLEAN DEFAULT false,
-    recurrence_rule TEXT, -- iCal RRULE format
-    
-    -- Capacity
-    expected_attendance INTEGER,
-    max_capacity INTEGER,
+    start_datetime TIMESTAMPTZ NOT NULL,
+    end_datetime TIMESTAMPTZ,
     
     -- Status
     status VARCHAR(20) DEFAULT 'scheduled' CHECK (status IN ('draft', 'scheduled', 'in_progress', 'completed', 'cancelled')),
@@ -165,6 +103,9 @@ CREATE TABLE attendance (
     UNIQUE(event_id, member_id)
 );
 
+
+
+
 -- Announcements
 CREATE TABLE announcements (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -187,6 +128,36 @@ CREATE TABLE announcements (
     
     -- Audit
     created_by UUID REFERENCES users(id),
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- External service payment requests (submitted by secretary, approved by treasurer)
+CREATE TABLE payment_requests (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    request_id VARCHAR(20) UNIQUE NOT NULL, -- e.g., #PR-8842
+    
+    -- Payee information
+    payee_name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    amount DECIMAL(15,2) NOT NULL,
+    currency VARCHAR(3) DEFAULT 'PHP',
+    on_behalf_of VARCHAR(100), -- ministry/department
+    
+    -- Supporting documents
+    receipt_url TEXT,
+    
+    -- Approval workflow
+    status VARCHAR(30) DEFAULT 'submitted' CHECK (status IN ('submitted', 'pending_approval', 'approved', 'rejected', 'released', 'completed')),
+    requested_by UUID REFERENCES users(id),
+    approved_by UUID REFERENCES users(id),
+    approval_date TIMESTAMPTZ,
+    rejection_reason TEXT,
+    
+    -- Fund source
+    fund_category_id UUID REFERENCES fund_categories(id),
+    
+    -- Audit
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -289,9 +260,6 @@ CREATE TABLE rental_assets (
     name VARCHAR(255) NOT NULL,
     description TEXT,
     
-    -- For venues, reference the venues table
-    venue_id UUID REFERENCES venues(id),
-    
     -- Pricing
     rental_rate_per_hour DECIMAL(10,2),
     rental_rate_per_day DECIMAL(10,2),
@@ -374,50 +342,6 @@ CREATE TABLE expense_categories (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Payment requests (disbursements)
-CREATE TABLE payment_requests (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    request_id VARCHAR(20) UNIQUE NOT NULL, -- e.g., #PR-8842
-    
-    -- Payee information
-    payee_name VARCHAR(255) NOT NULL,
-    payee_type VARCHAR(30) DEFAULT 'vendor' CHECK (payee_type IN ('vendor', 'contractor', 'member', 'employee', 'other')),
-    payee_details TEXT, -- additional info about payee
-    
-    -- Request details
-    expense_category_id UUID REFERENCES expense_categories(id),
-    description TEXT NOT NULL,
-    amount DECIMAL(15,2) NOT NULL,
-    currency VARCHAR(3) DEFAULT 'PHP',
-    
-    -- Supporting documents
-    invoice_number VARCHAR(50),
-    invoice_date DATE,
-    receipt_url TEXT,
-    attachment_urls TEXT[],
-    
-    -- Approval workflow
-    status VARCHAR(30) DEFAULT 'draft' CHECK (status IN ('draft', 'submitted', 'pending_approval', 'approved', 'rejected', 'released', 'completed')),
-    requested_by UUID REFERENCES users(id),
-    approved_by UUID REFERENCES users(id),
-    approval_date TIMESTAMPTZ,
-    rejection_reason TEXT,
-    
-    -- Payment execution
-    payment_method VARCHAR(30),
-    payment_date DATE,
-    payment_reference VARCHAR(100),
-    released_by UUID REFERENCES users(id),
-    release_date TIMESTAMPTZ,
-    
-    -- Fund source
-    fund_category_id UUID REFERENCES fund_categories(id),
-    
-    -- Audit
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
 -- Expenses (actual recorded expenses, may come from payment requests)
 CREATE TABLE expenses (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -447,25 +371,6 @@ CREATE TABLE expenses (
     
     -- Audit
     recorded_by UUID REFERENCES users(id),
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- ============================================================
--- EXTERNAL SERVICES TABLES (Secretary manages, Treasurer approves)
--- ============================================================
-
--- External service providers
-CREATE TABLE service_providers (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(255) NOT NULL,
-    service_type VARCHAR(100),
-    contact_person VARCHAR(255),
-    phone VARCHAR(20),
-    email VARCHAR(255),
-    address TEXT,
-    notes TEXT,
-    is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -538,14 +443,11 @@ CREATE TABLE audit_logs (
 CREATE INDEX idx_members_member_id ON members(member_id);
 CREATE INDEX idx_members_member_type ON members(member_type);
 CREATE INDEX idx_members_status ON members(status);
-CREATE INDEX idx_members_family_id ON members(family_id);
 CREATE INDEX idx_members_email ON members(email);
 
 -- Events
-CREATE INDEX idx_events_event_date ON events(event_date);
 CREATE INDEX idx_events_status ON events(status);
-CREATE INDEX idx_events_venue_id ON events(venue_id);
-CREATE INDEX idx_events_event_type_id ON events(event_type_id);
+CREATE INDEX idx_events_start_datetime ON events(start_datetime);
 
 -- Attendance
 CREATE INDEX idx_attendance_event_id ON attendance(event_id);
@@ -587,10 +489,7 @@ CREATE INDEX idx_audit_logs_created_at ON audit_logs(created_at);
 -- Enable RLS on all tables
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE members ENABLE ROW LEVEL SECURITY;
-ALTER TABLE families ENABLE ROW LEVEL SECURITY;
 ALTER TABLE events ENABLE ROW LEVEL SECURITY;
-ALTER TABLE event_types ENABLE ROW LEVEL SECURITY;
-ALTER TABLE venues ENABLE ROW LEVEL SECURITY;
 ALTER TABLE attendance ENABLE ROW LEVEL SECURITY;
 ALTER TABLE announcements ENABLE ROW LEVEL SECURITY;
 ALTER TABLE fund_categories ENABLE ROW LEVEL SECURITY;
@@ -603,7 +502,6 @@ ALTER TABLE rental_payments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE expense_categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE payment_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE expenses ENABLE ROW LEVEL SECURITY;
-ALTER TABLE service_providers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE financial_periods ENABLE ROW LEVEL SECURITY;
 ALTER TABLE financial_summaries ENABLE ROW LEVEL SECURITY;
 ALTER TABLE audit_logs ENABLE ROW LEVEL SECURITY;
@@ -661,13 +559,7 @@ CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON users
 CREATE TRIGGER update_members_updated_at BEFORE UPDATE ON members
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
-CREATE TRIGGER update_families_updated_at BEFORE UPDATE ON families
-    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-
 CREATE TRIGGER update_events_updated_at BEFORE UPDATE ON events
-    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-
-CREATE TRIGGER update_venues_updated_at BEFORE UPDATE ON venues
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 CREATE TRIGGER update_announcements_updated_at BEFORE UPDATE ON announcements
@@ -691,7 +583,7 @@ CREATE TRIGGER update_payment_requests_updated_at BEFORE UPDATE ON payment_reque
 CREATE TRIGGER update_expenses_updated_at BEFORE UPDATE ON expenses
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
-CREATE TRIGGER update_service_providers_updated_at BEFORE UPDATE ON service_providers
+CREATE TRIGGER update_payment_requests_updated_at BEFORE UPDATE ON payment_requests
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- ============================================================
@@ -764,10 +656,8 @@ $$ LANGUAGE plpgsql;
 -- Active members summary
 CREATE VIEW v_active_members AS
 SELECT 
-    m.*,
-    f.family_name
+    m.*
 FROM members m
-LEFT JOIN families f ON m.family_id = f.id
 WHERE m.status = 'active';
 
 -- Collections summary by period
@@ -789,16 +679,11 @@ ORDER BY month DESC;
 CREATE VIEW v_upcoming_events AS
 SELECT 
     e.*,
-    et.name AS event_type_name,
-    et.color AS event_color,
-    v.name AS venue_name,
     (SELECT COUNT(*) FROM attendance a WHERE a.event_id = e.id) AS current_attendance
 FROM events e
-LEFT JOIN event_types et ON e.event_type_id = et.id
-LEFT JOIN venues v ON e.venue_id = v.id
-WHERE e.event_date >= CURRENT_DATE
+WHERE e.start_datetime >= CURRENT_TIMESTAMP
 AND e.status IN ('scheduled', 'in_progress')
-ORDER BY e.event_date, e.start_time;
+ORDER BY e.start_datetime;
 
 -- Fund balances
 CREATE VIEW v_fund_balances AS
@@ -826,10 +711,8 @@ GROUP BY fc.id, fc.code, fc.name, fc.description, fc.allocation_goal;
 CREATE VIEW v_pending_payment_requests AS
 SELECT 
     pr.*,
-    ec.name AS expense_category_name,
     u.first_name || ' ' || u.last_name AS requested_by_name
 FROM payment_requests pr
-LEFT JOIN expense_categories ec ON pr.expense_category_id = ec.id
 LEFT JOIN users u ON pr.requested_by = u.id
 WHERE pr.status IN ('submitted', 'pending_approval', 'approved')
 ORDER BY pr.created_at DESC;
@@ -850,18 +733,6 @@ GROUP BY ra.id, ra.name, ra.asset_type;
 -- ============================================================
 -- INSERT SEED DATA FOR LOOKUPS
 -- ============================================================
-
--- Event types seed data
-INSERT INTO event_types (name, description, color) VALUES
-('Sunday Service', 'Regular Sunday worship service', '#137fec'),
-('Small Group', 'Small group Bible study and fellowship', '#9333ea'),
-('Prayer Meeting', 'Prayer gatherings and intercession', '#f59e0b'),
-('Youth Night', 'Youth ministry events and activities', '#8b5cf6'),
-('Outreach', 'Community outreach and evangelism events', '#22c55e'),
-('Conference', 'Special conferences and seminars', '#ec4899'),
-('Wedding', 'Wedding ceremonies', '#f43f5e'),
-('Funeral', 'Memorial and funeral services', '#6b7280'),
-('Special Event', 'Other special church events', '#06b6d4');
 
 -- Collection types seed data
 INSERT INTO collection_types (name, description, color) VALUES
