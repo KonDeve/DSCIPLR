@@ -17,7 +17,7 @@ import {
 const summaryCards = [
   {
     label: 'Net Fund Balance',
-    value: '$452,890.45',
+    value: '₱452,890.45',
     note: '+2.4% from last month',
     noteColor: 'text-green-500',
     icon: <Landmark className="w-4 h-4" />,
@@ -26,7 +26,7 @@ const summaryCards = [
   },
   {
     label: 'Total Monthly Collections',
-    value: '$68,240.00',
+    value: '₱68,240.00',
     note: '88% of monthly target reached',
     noteColor: 'text-green-500',
     icon: <Wallet className="w-4 h-4" />,
@@ -34,7 +34,7 @@ const summaryCards = [
   },
   {
     label: 'Total Expenses',
-    value: '$32,140.00',
+    value: '₱32,140.00',
     note: 'Includes utilities and payroll',
     noteColor: 'text-orange-500',
     icon: <Receipt className="w-4 h-4" />,
@@ -42,7 +42,7 @@ const summaryCards = [
   },
   {
     label: 'Rental Revenue',
-    value: '$12,450.50',
+    value: '₱12,450.50',
     note: 'Sanctuary and Hall bookings',
     noteColor: 'text-blue-500',
     icon: <DoorOpen className="w-4 h-4" />,
@@ -61,13 +61,13 @@ const categoryStyles = {
 };
 
 const expenses = [
-  { refId: '#EXP-9921', payee: 'City Electric Co.', category: 'Utilities', amount: '-$2,140.00', date: 'Oct 24, 2023', status: 'Released' },
-  { refId: '#EXP-9918', payee: 'Global Missions', category: 'Outreach', amount: '-$5,000.00', date: 'Oct 22, 2023', status: 'Released' },
-  { refId: '#EXP-9915', payee: 'Staff Payroll', category: 'Payroll', amount: '-$12,400.00', date: 'Oct 20, 2023', status: 'Pending' },
-  { refId: '#EXP-9910', payee: 'Hardware Store', category: 'Maintenance', amount: '-$185.50', date: 'Oct 18, 2023', status: 'Released' },
-  { refId: '#EXP-9908', payee: 'Youth Ministry Supplies', category: 'Education', amount: '-$450.00', date: 'Oct 15, 2023', status: 'Released' },
-  { refId: '#EXP-9905', payee: 'Security Services', category: 'Operations', amount: '-$800.00', date: 'Oct 12, 2023', status: 'Pending' },
-  { refId: '#EXP-9902', payee: 'Office Supplies', category: 'Admin', amount: '-$125.75', date: 'Oct 10, 2023', status: 'Released' },
+  { refId: '#EXP-9921', payee: 'City Electric Co.', category: 'Utilities', amount: '-₱2,140.00', date: 'Oct 24, 2023', status: 'Released' },
+  { refId: '#EXP-9918', payee: 'Global Missions', category: 'Outreach', amount: '-₱5,000.00', date: 'Oct 22, 2023', status: 'Released' },
+  { refId: '#EXP-9915', payee: 'Staff Payroll', category: 'Payroll', amount: '-₱12,400.00', date: 'Oct 20, 2023', status: 'Pending' },
+  { refId: '#EXP-9910', payee: 'Hardware Store', category: 'Maintenance', amount: '-₱185.50', date: 'Oct 18, 2023', status: 'Released' },
+  { refId: '#EXP-9908', payee: 'Youth Ministry Supplies', category: 'Education', amount: '-₱450.00', date: 'Oct 15, 2023', status: 'Released' },
+  { refId: '#EXP-9905', payee: 'Security Services', category: 'Operations', amount: '-₱800.00', date: 'Oct 12, 2023', status: 'Pending' },
+  { refId: '#EXP-9902', payee: 'Office Supplies', category: 'Admin', amount: '-₱125.75', date: 'Oct 10, 2023', status: 'Released' },
 ];
 
 /* ── Component ────────────────────────────────────────────── */

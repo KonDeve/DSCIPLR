@@ -11,7 +11,7 @@ const PAYMENT_HISTORY = [
   {
     id: '#REQ-8821',
     payee: 'CleanPro Solutions',
-    amount: '$450.00',
+    amount: '₱450.00',
     status: 'Pending',
     statusColor: 'bg-yellow-100 text-yellow-700',
     date: 'Oct 24, 2023',
@@ -19,7 +19,7 @@ const PAYMENT_HISTORY = [
   {
     id: '#REQ-8819',
     payee: 'City Power & Light',
-    amount: '$1,240.15',
+    amount: '₱1,240.15',
     status: 'Approved',
     statusColor: 'bg-green-100 text-green-700',
     date: 'Oct 22, 2023',
@@ -27,7 +27,7 @@ const PAYMENT_HISTORY = [
   {
     id: '#REQ-8815',
     payee: 'Starlight Tech Support',
-    amount: '$150.00',
+    amount: '₱150.00',
     status: 'Approved',
     statusColor: 'bg-green-100 text-green-700',
     date: 'Oct 20, 2023',

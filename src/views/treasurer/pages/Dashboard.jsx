@@ -19,7 +19,7 @@ import {
 const statCards = [
   {
     label: 'Total Funds Available',
-    value: '$482,930.50',
+    value: '₱482,930.50',
     icon: <Library className="w-5 h-5" />,
     iconBg: 'bg-[#137fec]/10 text-[#137fec]',
     badge: { text: '+2.4%', color: 'text-green-500 bg-green-500/10' },
@@ -28,7 +28,7 @@ const statCards = [
   },
   {
     label: 'Collections This Month',
-    value: '$64,215.00',
+    value: '₱64,215.00',
     icon: <Banknote className="w-5 h-5" />,
     iconBg: 'bg-green-500/10 text-green-500',
     badge: { text: 'On Track', color: 'text-green-500 bg-green-500/10' },
@@ -36,7 +36,7 @@ const statCards = [
   },
   {
     label: 'Pending Expenses',
-    value: '$12,450.75',
+    value: '₱12,450.75',
     icon: <Clock className="w-5 h-5" />,
     iconBg: 'bg-yellow-500/10 text-yellow-500',
     badge: { text: '8 Pending', color: 'text-yellow-500 bg-yellow-500/10' },
@@ -44,7 +44,7 @@ const statCards = [
   },
   {
     label: 'Rental Income YTD',
-    value: '$38,200.00',
+    value: '₱38,200.00',
     icon: <Building2 className="w-5 h-5" />,
     iconBg: 'bg-purple-500/10 text-purple-500',
     badge: { text: 'Annual', color: 'text-[#137fec] bg-[#137fec]/10' },
@@ -61,16 +61,16 @@ const cashFlowWeeks = [
 ];
 
 const recentCollections = [
-  { name: 'Jonathan Miller', category: 'Tithe', amount: '$1,500.00', status: 'Confirmed', syncing: false, date: 'Oct 28, 14:20' },
-  { name: 'Deborah Ross', category: 'Building Fund', amount: '$500.00', status: 'Confirmed', syncing: false, date: 'Oct 28, 11:05' },
-  { name: 'Michael Chang', category: 'General Offering', amount: '$250.00', status: 'Confirmed', syncing: false, date: 'Oct 27, 09:45' },
-  { name: 'The Hernandez Family', category: 'Tithe', amount: '$3,200.00', status: 'Syncing', syncing: true, date: 'Oct 27, 08:30' },
+  { name: 'Jonathan Miller', category: 'Tithe', amount: '₱1,500.00', status: 'Confirmed', syncing: false, date: 'Oct 28, 14:20' },
+  { name: 'Deborah Ross', category: 'Building Fund', amount: '₱500.00', status: 'Confirmed', syncing: false, date: 'Oct 28, 11:05' },
+  { name: 'Michael Chang', category: 'General Offering', amount: '₱250.00', status: 'Confirmed', syncing: false, date: 'Oct 27, 09:45' },
+  { name: 'The Hernandez Family', category: 'Tithe', amount: '₱3,200.00', status: 'Syncing', syncing: true, date: 'Oct 27, 08:30' },
 ];
 
 const pendingApprovals = [
-  { title: 'Main Sanctuary HVAC Repair', amount: '$1,240.00', tag: 'Facility', time: '2h ago' },
-  { title: 'Youth Outreach Grant', amount: '$3,500.00', tag: 'Missions', time: '5h ago' },
-  { title: 'Communion Supplies', amount: '$450.25', tag: 'Worship', time: 'Yesterday' },
+  { title: 'Main Sanctuary HVAC Repair', amount: '₱1,240.00', tag: 'Facility', time: '2h ago' },
+  { title: 'Youth Outreach Grant', amount: '₱3,500.00', tag: 'Missions', time: '5h ago' },
+  { title: 'Communion Supplies', amount: '₱450.25', tag: 'Worship', time: 'Yesterday' },
 ];
 
 /* ── Component ────────────────────────────────────────────── */
@@ -277,8 +277,8 @@ export default function Dashboard() {
           <div className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200">
             <h3 className="text-sm font-bold mb-4 uppercase tracking-widest text-gray-500">Monthly Goal</h3>
             <div className="flex justify-between items-end mb-2">
-              <span className="text-lg sm:text-xl lg:text-2xl font-black text-gray-900">$64k</span>
-              <span className="text-xs text-gray-500 pb-1">Target: $80k</span>
+              <span className="text-lg sm:text-xl lg:text-2xl font-black text-gray-900">₱64k</span>
+              <span className="text-xs text-gray-500 pb-1">Target: ₱80k</span>
             </div>
             <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
               <div className="h-full bg-[#137fec] w-[80%] rounded-full" />

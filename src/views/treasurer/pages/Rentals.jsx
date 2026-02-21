@@ -22,14 +22,14 @@ import {
 const summaryCards = [
   {
     label: 'Total Rental Income (Month)',
-    value: '$8,240.00',
+    value: '₱8,240.00',
     note: '+8.4% from last month',
     noteColor: 'text-green-500',
     icon: <Banknote className="w-5 h-5 text-[#137fec]" />,
   },
   {
     label: 'Pending Payments',
-    value: '$1,450.00',
+    value: '₱1,450.00',
     note: '4 items requiring attention',
     noteColor: 'text-orange-500',
     icon: <Clock className="w-5 h-5 text-orange-500" />,
@@ -72,7 +72,7 @@ const rentals = [
     asset: 'Sanctuary',
     assetIcon: <Library className="w-4 h-4 text-gray-500" />,
     bookingDate: 'Oct 28, 2023',
-    amount: '$450.00',
+    amount: '₱450.00',
     status: 'Paid',
     datePaid: 'Oct 29, 2023',
   },
@@ -83,7 +83,7 @@ const rentals = [
     asset: 'Church Van',
     assetIcon: <Truck className="w-4 h-4 text-gray-500" />,
     bookingDate: 'Oct 30, 2023',
-    amount: '$120.00',
+    amount: '₱120.00',
     status: 'Partial',
     datePaid: 'Oct 28, 2023',
   },
@@ -94,7 +94,7 @@ const rentals = [
     asset: 'Sanctuary',
     assetIcon: <Library className="w-4 h-4 text-gray-500" />,
     bookingDate: 'Oct 15, 2023',
-    amount: '$500.00',
+    amount: '₱500.00',
     status: 'Overdue',
     datePaid: '—',
   },
@@ -105,7 +105,7 @@ const rentals = [
     asset: 'Minibus',
     assetIcon: <Truck className="w-4 h-4 text-gray-500" />,
     bookingDate: 'Oct 27, 2023',
-    amount: '$280.00',
+    amount: '₱280.00',
     status: 'Paid',
     datePaid: 'Oct 27, 2023',
   },
@@ -116,7 +116,7 @@ const rentals = [
     asset: 'Sanctuary',
     assetIcon: <Library className="w-4 h-4 text-gray-500" />,
     bookingDate: 'Nov 02, 2023',
-    amount: '$600.00',
+    amount: '₱600.00',
     status: 'Confirmed',
     datePaid: 'Oct 30, 2023',
   },
@@ -416,7 +416,7 @@ export default function Rentals() {
                         This payment will be recorded as a{' '}
                         <span className="text-gray-900 font-semibold">Partial Payment</span> for Rental ID{' '}
                         <span className="text-gray-900 font-semibold">#BK2023084</span>. Remaining balance:{' '}
-                        <span className="text-orange-600 font-bold">$0.00</span>
+                        <span className="text-orange-600 font-bold">₱0.00</span>
                       </p>
                     </div>
                   </div>

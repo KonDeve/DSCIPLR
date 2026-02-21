@@ -20,7 +20,7 @@ import {
 const summaryCards = [
   {
     label: 'Net Fund Balance',
-    value: '$452,890.45',
+    value: '₱452,890.45',
     note: '+2.4% from last month',
     noteColor: 'text-green-500',
     icon: <Landmark className="w-4 h-4" />,
@@ -29,7 +29,7 @@ const summaryCards = [
   },
   {
     label: 'Total Monthly Collections',
-    value: '$68,240.00',
+    value: '₱68,240.00',
     note: '88% of monthly target reached',
     noteColor: 'text-green-500',
     icon: <Wallet className="w-4 h-4" />,
@@ -37,7 +37,7 @@ const summaryCards = [
   },
   {
     label: 'Total Expenses',
-    value: '$32,140.00',
+    value: '₱32,140.00',
     note: 'Includes utilities and payroll',
     noteColor: 'text-orange-500',
     icon: <Receipt className="w-4 h-4" />,
@@ -45,7 +45,7 @@ const summaryCards = [
   },
   {
     label: 'Rental Revenue',
-    value: '$12,450.50',
+    value: '₱12,450.50',
     note: 'Sanctuary and Hall bookings',
     noteColor: 'text-blue-500',
     icon: <DoorOpen className="w-4 h-4" />,
@@ -61,13 +61,13 @@ const categoryStyles = {
 };
 
 const collections = [
-  { txnId: '#TXN-8829', donor: 'Jonathan Edwards', amount: '+$1,500.00', category: 'Tithes', method: 'Blockchain', methodIcon: <Wallet className="w-4 h-4 text-[#137fec]" />, date: 'Oct 24, 2023', status: 'Verified' },
-  { txnId: '#TXN-8828', donor: 'Sarah Williams', amount: '+$450.00', category: 'Rentals', method: 'Credit Card', methodIcon: <CreditCard className="w-4 h-4 text-gray-500" />, date: 'Oct 23, 2023', status: 'Verified' },
-  { txnId: '#TXN-8827', donor: 'Anonymous Donor', amount: '+$10,000.00', category: 'Building Fund', method: 'Blockchain', methodIcon: <Wallet className="w-4 h-4 text-[#137fec]" />, date: 'Oct 23, 2023', status: 'Verified' },
-  { txnId: '#TXN-8826', donor: 'Mark Thompson', amount: '+$250.00', category: 'Tithes', method: 'Cash/Cheque', methodIcon: <Banknote className="w-4 h-4 text-gray-500" />, date: 'Oct 22, 2023', status: 'Verified' },
-  { txnId: '#TXN-8825', donor: 'Robert Miller', amount: '+$300.00', category: 'Tithes', method: 'Bank Transfer', methodIcon: <Landmark className="w-4 h-4 text-gray-500" />, date: 'Oct 21, 2023', status: 'Verified' },
-  { txnId: '#TXN-8824', donor: 'Linda Grayson', amount: '+$1,200.00', category: 'Missions', method: 'Blockchain', methodIcon: <Wallet className="w-4 h-4 text-[#137fec]" />, date: 'Oct 21, 2023', status: 'Verified' },
-  { txnId: '#TXN-8823', donor: 'David Chen', amount: '+$50.00', category: 'Tithes', method: 'Cash', methodIcon: <Banknote className="w-4 h-4 text-gray-500" />, date: 'Oct 20, 2023', status: 'Verified' },
+  { txnId: '#TXN-8829', donor: 'Jonathan Edwards', amount: '+₱1,500.00', category: 'Tithes', method: 'Blockchain', methodIcon: <Wallet className="w-4 h-4 text-[#137fec]" />, date: 'Oct 24, 2023', status: 'Verified' },
+  { txnId: '#TXN-8828', donor: 'Sarah Williams', amount: '+₱450.00', category: 'Rentals', method: 'Credit Card', methodIcon: <CreditCard className="w-4 h-4 text-gray-500" />, date: 'Oct 23, 2023', status: 'Verified' },
+  { txnId: '#TXN-8827', donor: 'Anonymous Donor', amount: '+₱10,000.00', category: 'Building Fund', method: 'Blockchain', methodIcon: <Wallet className="w-4 h-4 text-[#137fec]" />, date: 'Oct 23, 2023', status: 'Verified' },
+  { txnId: '#TXN-8826', donor: 'Mark Thompson', amount: '+₱250.00', category: 'Tithes', method: 'Cash/Cheque', methodIcon: <Banknote className="w-4 h-4 text-gray-500" />, date: 'Oct 22, 2023', status: 'Verified' },
+  { txnId: '#TXN-8825', donor: 'Robert Miller', amount: '+₱300.00', category: 'Tithes', method: 'Bank Transfer', methodIcon: <Landmark className="w-4 h-4 text-gray-500" />, date: 'Oct 21, 2023', status: 'Verified' },
+  { txnId: '#TXN-8824', donor: 'Linda Grayson', amount: '+₱1,200.00', category: 'Missions', method: 'Blockchain', methodIcon: <Wallet className="w-4 h-4 text-[#137fec]" />, date: 'Oct 21, 2023', status: 'Verified' },
+  { txnId: '#TXN-8823', donor: 'David Chen', amount: '+₱50.00', category: 'Tithes', method: 'Cash', methodIcon: <Banknote className="w-4 h-4 text-gray-500" />, date: 'Oct 20, 2023', status: 'Verified' },
 ];
 
 /* ── Component ────────────────────────────────────────────── */

@@ -18,7 +18,7 @@ import {
 const summaryCards = [
   {
     label: 'Net Fund Balance',
-    value: '$452,890.45',
+    value: '₱452,890.45',
     note: '+2.4% from last month',
     noteColor: 'text-green-500',
     icon: <Landmark className="w-4 h-4" />,
@@ -27,7 +27,7 @@ const summaryCards = [
   },
   {
     label: 'Total Monthly Collections',
-    value: '$68,240.00',
+    value: '₱68,240.00',
     note: '88% of monthly target reached',
     noteColor: 'text-green-500',
     icon: <Wallet className="w-4 h-4" />,
@@ -35,7 +35,7 @@ const summaryCards = [
   },
   {
     label: 'Total Expenses',
-    value: '$32,140.00',
+    value: '₱32,140.00',
     note: 'Includes utilities and payroll',
     noteColor: 'text-orange-500',
     icon: <Receipt className="w-4 h-4" />,
@@ -43,7 +43,7 @@ const summaryCards = [
   },
   {
     label: 'Rental Revenue',
-    value: '$12,450.50',
+    value: '₱12,450.50',
     note: 'Sanctuary and Hall bookings',
     noteColor: 'text-blue-500',
     icon: <DoorOpen className="w-4 h-4" />,
@@ -62,17 +62,17 @@ const categoryStyles = {
 };
 
 const collections = [
-  { donor: 'Jonathan Edwards', amount: '+$1,500.00', category: 'Tithes', date: 'Oct 24, 2023' },
-  { donor: 'Sarah Williams', amount: '+$450.00', category: 'Rentals', date: 'Oct 23, 2023' },
-  { donor: 'Anonymous Donor', amount: '+$10,000.00', category: 'Building Fund', date: 'Oct 23, 2023' },
-  { donor: 'Mark Thompson', amount: '+$250.00', category: 'Tithes', date: 'Oct 22, 2023' },
+  { donor: 'Jonathan Edwards', amount: '+₱1,500.00', category: 'Tithes', date: 'Oct 24, 2023' },
+  { donor: 'Sarah Williams', amount: '+₱450.00', category: 'Rentals', date: 'Oct 23, 2023' },
+  { donor: 'Anonymous Donor', amount: '+₱10,000.00', category: 'Building Fund', date: 'Oct 23, 2023' },
+  { donor: 'Mark Thompson', amount: '+₱250.00', category: 'Tithes', date: 'Oct 22, 2023' },
 ];
 
 const expenses = [
-  { payee: 'City Electric Co.', amount: '-$2,140.00', category: 'Utilities', date: 'Oct 24, 2023' },
-  { payee: 'Global Missions', amount: '-$5,000.00', category: 'Outreach', date: 'Oct 22, 2023' },
-  { payee: 'Staff Payroll', amount: '-$12,400.00', category: 'Payroll', date: 'Oct 20, 2023' },
-  { payee: 'Hardware Store', amount: '-$185.50', category: 'Maintenance', date: 'Oct 18, 2023' },
+  { payee: 'City Electric Co.', amount: '-₱2,140.00', category: 'Utilities', date: 'Oct 24, 2023' },
+  { payee: 'Global Missions', amount: '-₱5,000.00', category: 'Outreach', date: 'Oct 22, 2023' },
+  { payee: 'Staff Payroll', amount: '-₱12,400.00', category: 'Payroll', date: 'Oct 20, 2023' },
+  { payee: 'Hardware Store', amount: '-₱185.50', category: 'Maintenance', date: 'Oct 18, 2023' },
 ];
 
 /* ── Component ────────────────────────────────────────────── */
