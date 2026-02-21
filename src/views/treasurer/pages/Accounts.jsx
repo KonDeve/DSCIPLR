@@ -270,7 +270,7 @@ export default function Accounts() {
                     id="catName"
                     type="text"
                     placeholder="Enter category name..."
-                    className="w-full rounded-lg border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                   />
                 </div>
 
@@ -283,7 +283,7 @@ export default function Accounts() {
                     id="catCode"
                     type="text"
                     placeholder="e.g., ACC-006"
-                    className="w-full rounded-lg border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                   />
                 </div>
 
@@ -295,7 +295,7 @@ export default function Accounts() {
                   <select
                     id="catStatus"
                     defaultValue="active"
-                    className="w-full rounded-lg border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                   >
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
@@ -308,13 +308,13 @@ export default function Accounts() {
                     Budget Allocation
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-bold">$</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-bold">₱</span>
                     <input
                       id="catBudget"
                       type="number"
                       step="0.01"
                       placeholder="0.00"
-                      className="w-full rounded-lg border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                      className="w-full rounded-lg border border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                     />
                   </div>
                 </div>
@@ -327,7 +327,7 @@ export default function Accounts() {
                   <select
                     id="catAllocType"
                     defaultValue=""
-                    className="w-full rounded-lg border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                   >
                     <option disabled value="">Select type</option>
                     <option value="unrestricted">Unrestricted</option>
@@ -344,7 +344,7 @@ export default function Accounts() {
                   <textarea
                     id="catDesc"
                     placeholder="Describe the purpose of this category..."
-                    className="w-full rounded-lg border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] min-h-[80px]"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] min-h-[80px]"
                   />
                 </div>
               </div>

@@ -321,7 +321,7 @@ export default function Collections() {
                       id="donor"
                       type="text"
                       placeholder="Search for a member..."
-                      className="w-full rounded-lg border-gray-200 bg-white pl-10 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                      className="w-full rounded-lg border border-gray-200 bg-white pl-10 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                     />
                   </div>
                 </div>
@@ -334,7 +334,7 @@ export default function Collections() {
                   <select
                     id="category"
                     defaultValue=""
-                    className="w-full rounded-lg border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                   >
                     <option disabled value="">Select category</option>
                     <option value="tithe">Tithe</option>
@@ -353,7 +353,7 @@ export default function Collections() {
                   <input
                     id="col-date"
                     type="date"
-                    className="w-full rounded-lg border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                   />
                 </div>
 
@@ -363,13 +363,13 @@ export default function Collections() {
                     Amount
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-bold">$</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-bold">₱</span>
                     <input
                       id="amount"
                       type="number"
                       step="0.01"
                       placeholder="0.00"
-                      className="w-full rounded-lg border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                      className="w-full rounded-lg border border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                     />
                   </div>
                 </div>
@@ -382,7 +382,7 @@ export default function Collections() {
                   <select
                     id="method"
                     defaultValue=""
-                    className="w-full rounded-lg border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                   >
                     <option disabled value="">Select method</option>
                     <option value="cash">Cash</option>
@@ -399,7 +399,7 @@ export default function Collections() {
                   <textarea
                     id="notes"
                     placeholder="Add any relevant information..."
-                    className="w-full rounded-lg border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] min-h-[80px]"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] min-h-[80px]"
                   />
                 </div>
               </div>

@@ -312,7 +312,7 @@ export default function Rentals() {
                       id="r-member"
                       type="text"
                       placeholder="Search members..."
-                      className="w-full h-11 pl-10 pr-4 rounded-lg border-gray-200 bg-gray-100 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] transition-all"
+                      className="w-full h-11 pl-10 pr-4 rounded-lg border border-gray-200 bg-white text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] transition-all"
                     />
                   </div>
                 </div>
@@ -326,7 +326,7 @@ export default function Rentals() {
                       <Bookmark className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
                     <select
                       id="r-ref"
-                      className="w-full h-11 pl-10 pr-10 rounded-lg border-gray-200 bg-gray-100 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] appearance-none"
+                      className="w-full h-11 pl-10 pr-10 rounded-lg border border-gray-200 bg-white text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] appearance-none"
                     >
                       <option>BK-2023-084: Church Van (Oct 30)</option>
                       <option>BK-2023-042: Sanctuary (Nov 15)</option>
@@ -345,7 +345,7 @@ export default function Rentals() {
                       <Tag className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
                       <select
                         id="r-category"
-                        className="w-full h-11 pl-10 pr-10 rounded-lg border-gray-200 bg-gray-100 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] appearance-none"
+                        className="w-full h-11 pl-10 pr-10 rounded-lg border border-gray-200 bg-white text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] appearance-none"
                       >
                         <option>Vehicle</option>
                         <option>Sanctuary</option>
@@ -359,13 +359,13 @@ export default function Rentals() {
                     Amount to Pay
                   </label>
                   <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-bold text-sm">$</span>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-bold">₱</span>
                       <input
                         id="r-amount"
                         type="number"
                         step="0.01"
                         placeholder="0.00"
-                        className="w-full h-11 pl-8 pr-4 rounded-lg border-gray-200 bg-gray-100 text-sm font-black focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                        className="w-full h-11 pl-8 pr-4 rounded-lg border border-gray-200 bg-white text-sm font-black focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                       />
                     </div>
                   </div>
@@ -381,7 +381,7 @@ export default function Rentals() {
                       <Banknote className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
                       <select
                         id="r-method"
-                        className="w-full h-11 pl-10 pr-10 rounded-lg border-gray-200 bg-gray-100 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] appearance-none"
+                        className="w-full h-11 pl-10 pr-10 rounded-lg border border-gray-200 bg-white text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] appearance-none"
                       >
                         <option>Cash</option>
                         <option>Check</option>
@@ -400,7 +400,7 @@ export default function Rentals() {
                       <input
                         id="r-date"
                         type="date"
-                        className="w-full h-11 pl-10 pr-4 rounded-lg border-gray-200 bg-gray-100 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                        className="w-full h-11 pl-10 pr-4 rounded-lg border border-gray-200 bg-white text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                       />
                     </div>
                   </div>

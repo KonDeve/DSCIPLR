@@ -271,7 +271,7 @@ export default function PaymentRequests() {
                     type="text"
                     required
                     placeholder="e.g. Acme Services"
-                    className="w-full rounded-lg border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] px-4 py-2.5"
+                    className="w-full rounded-lg border border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] px-4 py-2.5"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -281,25 +281,25 @@ export default function PaymentRequests() {
                     <input
                       type="text"
                       placeholder="Search members..."
-                      className="w-full rounded-lg border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] pl-10 pr-4 py-2.5"
+                      className="w-full rounded-lg border border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] pl-10 pr-4 py-2.5"
                     />
                   </div>
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#617589] uppercase tracking-wider">Amount ($)</label>
+                  <label className="text-xs font-bold text-[#617589] uppercase tracking-wider">Amount (₱)</label>
                   <input
                     type="number"
                     required
                     step="0.01"
                     placeholder="0.00"
-                    className="w-full rounded-lg border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] px-4 py-2.5"
+                    className="w-full rounded-lg border border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] px-4 py-2.5"
                   />
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-[#617589] uppercase tracking-wider">Account Category</label>
                   <select
                     defaultValue=""
-                    className="w-full rounded-lg border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] px-4 py-2.5"
+                    className="w-full rounded-lg border border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] px-4 py-2.5"
                   >
                     <option value="" disabled>Select category</option>
                     <option value="maintenance">Maintenance</option>
@@ -317,7 +317,7 @@ export default function PaymentRequests() {
                 <textarea
                   rows={3}
                   placeholder="Provide reason for payment or details about the items/services..."
-                  className="w-full rounded-lg border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] px-4 py-2.5 resize-none"
+                  className="w-full rounded-lg border border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] px-4 py-2.5 resize-none"
                 />
               </div>
 
