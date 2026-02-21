@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   SlidersHorizontal,
@@ -15,9 +15,14 @@ import {
   ChevronRight,
   X,
   Search,
+  Loader2,
+  AlertCircle,
 } from 'lucide-react';
+import { CollectionController } from '@/controllers';
 
 /* ── Static demo data ─────────────────────────────────────── */
+/* TODO: replace with live data once Supabase is connected.   */
+/*       Real data is loaded via CollectionController.        */
 
 const filters = [
   { label: 'Date Range', value: 'Last 30 Days', icon: <Calendar className="w-4 h-4 text-gray-400" /> },
@@ -33,7 +38,7 @@ const categoryStyles = {
   Missions: 'bg-green-50 text-green-600',
 };
 
-const collections = [
+const DEMO_COLLECTIONS = [
   {
     id: 'jonathan-miller',
     name: 'Jonathan Miller',
@@ -96,7 +101,7 @@ const collections = [
   },
 ];
 
-const summaryCards = [
+const DEMO_SUMMARY_CARDS = [
   {
     label: 'Weekly Volume',
     value: '₱12,450.00',
@@ -123,9 +128,110 @@ const summaryCards = [
 /* ── Component ────────────────────────────────────────────── */
 
 export default function Collections() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [currentPage, setCurrentPage]   = useState(1);
+  const [modalOpen, setModalOpen]       = useState(false);
   const navigate = useNavigate();
+
+  // ── DB-ready state ──────────────────────────────────────────────────────
+  // collections    : live data from DB (falls back to demo when not connected)
+  // totalPages     : total page count from DB
+  // collectionTypes: dropdown options loaded from collection_types table
+  // summary        : aggregate stats for the bottom cards
+  const [collections,     setCollections]     = useState(DEMO_COLLECTIONS);
+  const [totalPages,      setTotalPages]       = useState(2);   // demo has 2 pages
+  const [collectionTypes, setCollectionTypes] = useState([]);
+  const [loadingList,     setLoadingList]     = useState(false);
+  const [listError,       setListError]       = useState(null);
+
+  // ── Form state for "Record New Collection" modal ────────────────────────
+  const EMPTY_FORM = {
+    donorName:        '',
+    memberId:         '',
+    collectionTypeId: '',
+    amount:           '',
+    paymentMethod:    '',
+    dateReceived:     '',
+    donorNotes:       '',
+  };
+  const [form,        setForm]        = useState(EMPTY_FORM);
+  const [submitting,  setSubmitting]  = useState(false);
+  const [formError,   setFormError]   = useState(null);
+  const [formSuccess, setFormSuccess] = useState(false);
+
+  // ── Load collection types for the dropdown (once) ──────────────────────
+  useEffect(() => {
+    CollectionController.getCollectionTypes()
+      .then((data) => setCollectionTypes(data))
+      .catch(() => {/* Not yet connected – silently ignore */});
+  }, []);
+
+  // ── Load paginated collections from DB ─────────────────────────────────
+  // TODO: Uncomment this block once Supabase is connected.
+  // Remove the DEMO_COLLECTIONS initial state above when activating.
+  /*
+  const loadCollections = useCallback(async () => {
+    setLoadingList(true);
+    setListError(null);
+    try {
+      const { data, totalPages: tp } = await CollectionController.getCollections({
+        page: currentPage,
+      });
+      setCollections(data);
+      setTotalPages(tp);
+    } catch (err) {
+      setListError(err.message);
+    } finally {
+      setLoadingList(false);
+    }
+  }, [currentPage]);
+
+  useEffect(() => { loadCollections(); }, [loadCollections]);
+  */
+
+  // ── Form helpers ────────────────────────────────────────────────────────
+  const handleFieldChange = (field) => (e) =>
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+
+  const handleOpenModal = () => {
+    setForm(EMPTY_FORM);
+    setFormError(null);
+    setFormSuccess(false);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setFormError(null);
+    setFormSuccess(false);
+  };
+
+  // ── Form submit → CollectionController.recordCollection ─────────────────
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormError(null);
+    setFormSuccess(false);
+    setSubmitting(true);
+    try {
+      await CollectionController.recordCollection({
+        donorName:        form.donorName        || null,
+        memberId:         form.memberId         || null,
+        collectionTypeId: form.collectionTypeId || null,
+        amount:           form.amount,
+        paymentMethod:    form.paymentMethod,
+        dateReceived:     form.dateReceived,
+        donorNotes:       form.donorNotes       || null,
+        // recordedBy: pass the authenticated user's UUID here when auth is wired
+      });
+      setFormSuccess(true);
+      // TODO: Refresh the list after a successful save:
+      // loadCollections();
+      setTimeout(handleCloseModal, 1200);
+    } catch (err) {
+      setFormError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
@@ -140,7 +246,7 @@ export default function Collections() {
             <SlidersHorizontal className="w-4 h-4" /> Filters
           </button>
           <button
-            onClick={() => setModalOpen(true)}
+            onClick={() => handleOpenModal()}
             className="flex items-center gap-2 rounded-lg bg-[#137fec] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#1170d4] transition-colors cursor-pointer"
           >
             <PlusCircle className="w-4 h-4" /> Record New Collection
@@ -274,7 +380,7 @@ export default function Collections() {
 
       {/* ── Summary Cards ──────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {summaryCards.map((card) => (
+        {DEMO_SUMMARY_CARDS.map((card) => (
           <div
             key={card.label}
             className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200"
@@ -300,7 +406,7 @@ export default function Collections() {
                 <h3 className="text-base sm:text-lg font-bold">Record New Collection</h3>
               </div>
               <button
-                onClick={() => setModalOpen(false)}
+                onClick={handleCloseModal}
                 className="text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
@@ -308,7 +414,21 @@ export default function Collections() {
             </div>
 
             {/* Form */}
-            <form className="p-6 space-y-5" onSubmit={(e) => e.preventDefault()}>
+            <form className="p-6 space-y-5" onSubmit={handleSubmit}>
+
+              {/* Error / Success banners */}
+              {formError && (
+                <div className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  {formError}
+                </div>
+              )}
+              {formSuccess && (
+                <div className="rounded-lg bg-green-50 border border-green-200 text-green-700 text-sm px-4 py-3">
+                  Collection recorded successfully!
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {/* Donor Name — full width */}
                 <div className="md:col-span-2 space-y-1.5">
@@ -321,6 +441,8 @@ export default function Collections() {
                       id="donor"
                       type="text"
                       placeholder="Search for a member..."
+                      value={form.donorName}
+                      onChange={handleFieldChange('donorName')}
                       className="w-full rounded-lg border border-gray-200 bg-white pl-10 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                     />
                   </div>
@@ -333,15 +455,25 @@ export default function Collections() {
                   </label>
                   <select
                     id="category"
-                    defaultValue=""
+                    value={form.collectionTypeId}
+                    onChange={handleFieldChange('collectionTypeId')}
                     className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                   >
-                    <option disabled value="">Select category</option>
-                    <option value="tithe">Tithe</option>
-                    <option value="offering">Offering</option>
-                    <option value="building">Building Fund</option>
-                    <option value="missions">Missions</option>
-                    <option value="other">Other</option>
+                    <option value="">Select category</option>
+                    {/* When collection types are loaded from DB they appear here */}
+                    {collectionTypes.length > 0
+                      ? collectionTypes.map((t) => (
+                          <option key={t.id} value={t.id}>{t.name}</option>
+                        ))
+                      : /* Fallback static options until DB is connected */ (
+                        <>
+                          <option value="tithe">Tithe</option>
+                          <option value="offering">Offering</option>
+                          <option value="building">Building Fund</option>
+                          <option value="missions">Missions</option>
+                          <option value="other">Other</option>
+                        </>
+                      )}
                   </select>
                 </div>
 
@@ -353,6 +485,8 @@ export default function Collections() {
                   <input
                     id="col-date"
                     type="date"
+                    value={form.dateReceived}
+                    onChange={handleFieldChange('dateReceived')}
                     className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                   />
                 </div>
@@ -368,7 +502,10 @@ export default function Collections() {
                       id="amount"
                       type="number"
                       step="0.01"
+                      min="0"
                       placeholder="0.00"
+                      value={form.amount}
+                      onChange={handleFieldChange('amount')}
                       className="w-full rounded-lg border border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                     />
                   </div>
@@ -381,13 +518,18 @@ export default function Collections() {
                   </label>
                   <select
                     id="method"
-                    defaultValue=""
+                    value={form.paymentMethod}
+                    onChange={handleFieldChange('paymentMethod')}
                     className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                   >
-                    <option disabled value="">Select method</option>
+                    <option value="">Select method</option>
                     <option value="cash">Cash</option>
                     <option value="check">Check</option>
-                    <option value="online">Online</option>
+                    <option value="online_transfer">Online Transfer</option>
+                    <option value="gcash">GCash</option>
+                    <option value="maya">Maya</option>
+                    <option value="bank_deposit">Bank Deposit</option>
+                    <option value="credit_card">Credit Card</option>
                   </select>
                 </div>
 
@@ -399,24 +541,33 @@ export default function Collections() {
                   <textarea
                     id="notes"
                     placeholder="Add any relevant information..."
+                    value={form.donorNotes}
+                    onChange={handleFieldChange('donorNotes')}
                     className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] min-h-[80px]"
                   />
                 </div>
               </div>
-            </form>
 
-            {/* Footer */}
-            <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50">
-              <button
-                onClick={() => setModalOpen(false)}
-                className="px-5 py-2.5 rounded-lg border border-gray-200 text-sm font-bold hover:bg-white transition-colors cursor-pointer"
-              >
-                Cancel
-              </button>
-              <button className="px-6 py-2.5 rounded-lg bg-[#137fec] text-white text-sm font-bold hover:bg-blue-600 transition-colors cursor-pointer">
-                Save Entry
-              </button>
-            </div>
+              {/* Footer inside form so Enter submits */}
+              <div className="flex items-center justify-end gap-3 pt-2 border-t border-gray-200">
+                <button
+                  type="button"
+                  onClick={handleCloseModal}
+                  disabled={submitting}
+                  className="px-5 py-2.5 rounded-lg border border-gray-200 text-sm font-bold hover:bg-white transition-colors cursor-pointer disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#137fec] text-white text-sm font-bold hover:bg-blue-600 transition-colors cursor-pointer disabled:opacity-60"
+                >
+                  {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
+                  {submitting ? 'Saving…' : 'Save Entry'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

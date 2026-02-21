@@ -11,7 +11,9 @@ import {
   Clock,
   AlertTriangle,
   Banknote,
+  Loader2,
 } from 'lucide-react';
+import { CollectionController } from '@/controllers';
 
 /* ── Demo data keyed by slug ──────────────────────────────── */
 
@@ -125,9 +127,26 @@ export default function CollectionDetail() {
   const [statusOpen, setStatusOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const record = collectionRecords[id];
+  // ── DB-ready state ────────────────────────────────────────────────────────
+  // `record` is seeded from DEMO data.
+  // When the DB is connected, it will be replaced by the live fetch below.
+  const [record,          setRecord]          = useState(collectionRecords[id] || null);
+  const [statusUpdating,  setStatusUpdating]  = useState(false);
+  const [statusError,     setStatusError]     = useState(null);
+  const [statusSuccess,   setStatusSuccess]   = useState(null);
 
-  // Close dropdown on outside click
+  // ── Load collection from DB by id ─────────────────────────────────────────
+  // TODO: Uncomment this block once Supabase is connected.
+  // Remove the demo collectionRecords lookup in useState above when activating.
+  /*
+  useEffect(() => {
+    CollectionController.getCollectionById(id)
+      .then((data) => setRecord(data))
+      .catch(() => setRecord(null));
+  }, [id]);
+  */
+
+  // Close status dropdown on outside click
   useEffect(() => {
     function handleClick(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -137,6 +156,29 @@ export default function CollectionDetail() {
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
+
+  // ── Status update → CollectionController.updateStatus ─────────────────────
+  // NOTE: `id` here is a demo slug.  When connected to the DB, pass the UUID.
+  const handleStatusUpdate = async (newStatus) => {
+    setStatusError(null);
+    setStatusSuccess(null);
+    setStatusUpdating(true);
+    setStatusOpen(false);
+    try {
+      await CollectionController.updateStatus(id, newStatus, {
+        notes: `Status changed to ${newStatus}.`,
+        // updatedBy: pass authenticated user UUID when auth is wired
+      });
+      setStatusSuccess(`Status updated to "${newStatus}".`);
+      // TODO: Re-fetch the record after update:
+      // const updated = await CollectionController.getCollectionById(id);
+      // setRecord(updated);
+    } catch (err) {
+      setStatusError(err.message);
+    } finally {
+      setStatusUpdating(false);
+    }
+  };
 
   if (!record) {
     return (
@@ -174,22 +216,32 @@ export default function CollectionDetail() {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setStatusOpen((v) => !v)}
+              disabled={statusUpdating}
               className={`flex items-center gap-2 rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-bold shadow-sm transition-colors cursor-pointer ${
                 statusOpen
                   ? 'bg-gray-100 border-[#137fec]/50 ring-2 ring-[#137fec]/10'
                   : 'bg-white hover:bg-gray-50'
-              }`}
+              } disabled:opacity-60`}
             >
-              <RefreshCw className="w-4 h-4" /> Update Status
+              {statusUpdating
+                ? <Loader2 className="w-4 h-4 animate-spin" />
+                : <RefreshCw className="w-4 h-4" />}
+              Update Status
               <ChevronDown className="w-3.5 h-3.5" />
             </button>
 
             {statusOpen && (
               <div className="absolute right-0 mt-2 w-52 rounded-xl bg-white border border-gray-200 py-2 z-50">
-                <button className="w-full text-left px-4 py-3 text-sm font-bold hover:bg-green-50 text-green-600 flex items-center gap-3 cursor-pointer">
+                <button
+                  onClick={() => handleStatusUpdate('cleared')}
+                  className="w-full text-left px-4 py-3 text-sm font-bold hover:bg-green-50 text-green-600 flex items-center gap-3 cursor-pointer"
+                >
                   <CheckCircle className="w-5 h-5" /> Mark as Cleared
                 </button>
-                <button className="w-full text-left px-4 py-3 text-sm font-bold hover:bg-red-50 text-red-600 flex items-center gap-3 border-t border-gray-200 cursor-pointer">
+                <button
+                  onClick={() => handleStatusUpdate('rejected')}
+                  className="w-full text-left px-4 py-3 text-sm font-bold hover:bg-red-50 text-red-600 flex items-center gap-3 border-t border-gray-200 cursor-pointer"
+                >
                   <Ban className="w-5 h-5" /> Mark as Bounced
                 </button>
               </div>
@@ -202,6 +254,18 @@ export default function CollectionDetail() {
           </button>
         </div>
       </div>
+
+      {/* ── Status Feedback Banners ────────────────────────── */}
+      {statusSuccess && (
+        <div className="rounded-lg bg-green-50 border border-green-200 text-green-700 text-sm px-4 py-3">
+          {statusSuccess}
+        </div>
+      )}
+      {statusError && (
+        <div className="rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
+          {statusError}
+        </div>
+      )}
 
       {/* ── Content Grid ───────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

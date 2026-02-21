@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   SlidersHorizontal,
   PlusCircle,
@@ -15,11 +15,16 @@ import {
   Bookmark,
   Tag,
   Info,
+  Loader2,
+  AlertCircle,
 } from 'lucide-react';
+import { RentalController } from '@/controllers';
 
 /* ── Static demo data ─────────────────────────────────────── */
+/* TODO: replace with live data once Supabase is connected.   */
+/*       Real data is loaded via RentalController.            */
 
-const summaryCards = [
+const DEMO_SUMMARY_CARDS = [
   {
     label: 'Total Rental Income (Month)',
     value: '₱8,240.00',
@@ -64,7 +69,7 @@ const statusDot = {
   Confirmed: 'bg-blue-500',
 };
 
-const rentals = [
+const DEMO_RENTALS = [
   {
     name: 'Andrew Stevenson',
     initials: 'AS',
@@ -126,7 +131,118 @@ const rentals = [
 
 export default function Rentals() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen]     = useState(false);
+
+  // ── DB-ready state ────────────────────────────────────────────────────────
+  // rentals    : live data from DB (falls back to demo when not connected)
+  // totalPages : total page count from DB
+  // assets     : available rental assets for dropdowns
+  const [rentals,     setRentals]     = useState(DEMO_RENTALS);
+  const [totalPages,  setTotalPages]  = useState(2);
+  const [assets,      setAssets]      = useState([]);
+  const [loadingList, setLoadingList] = useState(false);
+  const [listError,   setListError]   = useState(null);
+
+  // ── Form state for "Record Rental Payment" modal ─────────────────────────
+  const EMPTY_FORM = {
+    memberName:  '',
+    memberId:    '',
+    bookingId:   '',
+    category:    '',
+    amount:      '',
+    paymentMethod: '',
+    paymentDate: '',
+  };
+  const [form,        setForm]        = useState(EMPTY_FORM);
+  const [bookings,    setBookings]    = useState([]);
+  const [submitting,  setSubmitting]  = useState(false);
+  const [formError,   setFormError]   = useState(null);
+  const [formSuccess, setFormSuccess] = useState(false);
+
+  // ── Load assets once for the category/reference dropdowns ────────────────
+  useEffect(() => {
+    RentalController.getAssets()
+      .then((data) => setAssets(data))
+      .catch(() => {/* Not yet connected – silently ignore */});
+  }, []);
+
+  // ── Load paginated rentals from DB ────────────────────────────────────────
+  // TODO: Uncomment this block once Supabase is connected.
+  // Remove the DEMO_RENTALS initial state above when activating.
+  /*
+  const loadRentals = useCallback(async () => {
+    setLoadingList(true);
+    setListError(null);
+    try {
+      const { data, totalPages: tp } = await RentalController.getRentals({
+        page: currentPage,
+      });
+      setRentals(data);
+      setTotalPages(tp);
+    } catch (err) {
+      setListError(err.message);
+    } finally {
+      setLoadingList(false);
+    }
+  }, [currentPage]);
+
+  useEffect(() => { loadRentals(); }, [loadRentals]);
+  */
+
+  // ── Form helpers ──────────────────────────────────────────────────────────
+  const handleFieldChange = (field) => (e) =>
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+
+  const handleOpenModal = () => {
+    setForm(EMPTY_FORM);
+    setBookings([]);
+    setFormError(null);
+    setFormSuccess(false);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setFormError(null);
+    setFormSuccess(false);
+  };
+
+  // ── When member is selected, load their open bookings ────────────────────
+  const handleMemberSelect = async (memberId) => {
+    setForm((prev) => ({ ...prev, memberId, bookingId: '' }));
+    if (!memberId) { setBookings([]); return; }
+    try {
+      const data = await RentalController.getOpenBookingsByMember(memberId);
+      setBookings(data);
+    } catch {
+      setBookings([]);
+    }
+  };
+
+  // ── Form submit → RentalController.recordPayment ─────────────────────────
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormError(null);
+    setFormSuccess(false);
+    setSubmitting(true);
+    try {
+      await RentalController.recordPayment({
+        bookingId:     form.bookingId     || null,
+        amount:        form.amount,
+        paymentMethod: form.paymentMethod,
+        paymentDate:   form.paymentDate,
+        // receivedBy: pass authenticated user UUID when auth is wired
+      });
+      setFormSuccess(true);
+      // TODO: Refresh the list after a successful save:
+      // loadRentals();
+      setTimeout(handleCloseModal, 1200);
+    } catch (err) {
+      setFormError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
@@ -141,7 +257,7 @@ export default function Rentals() {
             <SlidersHorizontal className="w-4 h-4" /> Filters
           </button>
           <button
-            onClick={() => setModalOpen(true)}
+            onClick={() => handleOpenModal()}
             className="flex items-center gap-2 rounded-lg bg-[#137fec] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#1170d4] transition-colors cursor-pointer"
           >
             <PlusCircle className="w-4 h-4" /> Record Rental Payment
@@ -151,7 +267,7 @@ export default function Rentals() {
 
       {/* ── Summary Cards ──────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {summaryCards.map((card) => (
+        {DEMO_SUMMARY_CARDS.map((card) => (
           <div key={card.label} className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider">{card.label}</h3>
@@ -194,8 +310,8 @@ export default function Rentals() {
               </tr>
             </thead>
             <tbody className="text-sm divide-y divide-gray-200">
-              {rentals.map((row) => (
-                <tr key={row.name} className="hover:bg-gray-50 transition-colors cursor-pointer">
+              {rentals.map((row, idx) => (
+                <tr key={idx} className="hover:bg-gray-50 transition-colors cursor-pointer">
                   {/* Name + Avatar */}
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
@@ -291,7 +407,7 @@ export default function Rentals() {
                 </div>
               </div>
               <button
-                onClick={() => setModalOpen(false)}
+                onClick={handleCloseModal}
                 className="text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
@@ -300,7 +416,21 @@ export default function Rentals() {
 
             {/* Form */}
             <div className="flex-1 overflow-y-auto p-6">
-              <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+              <form id="rental-form" className="space-y-5" onSubmit={handleSubmit}>
+
+                {/* Error / Success banners */}
+                {formError && (
+                  <div className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    {formError}
+                  </div>
+                )}
+                {formSuccess && (
+                  <div className="rounded-lg bg-green-50 border border-green-200 text-green-700 text-sm px-4 py-3">
+                    Payment recorded successfully!
+                  </div>
+                )}
+
                 {/* Member Name */}
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase tracking-wider text-gray-500" htmlFor="r-member">
@@ -312,6 +442,8 @@ export default function Rentals() {
                       id="r-member"
                       type="text"
                       placeholder="Search members..."
+                      value={form.memberName}
+                      onChange={handleFieldChange('memberName')}
                       className="w-full h-11 pl-10 pr-4 rounded-lg border border-gray-200 bg-white text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] transition-all"
                     />
                   </div>
@@ -323,13 +455,27 @@ export default function Rentals() {
                     Rental Reference
                   </label>
                   <div className="relative">
-                      <Bookmark className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
+                    <Bookmark className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
                     <select
                       id="r-ref"
+                      value={form.bookingId}
+                      onChange={handleFieldChange('bookingId')}
                       className="w-full h-11 pl-10 pr-10 rounded-lg border border-gray-200 bg-white text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] appearance-none"
                     >
-                      <option>BK-2023-084: Church Van (Oct 30)</option>
-                      <option>BK-2023-042: Sanctuary (Nov 15)</option>
+                      <option value="">Select booking...</option>
+                      {/* When DB is connected, bookings loaded via handleMemberSelect appear here */}
+                      {bookings.length > 0
+                        ? bookings.map((b) => (
+                            <option key={b.id} value={b.id}>
+                              {b.booking_reference}: {b.asset?.name} ({b.booking_date})
+                            </option>
+                          ))
+                        : /* Static fallback until DB is connected */ (
+                          <>
+                            <option value="bk-2023-084">BK-2023-084: Church Van (Oct 30)</option>
+                            <option value="bk-2023-042">BK-2023-042: Sanctuary (Nov 15)</option>
+                          </>
+                        )}
                     </select>
                     <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4 pointer-events-none" />
                   </div>
@@ -345,26 +491,43 @@ export default function Rentals() {
                       <Tag className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
                       <select
                         id="r-category"
+                        value={form.category}
+                        onChange={handleFieldChange('category')}
                         className="w-full h-11 pl-10 pr-10 rounded-lg border border-gray-200 bg-white text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] appearance-none"
                       >
-                        <option>Vehicle</option>
-                        <option>Sanctuary</option>
+                        <option value="">Select type...</option>
+                        {/* When DB is connected, assets populate this dropdown */}
+                        {assets.length > 0
+                          ? [...new Set(assets.map((a) => a.asset_type))].map((t) => (
+                              <option key={t} value={t}>
+                                {t.charAt(0).toUpperCase() + t.slice(1)}
+                              </option>
+                            ))
+                          : /* Static fallback */ (
+                            <>
+                              <option value="vehicle">Vehicle</option>
+                              <option value="venue">Sanctuary</option>
+                            </>
+                          )}
                       </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4 pointer-events-none" />
+                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4 pointer-events-none" />
+                    </div>
                   </div>
-                </div>
 
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-gray-500" htmlFor="r-amount">
-                    Amount to Pay
-                  </label>
-                  <div className="relative">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-wider text-gray-500" htmlFor="r-amount">
+                      Amount to Pay
+                    </label>
+                    <div className="relative">
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-bold">₱</span>
                       <input
                         id="r-amount"
                         type="number"
                         step="0.01"
+                        min="0"
                         placeholder="0.00"
+                        value={form.amount}
+                        onChange={handleFieldChange('amount')}
                         className="w-full h-11 pl-8 pr-4 rounded-lg border border-gray-200 bg-white text-sm font-black focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                       />
                     </div>
@@ -381,11 +544,17 @@ export default function Rentals() {
                       <Banknote className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
                       <select
                         id="r-method"
+                        value={form.paymentMethod}
+                        onChange={handleFieldChange('paymentMethod')}
                         className="w-full h-11 pl-10 pr-10 rounded-lg border border-gray-200 bg-white text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec] appearance-none"
                       >
-                        <option>Cash</option>
-                        <option>Check</option>
-                        <option>Online</option>
+                        <option value="">Select method</option>
+                        <option value="cash">Cash</option>
+                        <option value="check">Check</option>
+                        <option value="online_transfer">Online Transfer</option>
+                        <option value="gcash">GCash</option>
+                        <option value="maya">Maya</option>
+                        <option value="bank_deposit">Bank Deposit</option>
                       </select>
                       <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4 pointer-events-none" />
                     </div>
@@ -400,6 +569,8 @@ export default function Rentals() {
                       <input
                         id="r-date"
                         type="date"
+                        value={form.paymentDate}
+                        onChange={handleFieldChange('paymentDate')}
                         className="w-full h-11 pl-10 pr-4 rounded-lg border border-gray-200 bg-white text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                       />
                     </div>
@@ -415,7 +586,9 @@ export default function Rentals() {
                       <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">
                         This payment will be recorded as a{' '}
                         <span className="text-gray-900 font-semibold">Partial Payment</span> for Rental ID{' '}
-                        <span className="text-gray-900 font-semibold">#BK2023084</span>. Remaining balance:{' '}
+                        <span className="text-gray-900 font-semibold">
+                          {form.bookingId ? `#${form.bookingId.slice(0, 10).toUpperCase()}` : '#BK2023084'}
+                        </span>. Remaining balance:{' '}
                         <span className="text-orange-600 font-bold">₱0.00</span>
                       </p>
                     </div>
@@ -427,13 +600,21 @@ export default function Rentals() {
             {/* Footer */}
             <div className="p-6 border-t border-gray-200 flex items-center justify-end gap-3 bg-gray-50/50 rounded-b-xl">
               <button
-                onClick={() => setModalOpen(false)}
-                className="px-5 py-2.5 rounded-lg text-sm font-bold text-gray-500 hover:bg-gray-100 transition-colors border border-gray-200 bg-white cursor-pointer"
+                type="button"
+                onClick={handleCloseModal}
+                disabled={submitting}
+                className="px-5 py-2.5 rounded-lg text-sm font-bold text-gray-500 hover:bg-gray-100 transition-colors border border-gray-200 bg-white cursor-pointer disabled:opacity-50"
               >
                 Cancel
               </button>
-              <button className="px-6 py-2.5 rounded-lg bg-[#137fec] text-sm font-bold text-white hover:bg-[#137fec]/90 transition-all cursor-pointer">
-                Confirm Payment
+              <button
+                type="submit"
+                form="rental-form"
+                disabled={submitting}
+                className="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#137fec] text-sm font-bold text-white hover:bg-[#137fec]/90 transition-all cursor-pointer disabled:opacity-60"
+              >
+                {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
+                {submitting ? 'Saving…' : 'Confirm Payment'}
               </button>
             </div>
           </div>
