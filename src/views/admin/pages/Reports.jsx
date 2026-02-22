@@ -1,7 +1,7 @@
 export default function Reports() {
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Reports</h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-6">Reports</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">

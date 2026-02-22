@@ -8,6 +8,7 @@ import {
   X,
   Search,
   CloudUpload,
+  ChevronDown,
 } from "lucide-react";
 
 const summaryCards = [
@@ -121,7 +122,7 @@ export default function PaymentRequests() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-900">Payment Request Dashboard</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Payment Request Dashboard</h1>
           <p className="text-sm text-[#617589]">Review, approve, and release outgoing funds</p>
         </div>
         <div className="flex gap-3">
@@ -145,13 +146,13 @@ export default function PaymentRequests() {
             className="rounded-xl bg-white p-6 border border-[#dbe0e6]"
           >
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-bold text-[#617589] uppercase tracking-wider">
+              <h3 className="text-sm font-semibold text-[#617589] uppercase tracking-wider">
                 {card.label}
               </h3>
               <card.icon className={`w-5 h-5 ${card.iconColor}`} />
             </div>
-            <p className="text-lg sm:text-xl lg:text-2xl font-black text-gray-900">{card.value}</p>
-            <p className={`text-[10px] font-bold mt-1 ${card.noteColor}`}>{card.note}</p>
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">{card.value}</p>
+            <p className={`text-[10px] font-normal mt-1 ${card.noteColor}`}>{card.note}</p>
           </div>
         ))}
       </div>
@@ -161,7 +162,7 @@ export default function PaymentRequests() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 text-xs font-bold text-[#617589] uppercase tracking-wider border-b border-[#dbe0e6]">
+              <tr className="bg-gray-50 text-xs font-medium text-[#617589] uppercase tracking-wider border-b border-[#dbe0e6]">
                 <th className="px-6 py-4">Request ID</th>
                 <th className="px-6 py-4">Payee</th>
                 <th className="px-6 py-4">Requesting Member</th>
@@ -177,32 +178,32 @@ export default function PaymentRequests() {
                   key={req.id}
                   className="hover:bg-gray-50 transition-colors cursor-pointer"
                 >
-                  <td className="px-6 py-4 font-mono text-xs font-bold text-[#137fec]">
+                  <td className="px-6 py-4 font-mono text-xs font-medium text-[#137fec]">
                     {req.id}
                   </td>
                   <td className="px-6 py-4">
-                    <div className="font-bold text-gray-900">{req.payee}</div>
+                    <div className="font-medium text-gray-900">{req.payee}</div>
                     {req.payeeSub && (
                       <div className="text-[10px] text-[#617589]">{req.payeeSub}</div>
                     )}
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">
-                      <div className="h-6 w-6 rounded-full bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-600">
+                      <div className="h-6 w-6 rounded-full bg-gray-100 flex items-center justify-center text-[10px] font-normal text-gray-600">
                         {req.initials}
                       </div>
                       <span className="text-gray-900">{req.member}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 font-black text-gray-900">{req.amount}</td>
+                  <td className="px-6 py-4 font-medium text-gray-900">{req.amount}</td>
                   <td className="px-6 py-4">
-                    <span className="px-2 py-0.5 rounded bg-gray-100 text-[10px] font-medium text-gray-700">
+                    <span className="px-2 py-0.5 rounded bg-gray-100 text-[10px] font-normal text-gray-700">
                       {req.category}
                     </span>
                   </td>
                   <td className="px-6 py-4">
                     <span
-                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold ${statusStyles[req.status]}`}
+                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-normal ${statusStyles[req.status]}`}
                     >
                       <span
                         className={`h-1 w-1 rounded-full ${statusDot[req.status]}`}
@@ -221,14 +222,14 @@ export default function PaymentRequests() {
         <div className="p-4 border-t border-[#dbe0e6] flex items-center justify-between">
           <p className="text-xs text-[#617589]">Showing 1-5 of 32 requests</p>
           <div className="flex gap-2">
-            <button className="px-3 py-1 text-xs font-bold rounded border border-[#dbe0e6] hover:bg-gray-50 transition-colors">
+            <button className="px-3 py-1 text-xs font-medium rounded border border-[#dbe0e6] hover:bg-gray-50 transition-colors">
               Previous
             </button>
             {[1, 2].map((page) => (
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`px-3 py-1 text-xs font-bold rounded transition-colors ${
+                className={`px-3 py-1 text-xs font-medium rounded transition-colors ${
                   currentPage === page
                     ? "bg-[#137fec] text-white"
                     : "border border-[#dbe0e6] hover:bg-gray-50"
@@ -237,7 +238,7 @@ export default function PaymentRequests() {
                 {page}
               </button>
             ))}
-            <button className="px-3 py-1 text-xs font-bold rounded border border-[#dbe0e6] hover:bg-gray-50 transition-colors">
+            <button className="px-3 py-1 text-xs font-medium rounded border border-[#dbe0e6] hover:bg-gray-50 transition-colors">
               Next
             </button>
           </div>
@@ -251,7 +252,7 @@ export default function PaymentRequests() {
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-[#dbe0e6] p-6">
               <div>
-                <h2 className="text-xl font-black text-gray-900">New Payment Request</h2>
+                <h2 className="text-xl font-semibold text-gray-900">New Payment Request</h2>
                 <p className="text-sm text-[#617589]">Fill in the details for the outgoing payment</p>
               </div>
               <button
@@ -266,7 +267,7 @@ export default function PaymentRequests() {
             <form className="p-6 space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#617589] uppercase tracking-wider">Payee Name</label>
+                  <label className="text-xs font-medium text-[#617589] uppercase tracking-wider">Payee Name</label>
                   <input
                     type="text"
                     required
@@ -275,7 +276,7 @@ export default function PaymentRequests() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#617589] uppercase tracking-wider">Requesting Member</label>
+                  <label className="text-xs font-medium text-[#617589] uppercase tracking-wider">Requesting Member</label>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#617589] w-4 h-4" />
                     <input
@@ -286,7 +287,7 @@ export default function PaymentRequests() {
                   </div>
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#617589] uppercase tracking-wider">Amount (₱)</label>
+                  <label className="text-xs font-medium text-[#617589] uppercase tracking-wider">Amount (₱)</label>
                   <input
                     type="number"
                     required
@@ -296,24 +297,27 @@ export default function PaymentRequests() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#617589] uppercase tracking-wider">Account Category</label>
-                  <select
-                    defaultValue=""
-                    className="w-full rounded-lg border border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] px-4 py-2.5"
-                  >
-                    <option value="" disabled>Select category</option>
-                    <option value="maintenance">Maintenance</option>
-                    <option value="utilities">Utilities</option>
-                    <option value="outreach">Outreach</option>
-                    <option value="events">Events</option>
-                    <option value="office">Office Supplies</option>
-                    <option value="salary">Salary &amp; Wages</option>
-                  </select>
+                  <label className="text-xs font-medium text-[#617589] uppercase tracking-wider">Account Category</label>
+                  <div className="relative">
+                    <select
+                      defaultValue=""
+                      className="w-full appearance-none rounded-lg border border-[#dbe0e6] bg-white text-sm focus:ring-[#137fec] focus:border-[#137fec] px-4 py-2.5 pr-10"
+                    >
+                      <option value="" disabled>Select category</option>
+                      <option value="maintenance">Maintenance</option>
+                      <option value="utilities">Utilities</option>
+                      <option value="outreach">Outreach</option>
+                      <option value="events">Events</option>
+                      <option value="office">Office Supplies</option>
+                      <option value="salary">Salary &amp; Wages</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#617589] uppercase tracking-wider">Description</label>
+                <label className="text-xs font-medium text-[#617589] uppercase tracking-wider">Description</label>
                 <textarea
                   rows={3}
                   placeholder="Provide reason for payment or details about the items/services..."
@@ -322,7 +326,7 @@ export default function PaymentRequests() {
               </div>
 
               <div className="space-y-3">
-                <label className="text-xs font-bold text-[#617589] uppercase tracking-wider">Payment Method Preference</label>
+                <label className="text-xs font-medium text-[#617589] uppercase tracking-wider">Payment Method Preference</label>
                 <div className="flex flex-wrap gap-4">
                   {["check", "digital", "cash"].map((method) => (
                     <label key={method} className="flex items-center gap-2 cursor-pointer">
@@ -342,12 +346,12 @@ export default function PaymentRequests() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#617589] uppercase tracking-wider">Invoice or Receipt Attachment</label>
+                <label className="text-xs font-medium text-[#617589] uppercase tracking-wider">Invoice or Receipt Attachment</label>
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-[#dbe0e6] border-dashed rounded-xl hover:border-[#137fec] transition-colors group">
                   <div className="space-y-1 text-center">
                     <CloudUpload className="mx-auto w-10 h-10 text-[#617589] group-hover:text-[#137fec] mb-2" />
                     <div className="flex text-sm text-gray-600">
-                      <label className="relative cursor-pointer bg-transparent rounded-md font-bold text-[#137fec] hover:underline">
+                      <label className="relative cursor-pointer bg-transparent rounded-md font-medium text-[#137fec] hover:underline">
                         <span>Upload a file</span>
                         <input type="file" className="sr-only" />
                       </label>

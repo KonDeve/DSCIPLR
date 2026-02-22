@@ -17,29 +17,30 @@ const stats = [
   {
     label: 'Total Members',
     value: '1,284',
-    icon: <Users className="w-5 h-5" />,
-    badge: { text: '12%', icon: <TrendingUp className="w-3 h-3" />, color: 'text-green-500' },
-    iconBg: 'bg-blue-100 text-blue-600',
+    icon: <Users className="w-4 h-4" />,
+    iconBg: 'bg-[#137fec]/10 text-[#137fec]',
+    trend: { text: '12% increase', up: true },
   },
   {
     label: 'Guest Registrations',
     value: '42',
-    icon: <UserPlus className="w-5 h-5" />,
-    badge: { text: '+8 new', color: 'text-green-500' },
-    iconBg: 'bg-purple-100 text-purple-600',
+    icon: <UserPlus className="w-4 h-4" />,
+    iconBg: 'bg-violet-50 text-violet-500',
+    trend: { text: '8 new this week', up: true },
   },
   {
     label: 'Pending Rentals',
     value: '₱12,450',
-    icon: <Banknote className="w-5 h-5" />,
-    badge: { text: '5 overdue', color: 'text-red-500' },
-    iconBg: 'bg-amber-100 text-amber-600',
+    icon: <Banknote className="w-4 h-4" />,
+    iconBg: 'bg-amber-50 text-amber-500',
+    trend: { text: '5 overdue', up: false },
   },
   {
     label: "Today's Events",
-    value: '3 Scheduled',
-    icon: <Calendar className="w-5 h-5" />,
-    iconBg: 'bg-green-100 text-green-600',
+    value: '3',
+    icon: <Calendar className="w-4 h-4" />,
+    iconBg: 'bg-emerald-50 text-emerald-500',
+    trend: { text: 'Scheduled today', neutral: true },
   },
 ];
 
@@ -117,11 +118,11 @@ export default function Dashboard() {
       {/* Welcome Banner */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#137fec] to-[#2a91f5] p-6 sm:p-8 text-white">
         <div className="relative z-10">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold mb-1">Welcome back, Jane!</h2>
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold mb-1">Welcome back, Jane!</h2>
           <p className="opacity-90 font-medium">
             Here's what's happening in your ministry today.
           </p>
-          <div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-white/20 backdrop-blur-md px-3 py-1.5 text-xs font-bold uppercase tracking-wider">
+          <div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-white/20 backdrop-blur-md px-3 py-1.5 text-xs font-medium uppercase tracking-wider">
             <Calendar className="w-4 h-4" />
             {today}
           </div>
@@ -133,29 +134,34 @@ export default function Dashboard() {
       </div>
 
       {/* Stat Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="bg-white p-5 sm:p-6 rounded-2xl border border-gray-200"
+            className="bg-white rounded-xl border border-gray-200 p-5 flex flex-col"
           >
-            <div className="flex items-center justify-between mb-4">
-              <div
-                className={`w-10 h-10 rounded-lg flex items-center justify-center ${stat.iconBg}`}
-              >
+            {/* Header */}
+            <div className="flex items-center justify-between mb-5">
+              <p className="text-sm font-normal text-gray-500">{stat.label}</p>
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${stat.iconBg}`}>
                 {stat.icon}
               </div>
-              {stat.badge && (
-                <span className={`text-xs font-bold flex items-center gap-0.5 ${stat.badge.color}`}>
-                  {stat.badge.icon}
-                  {stat.badge.text}
-                </span>
-              )}
             </div>
-            <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">
-              {stat.label}
-            </h4>
-            <p className="text-lg sm:text-xl lg:text-2xl font-extrabold text-gray-900">{stat.value}</p>
+            {/* Value */}
+            <p className="text-3xl font-semibold text-gray-900 tracking-tight">{stat.value}</p>
+            {/* Trend */}
+            {stat.trend && (
+              <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-1.5">
+                <span className={`text-xs flex items-center gap-1 font-normal ${
+                  stat.trend.neutral ? 'text-gray-400' : stat.trend.up ? 'text-emerald-600' : 'text-red-500'
+                }`}>
+                  {!stat.trend.neutral && (
+                    <TrendingUp className={`w-3.5 h-3.5 ${!stat.trend.up ? 'rotate-180' : ''}`} />
+                  )}
+                  {stat.trend.text}
+                </span>
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -167,11 +173,11 @@ export default function Dashboard() {
           {/* Today's Schedule */}
           <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
             <div className="p-5 sm:p-6 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="font-bold text-sm sm:text-base lg:text-lg flex items-center gap-2">
+              <h3 className="font-semibold text-sm sm:text-base lg:text-lg flex items-center gap-2">
                 <Clock className="w-5 h-5 text-[#137fec]" />
                 Today's Schedule
               </h3>
-              <button className="text-xs font-bold text-[#137fec] hover:underline cursor-pointer">
+              <button className="text-xs font-medium text-[#137fec] hover:underline cursor-pointer">
                 View Calendar
               </button>
             </div>
@@ -187,14 +193,14 @@ export default function Dashboard() {
                     }`}
                   >
                     <span
-                      className={`text-[10px] font-bold uppercase ${
+                      className={`text-[10px] font-normal uppercase ${
                         event.active ? 'text-[#137fec]' : 'text-gray-500'
                       }`}
                     >
                       {event.time}
                     </span>
                     <span
-                      className={`text-xs font-bold ${
+                      className={`text-xs font-normal ${
                         event.active ? 'text-[#137fec]' : 'text-gray-500'
                       }`}
                     >
@@ -202,14 +208,14 @@ export default function Dashboard() {
                     </span>
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-sm font-bold text-gray-900">{event.title}</h4>
+                    <h4 className="text-sm font-medium text-gray-900">{event.title}</h4>
                     <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
                       <MapPin className="w-3.5 h-3.5" />
                       {event.location}
                     </p>
                   </div>
                   <span
-                    className={`px-2 py-0.5 text-[10px] font-bold rounded uppercase ${event.statusColor}`}
+                    className={`px-2 py-0.5 text-[10px] font-normal rounded uppercase ${event.statusColor}`}
                   >
                     {event.status}
                   </span>
@@ -220,22 +226,22 @@ export default function Dashboard() {
 
           {/* Quick Actions */}
           <div className="bg-white rounded-2xl border border-gray-200 p-5 sm:p-6">
-            <h3 className="font-bold text-sm sm:text-base lg:text-lg mb-4 sm:mb-6 flex items-center gap-2">
+            <h3 className="font-semibold text-sm sm:text-base lg:text-lg mb-4 sm:mb-6 flex items-center gap-2">
               <Zap className="w-5 h-5 text-[#137fec]" />
               Quick Actions
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <button className="flex flex-col items-center gap-3 p-5 sm:p-6 rounded-2xl bg-[#137fec] text-white hover:-translate-y-1 transition-all cursor-pointer">
                 <UserPlus className="w-7 h-7 sm:w-8 sm:h-8" />
-                <span className="text-xs sm:text-sm font-bold">Add New Member</span>
+                <span className="text-xs sm:text-sm font-medium">Add New Member</span>
               </button>
               <button className="flex flex-col items-center gap-3 p-5 sm:p-6 rounded-2xl bg-white border-2 border-[#137fec]/10 text-[#137fec] hover:border-[#137fec] transition-all cursor-pointer">
                 <PlusCircle className="w-7 h-7 sm:w-8 sm:h-8" />
-                <span className="text-xs sm:text-sm font-bold">Create Event</span>
+                <span className="text-xs sm:text-sm font-medium">Create Event</span>
               </button>
               <button className="flex flex-col items-center gap-3 p-5 sm:p-6 rounded-2xl bg-white border-2 border-[#137fec]/10 text-[#137fec] hover:border-[#137fec] transition-all cursor-pointer">
                 <FileText className="w-7 h-7 sm:w-8 sm:h-8" />
-                <span className="text-xs sm:text-sm font-bold">Record Payment</span>
+                <span className="text-xs sm:text-sm font-medium">Record Payment</span>
               </button>
             </div>
           </div>
@@ -245,7 +251,7 @@ export default function Dashboard() {
         <div className="space-y-8">
           <div className="bg-white rounded-2xl border border-gray-200 flex flex-col h-full">
             <div className="p-5 sm:p-6 border-b border-gray-200">
-              <h3 className="font-bold text-sm sm:text-base lg:text-lg flex items-center gap-2">
+              <h3 className="font-semibold text-sm sm:text-base lg:text-lg flex items-center gap-2">
                 <Clock className="w-5 h-5 text-[#137fec]" />
                 Recent Activity
               </h3>
@@ -264,9 +270,9 @@ export default function Dashboard() {
                     {activity.icon}
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-gray-900">{activity.title}</p>
+                    <p className="text-sm font-medium text-gray-900">{activity.title}</p>
                     <p className="text-xs text-gray-500 mt-0.5">{activity.description}</p>
-                    <span className="text-[10px] text-gray-400 font-medium mt-1 inline-block uppercase tracking-tight">
+                    <span className="text-[10px] text-gray-400 font-normal mt-1 inline-block uppercase tracking-tight">
                       {activity.time}
                     </span>
                   </div>
@@ -274,7 +280,7 @@ export default function Dashboard() {
               ))}
             </div>
             <div className="p-5 sm:p-6 border-t border-gray-200">
-              <button className="w-full py-2 bg-gray-50 rounded-lg text-xs font-bold text-gray-500 hover:bg-gray-100 transition-all cursor-pointer">
+              <button className="w-full py-2 bg-gray-50 rounded-lg text-xs font-normal text-gray-500 hover:bg-gray-100 transition-all cursor-pointer">
                 View All Activity
               </button>
             </div>

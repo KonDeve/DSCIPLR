@@ -238,7 +238,7 @@ export default function Collections() {
       {/* ── Header Row ─────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-900">Collections Management Terminal</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Collections Management Terminal</h1>
           <p className="text-sm text-gray-500">Track and record all church financial contributions</p>
         </div>
         <div className="flex gap-3">
@@ -255,19 +255,50 @@ export default function Collections() {
       </div>
 
       {/* ── Filter Bar ─────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        {filters.map((f) => (
-          <div
-            key={f.label}
-            className="rounded-xl bg-white p-4 border border-gray-200 cursor-pointer hover:border-[#137fec]/40 transition-colors"
-          >
-            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{f.label}</p>
-            <div className="mt-2 flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-900">{f.value}</span>
-              {f.icon}
-            </div>
+      <div className="bg-white border border-gray-200 rounded-2xl px-5 py-4 flex flex-col lg:flex-row lg:items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Search */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-3.5 h-3.5" />
+            <input
+              className="h-9 pl-9 pr-4 bg-white border border-gray-200 rounded-lg text-xs w-56 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none placeholder-gray-400"
+              placeholder="Search member or donor…"
+              type="text"
+            />
           </div>
-        ))}
+          {/* Category */}
+          <div className="relative">
+            <select className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer">
+              <option>All Categories</option>
+              <option>Tithes &amp; Offerings</option>
+              <option>Building Fund</option>
+              <option>Missions</option>
+              <option>Rentals</option>
+            </select>
+            <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
+          </div>
+          {/* Payment Method */}
+          <div className="relative">
+            <select className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer">
+              <option>All Methods</option>
+              <option>Cash</option>
+              <option>Bank Transfer</option>
+              <option>Credit Card</option>
+              <option>Blockchain</option>
+            </select>
+            <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
+          </div>
+          {/* Status */}
+          <div className="relative">
+            <select className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer">
+              <option>All Records</option>
+              <option>Cleared</option>
+              <option>Pending</option>
+              <option>Bounced</option>
+            </select>
+            <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
+          </div>
+        </div>
       </div>
 
       {/* ── Collections Table ──────────────────────────────── */}
@@ -275,7 +306,7 @@ export default function Collections() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200">
+              <tr className="bg-gray-50 text-xs font-normal text-gray-500 uppercase tracking-wider border-b border-gray-200">
                 <th className="px-6 py-4">Member / Donor Name</th>
                 <th className="px-6 py-4">Category</th>
                 <th className="px-6 py-4">Amount</th>
@@ -295,18 +326,18 @@ export default function Collections() {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`h-8 w-8 rounded-full flex items-center justify-center font-bold text-xs ${row.initialsBg}`}
+                        className={`h-8 w-8 rounded-full flex items-center justify-center font-medium text-xs ${row.initialsBg}`}
                       >
                         {row.initials}
                       </div>
-                      <span className="font-bold">{row.name}</span>
+                      <span className="font-medium text-gray-900">{row.name}</span>
                     </div>
                   </td>
 
                   {/* Category Badge */}
                   <td className="px-6 py-4">
                     <span
-                      className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
+                      className={`px-2 py-1 rounded text-[10px] font-normal uppercase tracking-wider ${
                         categoryStyles[row.category] || 'bg-gray-100 text-gray-600'
                       }`}
                     >
@@ -315,7 +346,7 @@ export default function Collections() {
                   </td>
 
                   {/* Amount */}
-                  <td className="px-6 py-4 font-black">{row.amount}</td>
+                  <td className="px-6 py-4 font-medium">{row.amount}</td>
 
                   {/* Payment Method */}
                   <td className="px-6 py-4">
@@ -327,11 +358,11 @@ export default function Collections() {
                   {/* Status */}
                   <td className="px-6 py-4">
                     {row.status === 'Syncing' ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-normal bg-blue-100 text-blue-700">
                         <span className="h-1 w-1 rounded-full bg-blue-500 animate-pulse" /> Syncing
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-green-100 text-green-700">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-normal bg-green-100 text-green-700">
                         <span className="h-1 w-1 rounded-full bg-green-500" /> Confirmed
                       </span>
                     )}
@@ -351,7 +382,7 @@ export default function Collections() {
           <div className="flex gap-2">
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              className="px-3 py-1 text-xs font-bold rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+              className="px-3 py-1 text-xs font-medium rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
             >
               Previous
             </button>
@@ -359,7 +390,7 @@ export default function Collections() {
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`px-3 py-1 text-xs font-bold rounded cursor-pointer transition-colors ${
+                className={`px-3 py-1 text-xs font-medium rounded cursor-pointer transition-colors ${
                   currentPage === page
                     ? 'bg-[#137fec] text-white'
                     : 'border border-gray-200 hover:bg-gray-50'
@@ -370,7 +401,7 @@ export default function Collections() {
             ))}
             <button
               onClick={() => setCurrentPage((p) => p + 1)}
-              className="px-3 py-1 text-xs font-bold rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+              className="px-3 py-1 text-xs font-medium rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
             >
               Next
             </button>
@@ -386,11 +417,11 @@ export default function Collections() {
             className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200"
           >
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider">{card.label}</h3>
+              <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">{card.label}</h3>
               {card.icon}
             </div>
-            <p className="text-lg sm:text-xl lg:text-2xl font-black text-gray-900">{card.value}</p>
-            <p className={`text-[10px] font-bold mt-1 ${card.noteColor}`}>{card.note}</p>
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">{card.value}</p>
+            <p className={`text-[10px] font-normal mt-1 ${card.noteColor}`}>{card.note}</p>
           </div>
         ))}
       </div>
@@ -403,7 +434,7 @@ export default function Collections() {
             <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4 bg-gray-50">
               <div className="flex items-center gap-2">
                 <PlusCircle className="w-5 h-5 text-[#137fec]" />
-                <h3 className="text-base sm:text-lg font-bold">Record New Collection</h3>
+                <h3 className="text-base sm:text-lg font-semibold">Record New Collection</h3>
               </div>
               <button
                 onClick={handleCloseModal}
@@ -432,7 +463,7 @@ export default function Collections() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {/* Donor Name — full width */}
                 <div className="md:col-span-2 space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="donor">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="donor">
                     Donor Name
                   </label>
                   <div className="relative">
@@ -450,36 +481,39 @@ export default function Collections() {
 
                 {/* Category */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="category">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="category">
                     Account Category
                   </label>
-                  <select
-                    id="category"
-                    value={form.collectionTypeId}
-                    onChange={handleFieldChange('collectionTypeId')}
-                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
-                  >
-                    <option value="">Select category</option>
-                    {/* When collection types are loaded from DB they appear here */}
-                    {collectionTypes.length > 0
-                      ? collectionTypes.map((t) => (
-                          <option key={t.id} value={t.id}>{t.name}</option>
-                        ))
-                      : /* Fallback static options until DB is connected */ (
-                        <>
-                          <option value="tithe">Tithe</option>
-                          <option value="offering">Offering</option>
-                          <option value="building">Building Fund</option>
-                          <option value="missions">Missions</option>
-                          <option value="other">Other</option>
-                        </>
-                      )}
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="category"
+                      value={form.collectionTypeId}
+                      onChange={handleFieldChange('collectionTypeId')}
+                      className="w-full appearance-none rounded-lg border border-gray-200 bg-white px-4 py-2.5 pr-10 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                    >
+                      <option value="">Select category</option>
+                      {/* When collection types are loaded from DB they appear here */}
+                      {collectionTypes.length > 0
+                        ? collectionTypes.map((t) => (
+                            <option key={t.id} value={t.id}>{t.name}</option>
+                          ))
+                        : /* Fallback static options until DB is connected */ (
+                          <>
+                            <option value="tithe">Tithe</option>
+                            <option value="offering">Offering</option>
+                            <option value="building">Building Fund</option>
+                            <option value="missions">Missions</option>
+                            <option value="other">Other</option>
+                          </>
+                        )}
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
                 </div>
 
                 {/* Date */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="col-date">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="col-date">
                     Date
                   </label>
                   <input
@@ -493,11 +527,11 @@ export default function Collections() {
 
                 {/* Amount */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="amount">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="amount">
                     Amount
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-bold">₱</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium">₱</span>
                     <input
                       id="amount"
                       type="number"
@@ -506,36 +540,39 @@ export default function Collections() {
                       placeholder="0.00"
                       value={form.amount}
                       onChange={handleFieldChange('amount')}
-                      className="w-full rounded-lg border border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                      className="w-full rounded-lg border border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm font-normal focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                     />
                   </div>
                 </div>
 
                 {/* Payment Method */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="method">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="method">
                     Payment Method
                   </label>
-                  <select
-                    id="method"
-                    value={form.paymentMethod}
-                    onChange={handleFieldChange('paymentMethod')}
-                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
-                  >
-                    <option value="">Select method</option>
-                    <option value="cash">Cash</option>
-                    <option value="check">Check</option>
-                    <option value="online_transfer">Online Transfer</option>
-                    <option value="gcash">GCash</option>
-                    <option value="maya">Maya</option>
-                    <option value="bank_deposit">Bank Deposit</option>
-                    <option value="credit_card">Credit Card</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="method"
+                      value={form.paymentMethod}
+                      onChange={handleFieldChange('paymentMethod')}
+                      className="w-full appearance-none rounded-lg border border-gray-200 bg-white px-4 py-2.5 pr-10 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                    >
+                      <option value="">Select method</option>
+                      <option value="cash">Cash</option>
+                      <option value="check">Check</option>
+                      <option value="online_transfer">Online Transfer</option>
+                      <option value="gcash">GCash</option>
+                      <option value="maya">Maya</option>
+                      <option value="bank_deposit">Bank Deposit</option>
+                      <option value="credit_card">Credit Card</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
                 </div>
 
                 {/* Notes — full width */}
                 <div className="md:col-span-2 space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="notes">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="notes">
                     Notes (Optional)
                   </label>
                   <textarea

@@ -95,7 +95,7 @@ export default function Dashboard() {
       {/* ── Header Row ─────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-900">Treasurer Financial Overview</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Treasurer Financial Overview</h1>
           <p className="text-sm text-gray-500">Real-time blockchain-enabled financial monitoring</p>
         </div>
         <div className="flex gap-3">
@@ -117,12 +117,12 @@ export default function Dashboard() {
           >
             <div className="flex justify-between items-start mb-4">
               <div className={`rounded-lg p-2 ${card.iconBg}`}>{card.icon}</div>
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase ${card.badge.color}`}>
+              <span className={`text-[10px] font-normal px-2 py-0.5 rounded uppercase ${card.badge.color}`}>
                 {card.badge.text}
               </span>
             </div>
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">{card.label}</p>
-            <p className="mt-1 text-lg sm:text-xl lg:text-2xl font-black text-gray-900">{card.value}</p>
+            <p className="text-xs font-normal text-gray-500 uppercase tracking-wider">{card.label}</p>
+            <p className="mt-1 text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">{card.value}</p>
             <p className={`mt-2 text-[10px] text-gray-500 truncate ${card.mono ? 'font-mono' : ''}`}>
               {card.footnote}
             </p>
@@ -137,15 +137,15 @@ export default function Dashboard() {
           {/* Cash Flow Chart */}
           <div className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200">
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-base sm:text-lg font-bold">Cash Flow (Last 30 Days)</h3>
+              <h3 className="text-base sm:text-lg font-semibold">Cash Flow (Last 30 Days)</h3>
               <div className="flex gap-4">
                 <div className="flex items-center gap-2">
                   <span className="h-3 w-3 rounded-full bg-[#137fec]" />
-                  <span className="text-xs font-medium text-gray-500">Income</span>
+                  <span className="text-xs font-normal text-gray-500">Income</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="h-3 w-3 rounded-full bg-red-400" />
-                  <span className="text-xs font-medium text-gray-500">Expenses</span>
+                  <span className="text-xs font-normal text-gray-500">Expenses</span>
                 </div>
               </div>
             </div>
@@ -165,15 +165,15 @@ export default function Dashboard() {
           {/* Recent Collections Table */}
           <div className="rounded-xl bg-white border border-gray-200 overflow-hidden">
             <div className="p-5 sm:p-6 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="text-base sm:text-lg font-bold">Recent Collections</h3>
-              <button className="text-[#137fec] text-sm font-bold hover:underline cursor-pointer">
+              <h3 className="text-base sm:text-lg font-semibold">Recent Collections</h3>
+              <button className="text-[#137fec] text-sm font-medium hover:underline cursor-pointer">
                 View All
               </button>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="bg-gray-50 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                  <tr className="bg-gray-50 text-xs font-normal text-gray-500 uppercase tracking-wider">
                     <th className="px-6 py-4">Member Name</th>
                     <th className="px-6 py-4">Category</th>
                     <th className="px-6 py-4">Amount</th>
@@ -186,14 +186,14 @@ export default function Dashboard() {
                     <tr key={row.name} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4 font-medium">{row.name}</td>
                       <td className="px-6 py-4 text-gray-500">{row.category}</td>
-                      <td className="px-6 py-4 font-black text-green-600">{row.amount}</td>
+                      <td className="px-6 py-4 font-medium text-green-600">{row.amount}</td>
                       <td className="px-6 py-4">
                         {row.syncing ? (
-                          <span className="flex items-center gap-1 text-[10px] font-bold text-yellow-600">
+                          <span className="flex items-center gap-1 text-[10px] font-normal text-yellow-600">
                             <RefreshCw className="w-3.5 h-3.5" /> Syncing
                           </span>
                         ) : (
-                          <span className="flex items-center gap-1 text-[10px] font-bold text-green-600">
+                          <span className="flex items-center gap-1 text-[10px] font-normal text-green-600">
                             <CheckCircle className="w-3.5 h-3.5" /> Confirmed
                           </span>
                         )}
@@ -212,8 +212,8 @@ export default function Dashboard() {
           {/* Pending Approvals */}
           <div className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-base sm:text-lg font-bold">Pending Approvals</h3>
-              <span className="rounded bg-yellow-500/10 px-2 py-0.5 text-xs font-bold text-yellow-600">
+              <h3 className="text-base sm:text-lg font-semibold">Pending Approvals</h3>
+              <span className="rounded bg-yellow-500/10 px-2 py-0.5 text-xs font-medium text-yellow-600">
                 Action Required
               </span>
             </div>
@@ -224,21 +224,21 @@ export default function Dashboard() {
                   className="group cursor-pointer rounded-lg border border-gray-200 p-3 hover:border-[#137fec] transition-colors"
                 >
                   <div className="flex justify-between items-start mb-1">
-                    <h4 className="text-sm font-bold truncate group-hover:text-[#137fec] transition-colors">
+                    <h4 className="text-sm font-medium truncate group-hover:text-[#137fec] transition-colors">
                       {item.title}
                     </h4>
                     <span className="text-[10px] text-gray-500 shrink-0 ml-2">{item.time}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-xs font-black text-[#137fec]">{item.amount}</span>
-                    <span className="text-[10px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                    <span className="text-xs font-medium text-[#137fec]">{item.amount}</span>
+                    <span className="text-[10px] font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
                       {item.tag}
                     </span>
                   </div>
                 </div>
               ))}
             </div>
-            <button className="mt-6 w-full py-2.5 text-xs font-bold text-[#137fec] bg-[#137fec]/10 rounded-lg hover:bg-[#137fec]/20 transition-colors cursor-pointer">
+            <button className="mt-6 w-full py-2.5 text-xs font-medium text-[#137fec] bg-[#137fec]/10 rounded-lg hover:bg-[#137fec]/20 transition-colors cursor-pointer">
               Go to Requests Panel
             </button>
           </div>
@@ -250,14 +250,14 @@ export default function Dashboard() {
                 <ShieldCheck className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h4 className="text-sm font-bold">Ledger Integrity</h4>
+                <h4 className="text-sm font-medium">Ledger Integrity</h4>
                 <p className="text-[10px] text-white/70">Blockchain Protocol v2.1</p>
               </div>
             </div>
             <div className="space-y-3">
               <div className="flex justify-between items-center text-[10px]">
                 <span className="text-white/80">Network Nodes</span>
-                <span className="font-bold">Active (12/12)</span>
+                <span className="font-medium text-gray-900">Active (12/12)</span>
               </div>
               <div className="h-1.5 w-full bg-white/20 rounded-full overflow-hidden">
                 <div className="h-full bg-white w-full rounded-full" />
@@ -268,16 +268,16 @@ export default function Dashboard() {
               </p>
               <div className="pt-2 flex items-center gap-2">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span className="text-[10px] font-bold tracking-widest uppercase">Verified Secure</span>
+                <span className="text-[10px] font-normal tracking-widest uppercase">Verified Secure</span>
               </div>
             </div>
           </div>
 
           {/* Monthly Goal */}
           <div className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200">
-            <h3 className="text-sm font-bold mb-4 uppercase tracking-widest text-gray-500">Monthly Goal</h3>
+            <h3 className="text-sm font-medium mb-4 uppercase tracking-widest text-gray-500">Monthly Goal</h3>
             <div className="flex justify-between items-end mb-2">
-              <span className="text-lg sm:text-xl lg:text-2xl font-black text-gray-900">₱64k</span>
+              <span className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">₱64k</span>
               <span className="text-xs text-gray-500 pb-1">Target: ₱80k</span>
             </div>
             <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">

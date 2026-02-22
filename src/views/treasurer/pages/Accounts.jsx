@@ -8,6 +8,7 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
 } from 'lucide-react';
 
 /* ── Static demo data ─────────────────────────────────────── */
@@ -98,7 +99,7 @@ export default function Accounts() {
       {/* ── Header Row ─────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-900">Account Categories</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Account Categories</h1>
           <p className="text-sm text-gray-500">Manage church financial funds and budget allocations</p>
         </div>
         <div className="flex gap-3">
@@ -122,11 +123,11 @@ export default function Accounts() {
             className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200"
           >
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider">{card.label}</h3>
+              <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">{card.label}</h3>
               {card.icon}
             </div>
-            <p className="text-lg sm:text-xl lg:text-2xl font-black text-gray-900">{card.value}</p>
-            <p className={`text-[10px] font-bold mt-1 ${card.noteColor}`}>{card.note}</p>
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">{card.value}</p>
+            <p className={`text-[10px] font-normal mt-1 ${card.noteColor}`}>{card.note}</p>
           </div>
         ))}
       </div>
@@ -136,7 +137,7 @@ export default function Accounts() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200">
+              <tr className="bg-gray-50 text-xs font-normal text-gray-500 uppercase tracking-wider border-b border-gray-200">
                 <th className="px-6 py-4">Category Name</th>
                 <th className="px-6 py-4">Description</th>
                 <th className="px-6 py-4">Total Accumulated</th>
@@ -153,7 +154,7 @@ export default function Accounts() {
                 >
                   {/* Category Name */}
                   <td className="px-6 py-4">
-                    <div className="font-bold text-[#137fec]">{row.name}</div>
+                    <div className="font-medium text-[#137fec]">{row.name}</div>
                     <div className="text-[10px] text-gray-500">Code: {row.code}</div>
                   </td>
 
@@ -163,13 +164,13 @@ export default function Accounts() {
                   </td>
 
                   {/* Total Accumulated */}
-                  <td className="px-6 py-4 font-black">{row.accumulated}</td>
+                  <td className="px-6 py-4 font-medium">{row.accumulated}</td>
 
                   {/* Budget Allocation */}
                   <td className="px-6 py-4 text-gray-500">
                     {row.allocationPercent > 0 ? (
                       <div className="flex flex-col gap-1">
-                        <span className="text-xs font-bold">{row.allocation}</span>
+                        <span className="text-xs font-medium">{row.allocation}</span>
                         <div className="w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                           <div
                             className={`${row.allocationColor} h-full`}
@@ -185,11 +186,11 @@ export default function Accounts() {
                   {/* Status */}
                   <td className="px-6 py-4">
                     {row.status === 'Active' ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-green-100 text-green-700">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-normal bg-green-100 text-green-700">
                         <span className="h-1 w-1 rounded-full bg-green-500" /> Active
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-gray-100 text-gray-700">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-normal bg-gray-100 text-gray-700">
                         <span className="h-1 w-1 rounded-full bg-gray-500" /> Inactive
                       </span>
                     )}
@@ -213,7 +214,7 @@ export default function Accounts() {
           <div className="flex gap-2">
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              className="px-3 py-1 text-xs font-bold rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+              className="px-3 py-1 text-xs font-medium rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
             >
               Previous
             </button>
@@ -221,7 +222,7 @@ export default function Accounts() {
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`px-3 py-1 text-xs font-bold rounded cursor-pointer transition-colors ${
+                className={`px-3 py-1 text-xs font-medium rounded cursor-pointer transition-colors ${
                   currentPage === page
                     ? 'bg-[#137fec] text-white'
                     : 'border border-gray-200 hover:bg-gray-50'
@@ -232,7 +233,7 @@ export default function Accounts() {
             ))}
             <button
               onClick={() => setCurrentPage((p) => p + 1)}
-              className="px-3 py-1 text-xs font-bold rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+              className="px-3 py-1 text-xs font-medium rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
             >
               Next
             </button>
@@ -248,7 +249,7 @@ export default function Accounts() {
             <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4 bg-gray-50">
               <div className="flex items-center gap-2">
                 <PlusCircle className="w-5 h-5 text-[#137fec]" />
-                <h3 className="text-base sm:text-lg font-bold">New Category</h3>
+                <h3 className="text-base sm:text-lg font-semibold">New Category</h3>
               </div>
               <button
                 onClick={() => setModalOpen(false)}
@@ -263,7 +264,7 @@ export default function Accounts() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {/* Category Name */}
                 <div className="md:col-span-2 space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="catName">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="catName">
                     Category Name
                   </label>
                   <input
@@ -276,7 +277,7 @@ export default function Accounts() {
 
                 {/* Category Code */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="catCode">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="catCode">
                     Category Code
                   </label>
                   <input
@@ -289,56 +290,62 @@ export default function Accounts() {
 
                 {/* Status */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="catStatus">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="catStatus">
                     Status
                   </label>
-                  <select
-                    id="catStatus"
-                    defaultValue="active"
-                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
-                  >
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="catStatus"
+                      defaultValue="active"
+                      className="w-full appearance-none rounded-lg border border-gray-200 bg-white px-4 py-2.5 pr-10 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                    >
+                      <option value="active">Active</option>
+                      <option value="inactive">Inactive</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
                 </div>
 
                 {/* Budget Allocation */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="catBudget">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="catBudget">
                     Budget Allocation
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-bold">₱</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium">₱</span>
                     <input
                       id="catBudget"
                       type="number"
                       step="0.01"
                       placeholder="0.00"
-                      className="w-full rounded-lg border border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm font-bold focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                      className="w-full rounded-lg border border-gray-200 bg-white pl-8 pr-4 py-2.5 text-sm font-normal focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                     />
                   </div>
                 </div>
 
                 {/* Allocation Type */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="catAllocType">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="catAllocType">
                     Allocation Type
                   </label>
-                  <select
-                    id="catAllocType"
-                    defaultValue=""
-                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
-                  >
-                    <option disabled value="">Select type</option>
-                    <option value="unrestricted">Unrestricted</option>
-                    <option value="goal">Goal-based</option>
-                    <option value="annual">Annual Budget</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="catAllocType"
+                      defaultValue=""
+                      className="w-full appearance-none rounded-lg border border-gray-200 bg-white px-4 py-2.5 pr-10 text-sm focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                    >
+                      <option disabled value="">Select type</option>
+                      <option value="unrestricted">Unrestricted</option>
+                      <option value="goal">Goal-based</option>
+                      <option value="annual">Annual Budget</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
                 </div>
 
                 {/* Description — full width */}
                 <div className="md:col-span-2 space-y-1.5">
-                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider" htmlFor="catDesc">
+                  <label className="text-xs font-normal text-gray-500 uppercase tracking-wider" htmlFor="catDesc">
                     Description
                   </label>
                   <textarea

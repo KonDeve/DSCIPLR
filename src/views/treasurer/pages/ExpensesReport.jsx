@@ -85,7 +85,7 @@ export default function ExpensesReport() {
       {/* ── Header Row ─────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-900">Expenses Report</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Expenses Report</h1>
           <p className="text-sm text-gray-500">Detailed breakdown of all church expenditures and disbursements</p>
         </div>
         <div className="flex gap-3">
@@ -109,11 +109,11 @@ export default function ExpensesReport() {
             className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200"
           >
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">{card.label}</h3>
+              <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider">{card.label}</h3>
               <span className={`p-1.5 rounded-lg ${card.iconBg}`}>{card.icon}</span>
             </div>
-            <p className="text-lg sm:text-xl lg:text-2xl font-black text-gray-900">{card.value}</p>
-            <p className={`text-[10px] font-bold mt-1 flex items-center gap-1 ${card.noteColor}`}>
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">{card.value}</p>
+            <p className={`text-[10px] font-normal mt-1 flex items-center gap-1 ${card.noteColor}`}>
               {card.trend && card.trend}
               {card.note}
             </p>
@@ -135,9 +135,9 @@ export default function ExpensesReport() {
         </div>
         <div className="flex flex-wrap items-center gap-3 w-full lg:w-2/3 lg:justify-end">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-gray-500">Category:</span>
+            <span className="text-xs font-medium text-gray-500">Category:</span>
             <select
-              className="rounded-lg border-gray-200 bg-gray-100 text-xs font-bold py-1.5 focus:ring-[#137fec] min-w-[140px]"
+              className="rounded-lg border-gray-200 bg-gray-100 text-xs font-normal py-1.5 focus:ring-[#137fec] min-w-[140px]"
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
             >
@@ -152,9 +152,9 @@ export default function ExpensesReport() {
             </select>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-gray-500">Status:</span>
+            <span className="text-xs font-medium text-gray-500">Status:</span>
             <select
-              className="rounded-lg border-gray-200 bg-gray-100 text-xs font-bold py-1.5 focus:ring-[#137fec] min-w-[140px]"
+              className="rounded-lg border-gray-200 bg-gray-100 text-xs font-normal py-1.5 focus:ring-[#137fec] min-w-[140px]"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >
@@ -165,11 +165,11 @@ export default function ExpensesReport() {
             </select>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-gray-500">Date:</span>
+            <span className="text-xs font-medium text-gray-500">Date:</span>
             <div className="flex items-center bg-gray-100 rounded-lg px-3 py-1.5 border border-gray-200">
               <Calendar className="w-4 h-4 mr-2 text-gray-500" />
               <input
-                className="bg-transparent border-none p-0 text-xs font-bold focus:ring-0 w-48"
+                className="bg-transparent border-none p-0 text-xs font-normal focus:ring-0 w-48"
                 type="text"
                 value={dateRange}
                 onChange={(e) => setDateRange(e.target.value)}
@@ -184,7 +184,7 @@ export default function ExpensesReport() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="text-[10px] font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 bg-gray-50/50">
+              <tr className="text-[10px] font-normal text-gray-500 uppercase tracking-wider border-b border-gray-200 bg-gray-50/50">
                 <th className="px-6 py-4">Ref ID</th>
                 <th className="px-6 py-4">Payee</th>
                 <th className="px-6 py-4">Account Category</th>
@@ -198,29 +198,29 @@ export default function ExpensesReport() {
               {expenses.map((row) => (
                 <tr key={row.refId} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4 font-mono text-gray-500">{row.refId}</td>
-                  <td className="px-6 py-4 font-bold">{row.payee}</td>
+                  <td className="px-6 py-4 font-medium">{row.payee}</td>
                   <td className="px-6 py-4">
-                    <span className={`px-2 py-0.5 rounded font-bold text-[10px] ${categoryStyles[row.category] || 'bg-gray-100 text-gray-700'}`}>
+                    <span className={`px-2 py-0.5 rounded font-medium text-[10px] ${categoryStyles[row.category] || 'bg-gray-100 text-gray-700'}`}>
                       {row.category}
                     </span>
                   </td>
-                  <td className="px-6 py-4 font-black text-red-600">{row.amount}</td>
+                  <td className="px-6 py-4 font-semibold text-red-600">{row.amount}</td>
                   <td className="px-6 py-4 text-gray-500">{row.date}</td>
                   <td className="px-6 py-4">
                     {row.status === 'Released' ? (
-                      <div className="flex items-center gap-1.5 text-green-600 font-bold">
+                      <div className="flex items-center gap-1.5 text-green-600 font-medium">
                         <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                         Released
                       </div>
                     ) : (
-                      <div className="flex items-center gap-1.5 text-orange-600 font-bold">
+                      <div className="flex items-center gap-1.5 text-orange-600 font-medium">
                         <span className="h-1.5 w-1.5 rounded-full bg-orange-500 animate-pulse" />
                         Pending
                       </div>
                     )}
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-[#137fec] hover:text-[#137fec]/80 font-bold cursor-pointer">Details</button>
+                    <button className="text-[#137fec] hover:text-[#137fec]/80 font-medium cursor-pointer">Details</button>
                   </td>
                 </tr>
               ))}
@@ -230,11 +230,11 @@ export default function ExpensesReport() {
 
         {/* Pagination */}
         <div className="px-6 py-4 border-t border-gray-200 bg-gray-50/50 flex items-center justify-between">
-          <span className="text-xs font-bold text-gray-500">Showing 7 of 42 expenses</span>
+          <span className="text-xs font-medium text-gray-500">Showing 7 of 42 expenses</span>
           <div className="flex gap-2">
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              className="px-3 py-1 text-xs font-bold rounded border border-gray-200 hover:bg-white transition-colors cursor-pointer disabled:opacity-50"
+              className="px-3 py-1 text-xs font-medium rounded border border-gray-200 hover:bg-white transition-colors cursor-pointer disabled:opacity-50"
             >
               Previous
             </button>
@@ -242,7 +242,7 @@ export default function ExpensesReport() {
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`px-3 py-1 text-xs font-bold rounded cursor-pointer transition-colors ${
+                className={`px-3 py-1 text-xs font-medium rounded cursor-pointer transition-colors ${
                   currentPage === page
                     ? 'bg-[#137fec] text-white'
                     : 'border border-gray-200 hover:bg-white'
@@ -253,7 +253,7 @@ export default function ExpensesReport() {
             ))}
             <button
               onClick={() => setCurrentPage((p) => p + 1)}
-              className="px-3 py-1 text-xs font-bold rounded border border-gray-200 hover:bg-white transition-colors cursor-pointer"
+              className="px-3 py-1 text-xs font-medium rounded border border-gray-200 hover:bg-white transition-colors cursor-pointer"
             >
               Next
             </button>

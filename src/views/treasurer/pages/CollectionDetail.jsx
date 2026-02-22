@@ -186,7 +186,7 @@ export default function CollectionDetail() {
         <p className="text-gray-500 text-sm">Collection record not found.</p>
         <button
           onClick={() => navigate('/treasurer/collections')}
-          className="mt-4 text-sm font-bold text-[#137fec] hover:underline cursor-pointer"
+          className="mt-4 text-sm font-medium text-[#137fec] hover:underline cursor-pointer"
         >
           Back to Collections
         </button>
@@ -200,7 +200,7 @@ export default function CollectionDetail() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <button
           onClick={() => navigate('/treasurer/collections')}
-          className="flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-[#137fec] transition-colors group cursor-pointer"
+          className="flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#137fec] transition-colors group cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Back to Collections
@@ -275,15 +275,15 @@ export default function CollectionDetail() {
             <div className="space-y-8">
               {/* Donor Info */}
               <div>
-                <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">
+                <p className="text-[10px] font-normal text-gray-500 uppercase tracking-widest mb-4">
                   Donor Information
                 </p>
                 <div className="flex items-center gap-5">
-                  <div className="h-16 w-16 rounded-full bg-[#137fec]/10 flex items-center justify-center text-[#137fec] text-2xl font-black">
+                  <div className="h-16 w-16 rounded-full bg-[#137fec]/10 flex items-center justify-center text-[#137fec] text-2xl font-semibold">
                     {record.initials}
                   </div>
                   <div>
-                    <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-900">{record.name}</h1>
+                    <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">{record.name}</h1>
                     <p className="text-sm text-gray-500">
                       {record.memberType} • ID: {record.memberId}
                     </p>
@@ -294,29 +294,29 @@ export default function CollectionDetail() {
               {/* Amount + Date */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 py-8 border-y border-gray-200">
                 <div>
-                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">
+                  <p className="text-[10px] font-normal text-gray-500 uppercase tracking-widest mb-2">
                     Contribution Amount
                   </p>
-                  <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#137fec]">{record.amount}</p>
+                  <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#137fec]">{record.amount}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">
+                  <p className="text-[10px] font-normal text-gray-500 uppercase tracking-widest mb-2">
                     Date Received
                   </p>
-                  <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{record.dateReceived}</p>
+                  <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">{record.dateReceived}</p>
                 </div>
               </div>
 
               {/* Category */}
               <div>
-                <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">
+                <p className="text-[10px] font-normal text-gray-500 uppercase tracking-widest mb-3">
                   Category Allocation
                 </p>
                 <div
                   className={`inline-flex items-center gap-3 px-4 py-2 rounded-xl ${record.categoryBg}`}
                 >
                   <Banknote className="w-5 h-5" />
-                  <span className="text-lg font-black tracking-wide uppercase">{record.category}</span>
+                  <span className="text-lg font-semibold tracking-wide uppercase">{record.category}</span>
                 </div>
               </div>
 
@@ -333,21 +333,21 @@ export default function CollectionDetail() {
         {/* Right — Metadata & Status */}
         <div className="space-y-6">
           <div className="rounded-2xl bg-white p-6 border border-gray-200">
-            <h3 className="text-sm font-black mb-6">Transaction Metadata</h3>
+            <h3 className="text-sm font-semibold mb-6">Transaction Metadata</h3>
             <div className="space-y-6">
               {/* Reference Number */}
               <div>
-                <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">
+                <p className="text-[10px] font-normal text-gray-500 uppercase tracking-wider mb-1">
                   Reference Number
                 </p>
-                <p className="text-sm font-mono font-bold bg-gray-100 px-2 py-1 rounded inline-block">
+                <p className="text-sm font-mono font-medium bg-gray-100 px-2 py-1 rounded inline-block">
                   {record.refNumber}
                 </p>
               </div>
 
               {/* Payment Method */}
               <div>
-                <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2">
+                <p className="text-[10px] font-normal text-gray-500 uppercase tracking-wider mb-2">
                   Payment Method
                 </p>
                 <div className="flex items-center gap-3">
@@ -355,7 +355,7 @@ export default function CollectionDetail() {
                     <Banknote className="w-5 h-5 text-gray-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold">{record.paymentMethod}</p>
+                    <p className="text-sm font-medium">{record.paymentMethod}</p>
                     <p className="text-[10px] text-gray-500">{record.paymentNote}</p>
                   </div>
                 </div>
@@ -363,7 +363,7 @@ export default function CollectionDetail() {
 
               {/* Status Timeline */}
               <div>
-                <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-4">
+                <p className="text-[10px] font-normal text-gray-500 uppercase tracking-wider mb-4">
                   Status Timeline
                 </p>
                 <div className="relative space-y-6 pl-6 border-l-2 border-gray-200">
@@ -378,7 +378,7 @@ export default function CollectionDetail() {
                       </span>
                       <div>
                         <p
-                          className={`text-xs font-bold ${
+                          className={`text-xs font-medium ${
                             step.pending ? 'text-orange-600' : 'text-gray-900'
                           }`}
                         >
@@ -398,7 +398,7 @@ export default function CollectionDetail() {
             <div className="rounded-2xl bg-orange-50 p-6 border border-orange-200">
               <div className="flex items-center gap-3 mb-2">
                 <Clock className="w-5 h-5 text-orange-600" />
-                <h4 className="text-xs font-bold text-orange-600">Accounting Note</h4>
+                <h4 className="text-xs font-medium text-orange-600">Accounting Note</h4>
               </div>
               <p className="text-xs text-gray-500 leading-relaxed">{record.accountingNote}</p>
             </div>

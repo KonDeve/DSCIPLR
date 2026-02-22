@@ -18,10 +18,11 @@ import {
   Search,
   AlertCircle,
   Loader2,
+  ChevronDown,
 } from 'lucide-react';
 import { MemberController } from '@/controllers';
 
-// ”€”€”€ helpers ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// ������ helpers ��������������������������������������������������������������������������������������������������������������������������������
 
 const PAGE_SIZE = 10;
 
@@ -64,7 +65,7 @@ function getAvatarColors(str = '') {
 }
 
 function formatDate(iso) {
-  if (!iso) return '€”';
+  if (!iso) return '��';
   return new Date(iso).toLocaleDateString('en-US', {
     month: 'short',
     day: '2-digit',
@@ -248,11 +249,11 @@ export default function Members() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <BadgeCheck className="w-4 h-4 text-[#137fec]" />
-            <span className="text-[10px] font-bold text-[#137fec] uppercase tracking-widest">
+            <span className="text-[10px] font-normal text-[#137fec] uppercase tracking-widest">
               Administrative Hub
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight mb-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight mb-2">
             Member &amp; Guest Directory
           </h2>
           <p className="text-gray-500">
@@ -283,11 +284,11 @@ export default function Members() {
               <Users className="w-5 h-5" />
             </div>
           </div>
-          <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
+          <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">
             Total Members
           </p>
-          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">
-            {loading ? '€”' : totalMembers.toLocaleString()}
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-semibold">
+            {loading ? '��' : totalMembers.toLocaleString()}
           </h4>
         </div>
 
@@ -298,11 +299,11 @@ export default function Members() {
               <CircleUser className="w-5 h-5" />
             </div>
           </div>
-          <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
+          <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">
             Active Guests
           </p>
-          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">
-            {loading ? '€”' : activeGuests.toLocaleString()}
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-semibold">
+            {loading ? '��' : activeGuests.toLocaleString()}
           </h4>
         </div>
 
@@ -312,15 +313,15 @@ export default function Members() {
             <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">
               <Sparkles className="w-5 h-5" />
             </div>
-            <span className="text-xs font-bold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">
+            <span className="text-xs font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">
               New
             </span>
           </div>
-          <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
+          <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">
             New Registrations (This Month)
           </p>
-          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">
-            {loading ? '€”' : newThisMonth.toLocaleString()}
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-semibold">
+            {loading ? '��' : newThisMonth.toLocaleString()}
           </h4>
         </div>
       </div>
@@ -328,52 +329,57 @@ export default function Members() {
       {/* Members Table */}
       <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
         {/* Filters Bar */}
-        <div className="p-6 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4 flex-wrap">
+        <div className="px-5 py-4 border-b border-gray-200 bg-gray-50/60 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
             {/* Search */}
-            <div className="flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-2 bg-gray-50">
-              <Search className="w-4 h-4 text-gray-400 shrink-0" />
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-3.5 h-3.5" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search name, email, ID..."
-                className="border-none bg-transparent p-0 text-sm font-medium focus:ring-0 w-40 placeholder-gray-400"
+                className="h-9 pl-9 pr-4 bg-white border border-gray-200 rounded-lg text-xs w-56 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none placeholder-gray-400"
               />
             </div>
-
-            {/* Type filter */}
-            <div className="flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-2 bg-gray-50">
-              <span className="text-xs font-bold text-gray-500 uppercase">Type:</span>
+            {/* Type */}
+            <div className="relative">
               <select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                className="border-none bg-transparent p-0 text-sm font-semibold focus:ring-0 cursor-pointer"
+                className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer"
               >
-                <option value="all">All</option>
+                <option value="all">All Types</option>
                 <option value="member">Member</option>
                 <option value="guest">Guest</option>
               </select>
+              <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
             </div>
-
-            {/* Status filter */}
-            <div className="flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-2 bg-gray-50">
-              <span className="text-xs font-bold text-gray-500 uppercase">Status:</span>
+            {/* Status */}
+            <div className="relative">
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="border-none bg-transparent p-0 text-sm font-semibold focus:ring-0 cursor-pointer"
+                className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer"
               >
-                <option value="all">All</option>
+                <option value="all">All Statuses</option>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
                 <option value="deceased">Deceased</option>
                 <option value="transferred">Transferred</option>
               </select>
+              <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
             </div>
+            {/* Divider */}
+            <div className="w-px h-5 bg-gray-200" />
+            {/* Export */}
+            <button className="flex items-center gap-1.5 h-9 px-4 text-xs font-medium text-[#137fec] bg-[#137fec]/5 hover:bg-[#137fec]/10 rounded-lg transition-colors cursor-pointer shrink-0">
+              <Download className="w-3.5 h-3.5" />
+              Export CSV
+            </button>
           </div>
-          <div className="text-xs text-gray-500 font-medium">
-            {loading ? 'Loading€¦' : `Showing ${paginated.length} of ${filtered.length} entries`}
+          <div className="text-xs text-gray-400">
+            {loading ? 'Loading...' : `Showing ${paginated.length} of ${filtered.length} entries`}
           </div>
         </div>
 
@@ -388,7 +394,7 @@ export default function Members() {
         {/* Table */}
         <div className="overflow-x-auto">
           <table className="w-full text-left">
-            <thead className="bg-gray-50 text-gray-500 text-[10px] font-bold uppercase tracking-wider border-b border-gray-200">
+            <thead className="bg-gray-50 text-gray-500 text-[10px] font-normal uppercase tracking-wider border-b border-gray-200">
               <tr>
                 <th className="px-6 py-4">Member ID</th>
                 <th className="px-6 py-4">Name</th>
@@ -404,7 +410,7 @@ export default function Members() {
                 <tr>
                   <td colSpan={7} className="px-6 py-16 text-center">
                     <Loader2 className="w-6 h-6 animate-spin text-[#137fec] mx-auto mb-2" />
-                    <p className="text-sm text-gray-500">Loading members€¦</p>
+                    <p className="text-sm text-gray-500">Loading members��</p>
                   </td>
                 </tr>
               ) : paginated.length === 0 ? (
@@ -420,7 +426,7 @@ export default function Members() {
                   const isGuest = m.member_type === 'guest';
                   return (
                     <tr key={m.id} className="hover:bg-gray-50 transition-colors group">
-                      <td className="px-6 py-4 font-mono text-xs font-semibold text-[#137fec]">
+                      <td className="px-6 py-4 font-mono text-xs font-medium text-[#137fec]">
                         {m.member_id}
                       </td>
                       <td className="px-6 py-4">
@@ -433,17 +439,17 @@ export default function Members() {
                             />
                           ) : (
                             <div
-                              className={`w-8 h-8 rounded-full ${bg} flex items-center justify-center ${text} font-bold text-[10px]`}
+                              className={`w-8 h-8 rounded-full ${bg} flex items-center justify-center ${text} font-normal text-[10px]`}
                             >
                               {getInitials(m.full_name)}
                             </div>
                           )}
-                          <span className="font-bold text-sm">{m.full_name}</span>
+                          <span className="font-medium text-sm text-gray-900">{m.full_name}</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
                         <span
-                          className={`px-2 py-1 text-[10px] font-bold rounded uppercase ${
+                          className={`px-2 py-1 text-[10px] font-normal rounded uppercase ${
                             isGuest
                               ? 'bg-purple-50 text-purple-600'
                               : 'bg-blue-50 text-blue-600'
@@ -457,13 +463,13 @@ export default function Members() {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex flex-col gap-0.5">
-                          <span className="text-xs font-medium">{m.email || '€”'}</span>
-                          <span className="text-[10px] text-gray-500">{m.phone || '€”'}</span>
+                          <span className="text-xs font-medium">{m.email || '��'}</span>
+                          <span className="text-[10px] text-gray-500">{m.phone || '��'}</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
                         <div
-                          className={`flex items-center gap-1.5 ${stText} font-bold text-[10px] uppercase`}
+                          className={`flex items-center gap-1.5 ${stText} font-normal text-[10px] uppercase`}
                         >
                           <span className={`w-1.5 h-1.5 rounded-full ${stDot}`} />
                           {m.status}
@@ -487,7 +493,7 @@ export default function Members() {
           <button
             onClick={() => goToPage(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 border border-gray-200 rounded-lg text-xs font-bold hover:bg-white transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-4 py-2 border border-gray-200 rounded-lg text-xs font-medium hover:bg-white transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Previous
           </button>
@@ -496,7 +502,7 @@ export default function Members() {
               <button
                 key={p}
                 onClick={() => goToPage(p)}
-                className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+                className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                   currentPage === p ? 'bg-[#137fec] text-white' : 'hover:bg-gray-100'
                 }`}
               >
@@ -505,10 +511,10 @@ export default function Members() {
             ))}
             {totalPages > 5 && (
               <>
-                <span className="text-gray-500">€¦</span>
+                <span className="text-gray-500">��</span>
                 <button
                   onClick={() => goToPage(totalPages)}
-                  className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+                  className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                     currentPage === totalPages ? 'bg-[#137fec] text-white' : 'hover:bg-gray-100'
                   }`}
                 >
@@ -520,7 +526,7 @@ export default function Members() {
           <button
             onClick={() => goToPage(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 border border-gray-200 rounded-lg text-xs font-bold hover:bg-white transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-4 py-2 border border-gray-200 rounded-lg text-xs font-medium hover:bg-white transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Next
           </button>
@@ -534,7 +540,7 @@ export default function Members() {
             {/* Modal Header */}
             <div className="px-8 py-6 border-b border-gray-200 flex items-center justify-between shrink-0">
               <div>
-                <h3 className="text-base sm:text-lg xl:text-xl font-extrabold tracking-tight">
+                <h3 className="text-base sm:text-lg xl:text-xl font-semibold tracking-tight">
                   Register New Record
                 </h3>
                 <p className="text-gray-500 text-xs">
@@ -560,11 +566,11 @@ export default function Members() {
                   { n: 4, label: 'Files', sub: 'Verification', icon: ShieldCheck },
                 ].map(({ n, label, sub }) => (
                   <div key={n} className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#137fec] text-white flex items-center justify-center font-bold text-xs">
+                    <div className="w-8 h-8 rounded-full bg-[#137fec] text-white flex items-center justify-center font-medium text-xs">
                       {n}
                     </div>
                     <div>
-                      <p className="text-xs font-bold uppercase tracking-wider text-[#137fec]">
+                      <p className="text-xs font-medium uppercase tracking-wider text-[#137fec]">
                         {label}
                       </p>
                       <p className="text-[10px] text-gray-500">{sub}</p>
@@ -588,13 +594,13 @@ export default function Members() {
                   <section>
                     <div className="flex items-center gap-2 mb-6">
                       <User className="w-5 h-5 text-[#137fec]" />
-                      <h4 className="font-bold text-sm sm:text-base uppercase tracking-tight">
+                      <h4 className="font-semibold text-sm sm:text-base uppercase tracking-tight">
                         Section 1: Personal Information
                       </h4>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Full Name <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -607,7 +613,7 @@ export default function Members() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Date of Birth
                         </label>
                         <input
@@ -619,7 +625,7 @@ export default function Members() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Gender
                         </label>
                         <select
@@ -635,7 +641,7 @@ export default function Members() {
                         </select>
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Marital Status
                         </label>
                         <select
@@ -657,13 +663,13 @@ export default function Members() {
                   <section>
                     <div className="flex items-center gap-2 mb-6 pt-4 border-t border-dashed border-gray-200">
                       <Mail className="w-5 h-5 text-[#137fec]" />
-                      <h4 className="font-bold text-sm sm:text-base uppercase tracking-tight">
+                      <h4 className="font-semibold text-sm sm:text-base uppercase tracking-tight">
                         Section 2: Contact Information
                       </h4>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Mobile Number
                         </label>
                         <input
@@ -676,7 +682,7 @@ export default function Members() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Email Address
                         </label>
                         <input
@@ -689,7 +695,7 @@ export default function Members() {
                         />
                       </div>
                       <div className="col-span-full space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Residential Address
                         </label>
                         <textarea
@@ -697,7 +703,7 @@ export default function Members() {
                           value={form.address}
                           onChange={handleFormChange}
                           className="w-full px-4 py-2.5 bg-gray-50 border-none rounded-lg text-sm focus:ring-2 focus:ring-[#137fec] transition-all resize-none"
-                          placeholder="Enter full address€¦"
+                          placeholder="Enter full address��"
                           rows="3"
                         />
                       </div>
@@ -708,13 +714,13 @@ export default function Members() {
                   <section>
                     <div className="flex items-center gap-2 mb-6 pt-4 border-t border-dashed border-gray-200">
                       <Building2 className="w-5 h-5 text-[#137fec]" />
-                      <h4 className="font-bold text-sm sm:text-base uppercase tracking-tight">
+                      <h4 className="font-semibold text-sm sm:text-base uppercase tracking-tight">
                         Section 3: Church Specifics
                       </h4>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div className="space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Registration Type <span className="text-red-500">*</span>
                         </label>
                         <div className="flex gap-2">
@@ -736,7 +742,7 @@ export default function Members() {
                         </div>
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Join / Visit Date
                         </label>
                         <input
@@ -748,7 +754,7 @@ export default function Members() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Department
                         </label>
                         <select
@@ -771,14 +777,14 @@ export default function Members() {
                   <section>
                     <div className="flex items-center gap-2 mb-6 pt-4 border-t border-dashed border-gray-200">
                       <ShieldCheck className="w-5 h-5 text-[#137fec]" />
-                      <h4 className="font-bold text-sm sm:text-base uppercase tracking-tight">
+                      <h4 className="font-semibold text-sm sm:text-base uppercase tracking-tight">
                         Section 4: Attachments
                       </h4>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {/* Profile Photo */}
                       <div className="space-y-3">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Profile Photo
                         </label>
                         <input
@@ -794,11 +800,11 @@ export default function Members() {
                         >
                           <Image className="w-10 h-10 text-gray-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
                           {profileFile ? (
-                            <p className="text-xs font-semibold text-[#137fec] break-all">
+                            <p className="text-xs font-medium text-[#137fec] break-all">
                               {profileFile.name}
                             </p>
                           ) : (
-                            <p className="text-[10px] font-bold text-gray-500 uppercase">
+                            <p className="text-[10px] font-normal text-gray-500 uppercase">
                               Upload Portrait
                             </p>
                           )}
@@ -807,7 +813,7 @@ export default function Members() {
 
                       {/* ID Document */}
                       <div className="space-y-3">
-                        <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Identification Document (ID)
                         </label>
                         <input
@@ -823,11 +829,11 @@ export default function Members() {
                         >
                           <IdCard className="w-10 h-10 text-gray-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
                           {idFile ? (
-                            <p className="text-xs font-semibold text-[#137fec] break-all">
+                            <p className="text-xs font-medium text-[#137fec] break-all">
                               {idFile.name}
                             </p>
                           ) : (
-                            <p className="text-[10px] font-bold text-gray-500 uppercase">
+                            <p className="text-[10px] font-normal text-gray-500 uppercase">
                               Upload ID Front / Back
                             </p>
                           )}
@@ -841,7 +847,7 @@ export default function Members() {
 
             {/* Modal Footer */}
             <div className="px-8 py-6 border-t border-gray-200 bg-gray-50 flex items-center justify-between shrink-0">
-              <div className="flex items-center gap-2 text-[#137fec] font-bold text-xs uppercase tracking-widest">
+              <div className="flex items-center gap-2 text-[#137fec] font-medium text-xs uppercase tracking-widest">
                 <ShieldCheck className="w-4 h-4" />
                 Secure Registry
               </div>
@@ -861,7 +867,7 @@ export default function Members() {
                   {submitting ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      Saving€¦
+                      Saving��
                     </>
                   ) : (
                     <>

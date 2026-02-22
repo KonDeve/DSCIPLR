@@ -85,7 +85,7 @@ export default function CollectionsReport() {
       {/* ── Header Row ─────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-900">Collections Detailed Report</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Collections Detailed Report</h1>
           <p className="text-sm text-gray-500">In-depth analysis of all incoming church funds and donations</p>
         </div>
         <div className="flex gap-3">
@@ -109,11 +109,11 @@ export default function CollectionsReport() {
             className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200"
           >
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">{card.label}</h3>
+              <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider">{card.label}</h3>
               <span className={`p-1.5 rounded-lg ${card.iconBg}`}>{card.icon}</span>
             </div>
-            <p className="text-lg sm:text-xl lg:text-2xl font-black text-gray-900">{card.value}</p>
-            <p className={`text-[10px] font-bold mt-1 flex items-center gap-1 ${card.noteColor}`}>
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">{card.value}</p>
+            <p className={`text-[10px] font-normal mt-1 flex items-center gap-1 ${card.noteColor}`}>
               {card.trend && card.trend}
               {card.note}
             </p>
@@ -124,11 +124,11 @@ export default function CollectionsReport() {
       {/* ── Filters Section ────────────────────────────────── */}
       <div className="flex flex-col md:flex-row items-center justify-between bg-white p-4 rounded-xl border border-gray-200 gap-4">
         <div className="flex items-center gap-3">
-          <span className="text-xs font-bold text-gray-500">Date Range:</span>
+          <span className="text-xs font-medium text-gray-500">Date Range:</span>
           <div className="flex items-center bg-gray-100 rounded-lg px-3 py-1.5 border border-gray-200">
             <Calendar className="w-4 h-4 mr-2 text-gray-500" />
             <input
-              className="bg-transparent border-none p-0 text-xs font-bold focus:ring-0 w-44"
+              className="bg-transparent border-none p-0 text-xs font-normal focus:ring-0 w-44"
               type="text"
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
@@ -148,7 +148,7 @@ export default function CollectionsReport() {
           </div>
           <div className="flex items-center gap-2">
             <select
-              className="rounded-lg border-gray-200 bg-white py-1.5 text-xs font-bold focus:ring-[#137fec] focus:border-[#137fec]"
+              className="rounded-lg border-gray-200 bg-white py-1.5 text-xs font-normal focus:ring-[#137fec] focus:border-[#137fec]"
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
             >
@@ -159,7 +159,7 @@ export default function CollectionsReport() {
               <option value="missions">Missions</option>
             </select>
             <select
-              className="rounded-lg border-gray-200 bg-white py-1.5 text-xs font-bold focus:ring-[#137fec] focus:border-[#137fec]"
+              className="rounded-lg border-gray-200 bg-white py-1.5 text-xs font-normal focus:ring-[#137fec] focus:border-[#137fec]"
               value={methodFilter}
               onChange={(e) => setMethodFilter(e.target.value)}
             >
@@ -176,7 +176,7 @@ export default function CollectionsReport() {
       {/* ── Collections Table ──────────────────────────────── */}
       <div className="rounded-xl bg-white border border-gray-200 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200 bg-gray-50/50 flex items-center justify-between">
-          <h3 className="font-bold text-sm flex items-center gap-2">
+          <h3 className="font-semibold text-sm flex items-center gap-2">
             <PlusCircle className="w-4 h-4 text-green-500" /> All Collections Records
           </h3>
           <span className="text-xs text-gray-500">Showing 124 transactions</span>
@@ -184,7 +184,7 @@ export default function CollectionsReport() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="text-[10px] font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200">
+              <tr className="text-[10px] font-normal text-gray-500 uppercase tracking-wider border-b border-gray-200">
                 <th className="px-6 py-4">Transaction ID</th>
                 <th className="px-6 py-4">Donor Name</th>
                 <th className="px-6 py-4">Amount</th>
@@ -198,10 +198,10 @@ export default function CollectionsReport() {
               {collections.map((row) => (
                 <tr key={row.txnId} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4 font-mono text-gray-500">{row.txnId}</td>
-                  <td className="px-6 py-4 font-bold">{row.donor}</td>
-                  <td className="px-6 py-4 font-black text-green-600">{row.amount}</td>
+                  <td className="px-6 py-4 font-medium">{row.donor}</td>
+                  <td className="px-6 py-4 font-semibold text-green-600">{row.amount}</td>
                   <td className="px-6 py-4">
-                    <span className={`px-2 py-0.5 rounded font-bold ${categoryStyles[row.category] || 'bg-gray-100 text-gray-700'}`}>
+                    <span className={`px-2 py-0.5 rounded font-medium ${categoryStyles[row.category] || 'bg-gray-100 text-gray-700'}`}>
                       {row.category}
                     </span>
                   </td>
@@ -213,7 +213,7 @@ export default function CollectionsReport() {
                   </td>
                   <td className="px-6 py-4 text-gray-500">{row.date}</td>
                   <td className="px-6 py-4">
-                    <span className="inline-flex items-center gap-1 text-green-600 font-bold">
+                    <span className="inline-flex items-center gap-1 text-green-600 font-medium">
                       <span className="h-1.5 w-1.5 rounded-full bg-green-600" /> {row.status}
                     </span>
                   </td>
@@ -230,7 +230,7 @@ export default function CollectionsReport() {
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="px-3 py-1 text-xs font-bold rounded border border-gray-200 hover:bg-white transition-colors cursor-pointer disabled:opacity-50"
+              className="px-3 py-1 text-xs font-medium rounded border border-gray-200 hover:bg-white transition-colors cursor-pointer disabled:opacity-50"
             >
               Previous
             </button>
@@ -238,7 +238,7 @@ export default function CollectionsReport() {
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`px-3 py-1 text-xs font-bold rounded cursor-pointer transition-colors ${
+                className={`px-3 py-1 text-xs font-medium rounded cursor-pointer transition-colors ${
                   currentPage === page
                     ? 'bg-[#137fec] text-white border border-[#137fec]'
                     : 'border border-gray-200 hover:bg-white'
@@ -249,7 +249,7 @@ export default function CollectionsReport() {
             ))}
             <button
               onClick={() => setCurrentPage((p) => p + 1)}
-              className="px-3 py-1 text-xs font-bold rounded border border-gray-200 hover:bg-white transition-colors cursor-pointer"
+              className="px-3 py-1 text-xs font-medium rounded border border-gray-200 hover:bg-white transition-colors cursor-pointer"
             >
               Next
             </button>

@@ -75,7 +75,7 @@ export default function Login() {
 
           {/* Heading */}
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-900">Sign in to DSCIPLR</h1>
+            <h1 className="text-2xl font-semibold text-gray-900">Sign in to DSCIPLR</h1>
             <p className="text-sm text-gray-400 mt-1.5">
               Enter your credentials to access the admin panel
             </p>
@@ -180,7 +180,7 @@ export default function Login() {
           {/* Divider */}
           <div className="flex items-center gap-3 my-6">
             <div className="flex-1 h-px bg-gray-200" />
-            <span className="text-xs text-gray-400 font-medium tracking-wider uppercase">
+            <span className="text-xs text-gray-400 font-normal tracking-wider uppercase">
               Internal Access Only
             </span>
             <div className="flex-1 h-px bg-gray-200" />
@@ -197,11 +197,11 @@ export default function Login() {
           {/* Dev Accounts (only when Supabase is not configured) */}
           {!supabase && (
             <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
-              <p className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">
+              <p className="text-xs font-medium text-amber-700 uppercase tracking-wider mb-2">
                 Dev Mode — Test Accounts
               </p>
               <p className="text-[11px] text-amber-600 mb-3">
-                Password for all: <span className="font-mono font-bold">password</span>
+                Password for all: <span className="font-mono font-medium">password</span>
               </p>
               <div className="space-y-1.5">
                 {DEV_ACCOUNTS.map((acc) => (
@@ -215,7 +215,7 @@ export default function Login() {
                     className="w-full flex items-center justify-between px-3 py-1.5 text-xs rounded-lg hover:bg-amber-100 transition-colors cursor-pointer text-left"
                   >
                     <span className="font-medium text-amber-800">{acc.email}</span>
-                    <span className="text-[10px] font-bold text-amber-500 uppercase">{acc.role}</span>
+                    <span className="text-[10px] font-normal text-amber-500 uppercase">{acc.role}</span>
                   </button>
                 ))}
               </div>

@@ -6,6 +6,7 @@ import {
   ShieldCheck,
   User,
   MapPin,
+  ChevronDown,
 } from 'lucide-react';
 
 // ---- Demo data ----
@@ -96,11 +97,11 @@ export default function Reports() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <TrendingUp className="w-4 h-4 text-[#137fec]" />
-            <span className="text-[10px] font-bold text-[#137fec] uppercase tracking-widest">
+            <span className="text-[10px] font-normal text-[#137fec] uppercase tracking-widest">
               Operational Intelligence
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight mb-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight mb-2">
             Ministry Reports Dashboard
           </h2>
           <p className="text-gray-500">
@@ -126,14 +127,14 @@ export default function Reports() {
             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-[#137fec]">
               <TrendingUp className="w-5 h-5" />
             </div>
-            <span className="text-xs font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">
+            <span className="text-xs font-medium text-green-500 bg-green-50 px-2 py-0.5 rounded-full">
               +12%
             </span>
           </div>
-          <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
+          <p className="text-gray-500 text-xs font-normal uppercase tracking-wider mb-1">
             Average Weekly Attendance
           </p>
-          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">842</h4>
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-semibold">842</h4>
         </div>
 
         <div className="bg-white p-5 sm:p-6 border border-gray-200 rounded-2xl">
@@ -142,10 +143,10 @@ export default function Reports() {
               <UserPlus className="w-5 h-5" />
             </div>
           </div>
-          <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
+          <p className="text-gray-500 text-xs font-normal uppercase tracking-wider mb-1">
             Guest-to-Member Rate
           </p>
-          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">18.5%</h4>
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-semibold">18.5%</h4>
         </div>
 
         <div className="bg-white p-5 sm:p-6 border border-gray-200 rounded-2xl">
@@ -153,14 +154,14 @@ export default function Reports() {
             <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">
               <ShieldCheck className="w-5 h-5" />
             </div>
-            <span className="text-xs font-bold text-blue-500 bg-blue-50 px-2 py-0.5 rounded-full">
+            <span className="text-xs font-medium text-blue-500 bg-blue-50 px-2 py-0.5 rounded-full">
               Stable
             </span>
           </div>
-          <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
+          <p className="text-gray-500 text-xs font-normal uppercase tracking-wider mb-1">
             Total Active Members
           </p>
-          <h4 className="text-lg sm:text-xl lg:text-2xl font-extrabold">1,248</h4>
+          <h4 className="text-lg sm:text-xl lg:text-2xl font-semibold">1,248</h4>
         </div>
       </div>
 
@@ -169,10 +170,13 @@ export default function Reports() {
         {/* Attendance Trends */}
         <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
           <div className="p-5 sm:p-6 border-b border-gray-200 flex items-center justify-between">
-            <h3 className="font-bold text-sm sm:text-base">Attendance Trends (Last 6 Months)</h3>
-            <select className="bg-gray-50 border-none text-[10px] font-bold uppercase tracking-wider rounded-lg focus:ring-0 cursor-pointer py-1 px-2">
-              <option>All Services</option>
-            </select>
+            <h3 className="font-semibold text-sm sm:text-base">Attendance Trends (Last 6 Months)</h3>
+            <div className="relative">
+              <select className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer">
+                <option>All Services</option>
+              </select>
+              <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
+            </div>
           </div>
           <div className="p-8 flex-1 flex flex-col justify-end min-h-[300px]">
             <div className="relative h-48 w-full border-b border-l border-gray-100 flex items-end justify-between px-2">
@@ -202,7 +206,7 @@ export default function Reports() {
                 />
               </svg>
             </div>
-            <div className="flex justify-between mt-4 px-2 text-[10px] font-bold text-gray-500 uppercase">
+            <div className="flex justify-between mt-4 px-2 text-[10px] font-normal text-gray-500 uppercase">
               <span>Jan</span>
               <span>Feb</span>
               <span>Mar</span>
@@ -216,7 +220,7 @@ export default function Reports() {
         {/* Event Attendance Comparison */}
         <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
           <div className="p-5 sm:p-6 border-b border-gray-200">
-            <h3 className="font-bold text-sm sm:text-base">Event Attendance Comparison</h3>
+            <h3 className="font-semibold text-sm sm:text-base">Event Attendance Comparison</h3>
           </div>
           <div className="p-8 flex-1 flex flex-col">
             <div className="flex-1 flex items-end justify-around gap-4 min-h-[220px]">
@@ -225,14 +229,14 @@ export default function Reports() {
                   key={bar.label}
                   className="flex flex-col items-center gap-3 w-full max-w-[60px]"
                 >
-                  <span className="text-xs font-bold">{bar.value}</span>
+                  <span className="text-xs font-medium">{bar.value}</span>
                   <div className={`w-full h-40 ${bar.bgColor} rounded-t-lg relative`}>
                     <div
                       className={`absolute bottom-0 left-0 w-full ${bar.color} rounded-t-lg`}
                       style={{ height: bar.height }}
                     />
                   </div>
-                  <span className="text-[10px] font-bold text-center text-gray-500 uppercase leading-tight">
+                  <span className="text-[10px] font-normal text-center text-gray-500 uppercase leading-tight">
                     {bar.label}
                   </span>
                 </div>
@@ -247,15 +251,15 @@ export default function Reports() {
         {/* Guest List Table */}
         <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
           <div className="p-5 sm:p-6 border-b border-gray-200 flex items-center justify-between">
-            <h3 className="font-bold text-sm sm:text-base">New Guest List</h3>
-            <button className="text-[10px] font-bold text-[#137fec] bg-[#137fec]/10 px-3 py-1 rounded hover:bg-[#137fec]/20 transition-colors cursor-pointer">
+            <h3 className="font-semibold text-sm sm:text-base">New Guest List</h3>
+            <button className="text-[10px] font-normal text-[#137fec] bg-[#137fec]/10 px-3 py-1 rounded hover:bg-[#137fec]/20 transition-colors cursor-pointer">
               Export Table
             </button>
           </div>
           <div className="flex-1 overflow-x-auto">
             <table className="w-full text-left">
               <thead>
-                <tr className="text-[10px] font-bold text-gray-500 uppercase tracking-wider bg-gray-50">
+                <tr className="text-[10px] font-normal text-gray-500 uppercase tracking-wider bg-gray-50">
                   <th className="px-6 py-3">Name</th>
                   <th className="px-6 py-3">Visit Date</th>
                   <th className="px-6 py-3">Contact</th>
@@ -271,18 +275,18 @@ export default function Reports() {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div
-                          className={`w-8 h-8 rounded-full ${g.avatarBg} flex items-center justify-center ${g.avatarText} font-bold text-[10px]`}
+                          className={`w-8 h-8 rounded-full ${g.avatarBg} flex items-center justify-center ${g.avatarText} font-normal text-[10px]`}
                         >
                           {g.initials}
                         </div>
-                        <span className="font-bold text-sm">{g.name}</span>
+                        <span className="font-medium text-sm">{g.name}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4 text-xs text-gray-500">{g.date}</td>
                     <td className="px-6 py-4 text-xs text-gray-500">{g.contact}</td>
                     <td className="px-6 py-4 text-right">
                       <span
-                        className={`text-[10px] font-bold ${g.statusColor} px-2 py-0.5 rounded-full`}
+                        className={`text-[10px] font-normal ${g.statusColor} px-2 py-0.5 rounded-full`}
                       >
                         {g.status}
                       </span>
@@ -299,8 +303,8 @@ export default function Reports() {
           {/* New Registered Members */}
           <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
             <div className="p-5 sm:p-6 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="font-bold text-sm sm:text-base">New Registered Members</h3>
-              <span className="text-[10px] font-bold text-[#137fec] bg-[#137fec]/10 px-2 py-1 rounded">
+              <h3 className="font-semibold text-sm sm:text-base">New Registered Members</h3>
+              <span className="text-[10px] font-normal text-[#137fec] bg-[#137fec]/10 px-2 py-1 rounded">
                 This Month
               </span>
             </div>
@@ -317,7 +321,7 @@ export default function Reports() {
                       <User className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold truncate">{m.name}</p>
+                      <p className="text-sm font-medium truncate">{m.name}</p>
                       <p className="text-[10px] text-gray-500">{m.time}</p>
                     </div>
                   </div>
@@ -329,12 +333,12 @@ export default function Reports() {
           {/* Bookings for the Month */}
           <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
             <div className="p-5 sm:p-6 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="font-bold text-sm sm:text-base">Booking for the Month</h3>
+              <h3 className="font-semibold text-sm sm:text-base">Booking for the Month</h3>
               <div className="flex gap-2">
-                <div className="flex items-center gap-1 text-[10px] font-bold text-gray-500">
+                <div className="flex items-center gap-1 text-[10px] font-normal text-gray-500">
                   <span className="w-2 h-2 rounded-full bg-[#137fec]" /> Sanctuary
                 </div>
-                <div className="flex items-center gap-1 text-[10px] font-bold text-gray-500">
+                <div className="flex items-center gap-1 text-[10px] font-normal text-gray-500">
                   <span className="w-2 h-2 rounded-full bg-orange-500" /> Vehicle
                 </div>
               </div>
@@ -350,21 +354,21 @@ export default function Reports() {
                       <div
                         className={`w-10 h-10 rounded-xl ${b.dateBg} flex flex-col items-center justify-center`}
                       >
-                        <span className="text-[10px] font-extrabold leading-none">
+                        <span className="text-[10px] font-semibold leading-none">
                           {b.month}
                         </span>
-                        <span className={`text-sm font-extrabold ${b.dayColor}`}>
+                        <span className={`text-sm font-semibold ${b.dayColor}`}>
                           {b.day}
                         </span>
                       </div>
                       <div>
-                        <p className="text-sm font-bold">{b.title}</p>
-                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1">
+                        <p className="text-sm font-medium">{b.title}</p>
+                        <p className="text-[10px] font-normal text-gray-500 uppercase tracking-wider flex items-center gap-1">
                           {b.venueIcon} {b.venue}
                         </p>
                       </div>
                     </div>
-                    <span className="text-[10px] font-bold bg-gray-100 px-2 py-1 rounded">
+                    <span className="text-[10px] font-normal bg-gray-100 px-2 py-1 rounded">
                       {b.time}
                     </span>
                   </div>

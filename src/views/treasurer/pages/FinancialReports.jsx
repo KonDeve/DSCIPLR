@@ -86,7 +86,7 @@ export default function FinancialReports() {
       {/* ── Header Row ─────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-900">Financial Reports</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Financial Reports</h1>
           <p className="text-sm text-gray-500">Comprehensive overview of church finances and fund performance</p>
         </div>
         <div className="flex gap-3">
@@ -107,11 +107,11 @@ export default function FinancialReports() {
             className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200"
           >
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">{card.label}</h3>
+              <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider">{card.label}</h3>
               <span className={`p-1.5 rounded-lg ${card.iconBg}`}>{card.icon}</span>
             </div>
-            <p className="text-lg sm:text-xl lg:text-2xl font-black text-gray-900">{card.value}</p>
-            <p className={`text-[10px] font-bold mt-1 flex items-center gap-1 ${card.noteColor}`}>
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">{card.value}</p>
+            <p className={`text-[10px] font-normal mt-1 flex items-center gap-1 ${card.noteColor}`}>
               {card.trend && card.trend}
               {card.note}
             </p>
@@ -123,13 +123,13 @@ export default function FinancialReports() {
       <div className="space-y-6">
         {/* Date Range Filter */}
         <div className="flex items-center justify-between bg-white p-4 rounded-xl border border-gray-200">
-          <h3 className="font-bold text-sm">Detailed Activity</h3>
+          <h3 className="font-semibold text-sm">Detailed Activity</h3>
           <div className="flex items-center gap-3">
-            <span className="text-xs font-bold text-gray-500">Date Range:</span>
+            <span className="text-xs font-medium text-gray-500">Date Range:</span>
             <div className="flex items-center bg-gray-100 rounded-lg px-3 py-1.5 border border-gray-200">
               <Calendar className="w-4 h-4 mr-2 text-gray-500" />
               <input
-                className="bg-transparent border-none p-0 text-xs font-bold focus:ring-0 w-52"
+                className="bg-transparent border-none p-0 text-xs font-normal focus:ring-0 w-52"
                 type="text"
                 value={dateRange}
                 onChange={(e) => setDateRange(e.target.value)}
@@ -143,12 +143,12 @@ export default function FinancialReports() {
           {/* Collections Table */}
           <div className="rounded-xl bg-white border border-gray-200 overflow-hidden">
             <div className="px-6 py-4 border-b border-gray-200 bg-gray-50/50 flex items-center justify-between">
-              <h3 className="font-bold text-sm flex items-center gap-2">
+              <h3 className="font-semibold text-sm flex items-center gap-2">
                 <PlusCircle className="w-4 h-4 text-green-500" /> Collections
               </h3>
               <button
                 onClick={() => navigate('/treasurer/reports/collections')}
-                className="text-[#137fec] text-xs font-bold hover:underline cursor-pointer"
+                className="text-[#137fec] text-xs font-medium hover:underline cursor-pointer"
               >
                 View All
               </button>
@@ -156,7 +156,7 @@ export default function FinancialReports() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="text-[10px] font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200">
+                  <tr className="text-[10px] font-normal text-gray-500 uppercase tracking-wider border-b border-gray-200">
                     <th className="px-6 py-3">Donor</th>
                     <th className="px-6 py-3">Amount</th>
                     <th className="px-6 py-3">Category</th>
@@ -166,10 +166,10 @@ export default function FinancialReports() {
                 <tbody className="text-xs divide-y divide-gray-200">
                   {collections.map((row, idx) => (
                     <tr key={idx} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4 font-bold">{row.donor}</td>
-                      <td className="px-6 py-4 font-black text-green-600">{row.amount}</td>
+                      <td className="px-6 py-4 font-medium">{row.donor}</td>
+                      <td className="px-6 py-4 font-semibold text-green-600">{row.amount}</td>
                       <td className="px-6 py-4">
-                        <span className={`px-2 py-0.5 rounded font-bold ${categoryStyles[row.category] || 'bg-gray-100 text-gray-700'}`}>
+                        <span className={`px-2 py-0.5 rounded font-medium ${categoryStyles[row.category] || 'bg-gray-100 text-gray-700'}`}>
                           {row.category}
                         </span>
                       </td>
@@ -184,12 +184,12 @@ export default function FinancialReports() {
           {/* Expenses Table */}
           <div className="rounded-xl bg-white border border-gray-200 overflow-hidden">
             <div className="px-6 py-4 border-b border-gray-200 bg-gray-50/50 flex items-center justify-between">
-              <h3 className="font-bold text-sm flex items-center gap-2">
+              <h3 className="font-semibold text-sm flex items-center gap-2">
                 <MinusCircle className="w-4 h-4 text-red-500" /> Expenses
               </h3>
               <button
                 onClick={() => navigate('/treasurer/reports/expenses')}
-                className="text-[#137fec] text-xs font-bold hover:underline cursor-pointer"
+                className="text-[#137fec] text-xs font-medium hover:underline cursor-pointer"
               >
                 View All
               </button>
@@ -197,7 +197,7 @@ export default function FinancialReports() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="text-[10px] font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200">
+                  <tr className="text-[10px] font-normal text-gray-500 uppercase tracking-wider border-b border-gray-200">
                     <th className="px-6 py-3">Payee</th>
                     <th className="px-6 py-3">Amount</th>
                     <th className="px-6 py-3">Category</th>
@@ -207,10 +207,10 @@ export default function FinancialReports() {
                 <tbody className="text-xs divide-y divide-gray-200">
                   {expenses.map((row, idx) => (
                     <tr key={idx} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4 font-bold">{row.payee}</td>
-                      <td className="px-6 py-4 font-black text-red-600">{row.amount}</td>
+                      <td className="px-6 py-4 font-medium">{row.payee}</td>
+                      <td className="px-6 py-4 font-semibold text-red-600">{row.amount}</td>
                       <td className="px-6 py-4">
-                        <span className={`px-2 py-0.5 rounded font-bold ${categoryStyles[row.category] || 'bg-gray-100 text-gray-700'}`}>
+                        <span className={`px-2 py-0.5 rounded font-medium ${categoryStyles[row.category] || 'bg-gray-100 text-gray-700'}`}>
                           {row.category}
                         </span>
                       </td>

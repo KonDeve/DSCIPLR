@@ -10,7 +10,9 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   Clock,
+  Search,
 } from 'lucide-react';
 
 // ---- Static demo data ----
@@ -114,7 +116,7 @@ export default function Events() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight mb-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight mb-2">
             Event &amp; Attendance Manager
           </h2>
           <p className="text-gray-500">
@@ -141,9 +143,9 @@ export default function Events() {
         <div className="inline-flex p-1 bg-gray-200/50 rounded-xl">
           <button
             onClick={() => setView('calendar')}
-            className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-normal transition-all cursor-pointer ${
               view === 'calendar'
-                ? 'bg-white text-[#137fec] font-bold'
+                ? 'bg-white text-[#137fec] font-semibold'
                 : 'text-gray-500 hover:text-gray-900'
             }`}
           >
@@ -152,9 +154,9 @@ export default function Events() {
           </button>
           <button
             onClick={() => setView('list')}
-            className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-normal transition-all cursor-pointer ${
               view === 'list'
-                ? 'bg-white text-[#137fec] font-bold'
+                ? 'bg-white text-[#137fec] font-semibold'
                 : 'text-gray-500 hover:text-gray-900'
             }`}
           >
@@ -174,7 +176,7 @@ export default function Events() {
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <span className="px-4 text-sm font-bold border-x border-gray-200">
+                <span className="px-4 text-sm font-medium border-x border-gray-200">
                   {MONTH_NAMES[calMonth]} {calYear}
                 </span>
                 <button
@@ -184,26 +186,35 @@ export default function Events() {
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
-              <select className="bg-white border border-gray-200 rounded-lg text-sm px-4 py-2 focus:ring-[#137fec] cursor-pointer">
-                <option>All Event Types</option>
-                <option>Sunday Service</option>
-                <option>Prayer Meeting</option>
-                <option>Outreach</option>
-              </select>
+              <div className="relative">
+                <select className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer">
+                  <option>All Event Types</option>
+                  <option>Sunday Service</option>
+                  <option>Prayer Meeting</option>
+                  <option>Outreach</option>
+                </select>
+                <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
+              </div>
             </>
           ) : (
             <>
-              <select className="bg-white border border-gray-200 rounded-lg text-sm px-4 py-2 focus:ring-[#137fec] cursor-pointer">
-                <option>All Event Types</option>
-                <option>Sunday Service</option>
-                <option>Small Group</option>
-                <option>Outreach</option>
-              </select>
-              <select className="bg-white border border-gray-200 rounded-lg text-sm px-4 py-2 focus:ring-[#137fec] cursor-pointer">
-                <option>October 2023</option>
-                <option>November 2023</option>
-                <option>December 2023</option>
-              </select>
+              <div className="relative">
+                <select className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer">
+                  <option>All Event Types</option>
+                  <option>Sunday Service</option>
+                  <option>Small Group</option>
+                  <option>Outreach</option>
+                </select>
+                <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
+              </div>
+              <div className="relative">
+                <select className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer">
+                  <option>October 2023</option>
+                  <option>November 2023</option>
+                  <option>December 2023</option>
+                </select>
+                <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
+              </div>
             </>
           )}
         </div>
@@ -217,7 +228,7 @@ export default function Events() {
             {DAYS_OF_WEEK.map((d) => (
               <div
                 key={d}
-                className="py-3 text-center text-[10px] font-bold text-gray-500 uppercase tracking-wider"
+                className="py-3 text-center text-[10px] font-normal text-gray-500 uppercase tracking-wider"
               >
                 {d}
               </div>
@@ -240,7 +251,7 @@ export default function Events() {
                   }`}
                 >
                   <span
-                    className={`text-xs font-bold ${
+                    className={`text-xs font-normal ${
                       cell.outside
                         ? 'text-gray-400 opacity-40'
                         : isToday
@@ -253,7 +264,7 @@ export default function Events() {
                   {events.map((ev, j) => (
                     <div
                       key={j}
-                      className={`px-2 py-1 text-[10px] font-bold truncate rounded ${
+                      className={`px-2 py-1 text-[10px] font-normal truncate rounded ${
                         ev.filled
                           ? `${ev.bg} ${ev.text}`
                           : `${ev.bg} border-l-2 ${ev.border} ${ev.text}`
@@ -276,13 +287,13 @@ export default function Events() {
             <table className="w-full text-left">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-[10px] font-normal text-gray-500 uppercase tracking-wider">
                     Event Title
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-[10px] font-normal text-gray-500 uppercase tracking-wider">
                     Venue
                   </th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-[10px] font-normal text-gray-500 uppercase tracking-wider">
                     Date &amp; Time
                   </th>
                 </tr>
@@ -301,7 +312,7 @@ export default function Events() {
                         <div className={`w-2 h-2 rounded-full ${event.color}`} />
                         <span
                           className={`text-sm ${
-                            selectedEvent === idx ? 'font-bold' : 'font-semibold'
+                            selectedEvent === idx ? 'font-medium' : 'font-semibold'
                           }`}
                         >
                           {event.title}
@@ -335,14 +346,14 @@ export default function Events() {
       <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
         <div className="p-5 sm:p-6 border-b border-gray-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h3 className="font-bold text-base flex items-center gap-2 mb-1">
+            <h3 className="font-semibold text-base flex items-center gap-2 mb-1">
               Live Check-ins
               {/* Pulsing dot */}
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
               </span>
-              <span className="text-[10px] font-bold text-gray-500 uppercase ml-2 px-2 py-0.5 bg-gray-100 rounded">
+              <span className="text-[10px] font-normal text-gray-500 uppercase ml-2 px-2 py-0.5 bg-gray-100 rounded">
                 {EVENTS[selectedEvent].title}
               </span>
             </h3>
@@ -352,7 +363,7 @@ export default function Events() {
           </div>
           <button
             onClick={() => setShowQR(true)}
-            className="px-4 py-2 bg-[#137fec] text-white rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-[#137fec]/90 transition-all cursor-pointer"
+            className="px-4 py-2 bg-[#137fec] text-white rounded-xl text-xs font-medium flex items-center gap-2 hover:bg-[#137fec]/90 transition-all cursor-pointer"
           >
             <QrCode className="w-5 h-5" />
             Generate QR Check-in
@@ -362,19 +373,19 @@ export default function Events() {
           <table className="w-full text-left">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-[10px] font-normal text-gray-500 uppercase tracking-wider">
                   Attendee Name
                 </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-[10px] font-normal text-gray-500 uppercase tracking-wider">
                   Time of Arrival
                 </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-[10px] font-normal text-gray-500 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-[10px] font-normal text-gray-500 uppercase tracking-wider">
                   Member Type
                 </th>
-                <th className="px-6 py-4 text-[10px] font-bold text-gray-500 uppercase tracking-wider text-right">
+                <th className="px-6 py-4 text-[10px] font-normal text-gray-500 uppercase tracking-wider text-right">
                   Actions
                 </th>
               </tr>
@@ -387,16 +398,16 @@ export default function Events() {
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full shrink-0 border border-[#137fec]/20 bg-[#137fec]/10 flex items-center justify-center text-[#137fec] font-bold text-xs">
+                      <div className="w-8 h-8 rounded-full shrink-0 border border-[#137fec]/20 bg-[#137fec]/10 flex items-center justify-center text-[#137fec] font-medium text-xs">
                         {a.initials}
                       </div>
-                      <span className="text-sm font-bold">{a.name}</span>
+                      <span className="text-sm font-medium">{a.name}</span>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">{a.time}</td>
                   <td className="px-6 py-4">
                     <span
-                      className={`px-2 py-0.5 text-[10px] font-bold rounded uppercase ${a.statusColor}`}
+                      className={`px-2 py-0.5 text-[10px] font-normal rounded uppercase ${a.statusColor}`}
                     >
                       {a.status}
                     </span>
@@ -417,7 +428,7 @@ export default function Events() {
             <Info className="w-4 h-4" />
             <span>System automatically updates every 60 seconds.</span>
           </div>
-          <button className="text-xs font-bold text-[#137fec] hover:underline cursor-pointer">
+          <button className="text-xs font-medium text-[#137fec] hover:underline cursor-pointer">
             View All Attendance History
           </button>
         </div>
@@ -430,7 +441,7 @@ export default function Events() {
             {/* Header */}
             <div className="px-8 py-6 border-b border-gray-200 flex items-center justify-between shrink-0">
               <div>
-                <h3 className="text-base sm:text-lg xl:text-xl font-bold">Create New Event</h3>
+                <h3 className="text-base sm:text-lg xl:text-xl font-semibold">Create New Event</h3>
                 <p className="text-sm text-gray-500">Schedule a new activity for the congregation.</p>
               </div>
               <button
@@ -446,7 +457,7 @@ export default function Events() {
               <div className="space-y-6">
                 {/* Event Title */}
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider">Event Title</label>
+                  <label className="block text-xs font-normal text-gray-500 uppercase tracking-wider">Event Title</label>
                   <input
                     type="text"
                     className="w-full bg-gray-50 border-none rounded-lg py-3 px-4 text-sm focus:ring-2 focus:ring-[#137fec] transition-all"
@@ -457,7 +468,7 @@ export default function Events() {
                 {/* Event Type & Venue */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider">Event Type</label>
+                    <label className="block text-xs font-normal text-gray-500 uppercase tracking-wider">Event Type</label>
                     <select className="w-full bg-gray-50 border-none rounded-lg py-3 px-4 text-sm focus:ring-2 focus:ring-[#137fec] transition-all cursor-pointer">
                       <option>Sunday Service</option>
                       <option>Youth</option>
@@ -466,7 +477,7 @@ export default function Events() {
                     </select>
                   </div>
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider">Venue</label>
+                    <label className="block text-xs font-normal text-gray-500 uppercase tracking-wider">Venue</label>
                     <select className="w-full bg-gray-50 border-none rounded-lg py-3 px-4 text-sm focus:ring-2 focus:ring-[#137fec] transition-all cursor-pointer">
                       <option>Main Sanctuary</option>
                       <option>Fellowship Hall</option>
@@ -478,7 +489,7 @@ export default function Events() {
 
                 {/* Date & Time Range */}
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider">Date &amp; Time Range</label>
+                  <label className="block text-xs font-normal text-gray-500 uppercase tracking-wider">Date &amp; Time Range</label>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                     <div className="relative flex-1">
                       <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
@@ -502,7 +513,7 @@ export default function Events() {
 
                 {/* Description */}
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider">Description</label>
+                  <label className="block text-xs font-normal text-gray-500 uppercase tracking-wider">Description</label>
                   <textarea
                     className="w-full bg-gray-50 border-none rounded-lg py-3 px-4 text-sm focus:ring-2 focus:ring-[#137fec] transition-all resize-none"
                     rows="5"
@@ -542,11 +553,11 @@ export default function Events() {
                   <X className="w-6 h-6" />
                 </button>
               </div>
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-2">Check-in QR Code</h3>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-2">Check-in QR Code</h3>
               <p className="text-gray-500 text-sm mb-8">
                 Scan to verify attendance for:{' '}
                 <br />
-                <span className="font-bold text-gray-900">
+                <span className="font-medium text-gray-900">
                   {EVENTS[selectedEvent].title}
                 </span>
               </p>

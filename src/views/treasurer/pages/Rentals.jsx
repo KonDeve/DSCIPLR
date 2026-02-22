@@ -249,7 +249,7 @@ export default function Rentals() {
       {/* ── Header Row ─────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-900">Rental Income Management Terminal</h1>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">Rental Income Management Terminal</h1>
           <p className="text-sm text-gray-500">Track and manage revenue from sanctuary and vehicle rentals</p>
         </div>
         <div className="flex gap-3">
@@ -270,29 +270,55 @@ export default function Rentals() {
         {DEMO_SUMMARY_CARDS.map((card) => (
           <div key={card.label} className="rounded-xl bg-white p-5 sm:p-6 border border-gray-200">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider">{card.label}</h3>
+              <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">{card.label}</h3>
               {card.icon}
             </div>
-            <p className="text-lg sm:text-xl lg:text-2xl font-black text-gray-900">{card.value}</p>
-            <p className={`text-[10px] font-bold mt-1 ${card.noteColor}`}>{card.note}</p>
+            <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">{card.value}</p>
+            <p className={`text-[10px] font-normal mt-1 ${card.noteColor}`}>{card.note}</p>
           </div>
         ))}
       </div>
 
       {/* ── Filter Bar ─────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        {filters.map((f) => (
-          <div
-            key={f.label}
-            className="rounded-xl bg-white p-4 border border-gray-200 cursor-pointer hover:border-[#137fec]/40 transition-colors"
-          >
-            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{f.label}</p>
-            <div className="mt-2 flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-900">{f.value}</span>
-              {f.icon}
-            </div>
+      <div className="bg-white border border-gray-200 rounded-2xl px-5 py-4 flex flex-col lg:flex-row lg:items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Search */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-3.5 h-3.5" />
+            <input
+              className="h-9 pl-9 pr-4 bg-white border border-gray-200 rounded-lg text-xs w-56 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none placeholder-gray-400"
+              placeholder="Search member…"
+              type="text"
+            />
           </div>
-        ))}
+          {/* Asset Type */}
+          <div className="relative">
+            <select className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer">
+              <option>All Assets</option>
+              <option>Sanctuary</option>
+              <option>Vehicle</option>
+            </select>
+            <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
+          </div>
+          {/* Payment Status */}
+          <div className="relative">
+            <select className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer">
+              <option>All Statuses</option>
+              <option>Paid</option>
+              <option>Unpaid</option>
+              <option>Overdue</option>
+            </select>
+            <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
+          </div>
+          {/* Quick Filter */}
+          <div className="relative">
+            <select className="h-9 appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 text-xs font-medium text-gray-700 focus:ring-1 focus:ring-[#137fec] focus:border-[#137fec] outline-none cursor-pointer">
+              <option>All Records</option>
+              <option>Overdue Only</option>
+            </select>
+            <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
+          </div>
+        </div>
       </div>
 
       {/* ── Rentals Table ──────────────────────────────────── */}
@@ -300,7 +326,7 @@ export default function Rentals() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200">
+              <tr className="bg-gray-50 text-xs font-normal text-gray-500 uppercase tracking-wider border-b border-gray-200">
                 <th className="px-6 py-4">Member Name</th>
                 <th className="px-6 py-4">Asset</th>
                 <th className="px-6 py-4">Booking Date</th>
@@ -316,11 +342,11 @@ export default function Rentals() {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`h-8 w-8 rounded-full flex items-center justify-center font-bold text-xs ${row.initialsBg}`}
+                        className={`h-8 w-8 rounded-full flex items-center justify-center font-medium text-xs ${row.initialsBg}`}
                       >
                         {row.initials}
                       </div>
-                      <span className="font-bold">{row.name}</span>
+                      <span className="font-medium text-gray-900">{row.name}</span>
                     </div>
                   </td>
 
@@ -336,12 +362,12 @@ export default function Rentals() {
                   <td className="px-6 py-4 text-gray-500">{row.bookingDate}</td>
 
                   {/* Amount */}
-                  <td className="px-6 py-4 font-black">{row.amount}</td>
+                  <td className="px-6 py-4 font-medium">{row.amount}</td>
 
                   {/* Status */}
                   <td className="px-6 py-4">
                     <span
-                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold ${
+                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-normal ${
                         statusStyles[row.status]
                       }`}
                     >
@@ -364,7 +390,7 @@ export default function Rentals() {
           <div className="flex gap-2">
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              className="px-3 py-1 text-xs font-bold rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+              className="px-3 py-1 text-xs font-medium rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
             >
               Previous
             </button>
@@ -372,7 +398,7 @@ export default function Rentals() {
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`px-3 py-1 text-xs font-bold rounded cursor-pointer transition-colors ${
+                className={`px-3 py-1 text-xs font-medium rounded cursor-pointer transition-colors ${
                   currentPage === page
                     ? 'bg-[#137fec] text-white'
                     : 'border border-gray-200 hover:bg-gray-50'
@@ -383,7 +409,7 @@ export default function Rentals() {
             ))}
             <button
               onClick={() => setCurrentPage((p) => p + 1)}
-              className="px-3 py-1 text-xs font-bold rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+              className="px-3 py-1 text-xs font-medium rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
             >
               Next
             </button>
@@ -402,7 +428,7 @@ export default function Rentals() {
                   <PlusCircle className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-black tracking-tight">Record Rental Payment</h3>
+                  <h3 className="text-base sm:text-lg font-semibold tracking-tight">Record Rental Payment</h3>
                   <p className="text-xs text-gray-500">Process payment for an active asset rental</p>
                 </div>
               </div>
@@ -433,7 +459,7 @@ export default function Rentals() {
 
                 {/* Member Name */}
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-gray-500" htmlFor="r-member">
+                  <label className="text-xs font-normal uppercase tracking-wider text-gray-500" htmlFor="r-member">
                     Member Name
                   </label>
                   <div className="relative">
@@ -451,7 +477,7 @@ export default function Rentals() {
 
                 {/* Rental Reference */}
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-gray-500" htmlFor="r-ref">
+                  <label className="text-xs font-normal uppercase tracking-wider text-gray-500" htmlFor="r-ref">
                     Rental Reference
                   </label>
                   <div className="relative">
@@ -484,7 +510,7 @@ export default function Rentals() {
                 {/* Category + Amount */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-wider text-gray-500" htmlFor="r-category">
+                    <label className="text-xs font-normal uppercase tracking-wider text-gray-500" htmlFor="r-category">
                       Payment Category
                     </label>
                     <div className="relative">
@@ -515,11 +541,11 @@ export default function Rentals() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-wider text-gray-500" htmlFor="r-amount">
+                    <label className="text-xs font-normal uppercase tracking-wider text-gray-500" htmlFor="r-amount">
                       Amount to Pay
                     </label>
                     <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-bold">₱</span>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium">₱</span>
                       <input
                         id="r-amount"
                         type="number"
@@ -528,7 +554,7 @@ export default function Rentals() {
                         placeholder="0.00"
                         value={form.amount}
                         onChange={handleFieldChange('amount')}
-                        className="w-full h-11 pl-8 pr-4 rounded-lg border border-gray-200 bg-white text-sm font-black focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
+                        className="w-full h-11 pl-8 pr-4 rounded-lg border border-gray-200 bg-white text-sm font-normal focus:ring-2 focus:ring-[#137fec] focus:border-[#137fec]"
                       />
                     </div>
                   </div>
@@ -537,7 +563,7 @@ export default function Rentals() {
                 {/* Method + Date */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-wider text-gray-500" htmlFor="r-method">
+                    <label className="text-xs font-normal uppercase tracking-wider text-gray-500" htmlFor="r-method">
                       Payment Method
                     </label>
                     <div className="relative">
@@ -561,7 +587,7 @@ export default function Rentals() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-wider text-gray-500" htmlFor="r-date">
+                    <label className="text-xs font-normal uppercase tracking-wider text-gray-500" htmlFor="r-date">
                       Transaction Date
                     </label>
                     <div className="relative">
@@ -582,14 +608,14 @@ export default function Rentals() {
                   <div className="flex items-start gap-3">
                     <Info className="w-5 h-5 text-[#137fec] shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-[11px] font-bold text-[#137fec] uppercase tracking-tight">Ledger Preview</p>
+                      <p className="text-[11px] font-medium text-[#137fec] uppercase tracking-tight">Ledger Preview</p>
                       <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">
                         This payment will be recorded as a{' '}
                         <span className="text-gray-900 font-semibold">Partial Payment</span> for Rental ID{' '}
                         <span className="text-gray-900 font-semibold">
                           {form.bookingId ? `#${form.bookingId.slice(0, 10).toUpperCase()}` : '#BK2023084'}
                         </span>. Remaining balance:{' '}
-                        <span className="text-orange-600 font-bold">₱0.00</span>
+                        <span className="text-orange-600 font-medium">₱0.00</span>
                       </p>
                     </div>
                   </div>

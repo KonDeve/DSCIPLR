@@ -24,15 +24,15 @@ export default function MemberOverview() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Member Overview</h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-6">Member Overview</h1>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
-              <th className="text-left px-6 py-3 text-gray-500 font-medium">Name</th>
-              <th className="text-left px-6 py-3 text-gray-500 font-medium">Email</th>
-              <th className="text-left px-6 py-3 text-gray-500 font-medium">Status</th>
+              <th className="text-left px-6 py-3 text-gray-500 font-normal">Name</th>
+              <th className="text-left px-6 py-3 text-gray-500 font-normal">Email</th>
+              <th className="text-left px-6 py-3 text-gray-500 font-normal">Status</th>
             </tr>
           </thead>
           <tbody>

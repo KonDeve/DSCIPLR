@@ -27,7 +27,7 @@ export default function Profile() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">My Profile</h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-6">My Profile</h1>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-4">
         <div>
